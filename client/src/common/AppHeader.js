@@ -4,7 +4,6 @@ import {
     withRouter
 } from 'react-router-dom';
 import './AppHeader.css';
-import projectIcon from '../project.svg';
 import { Layout, Menu, Dropdown, Icon, Input } from 'antd';
 import {browserHistory} from 'react-router';
 
@@ -40,7 +39,7 @@ class AppHeader extends Component {
             </Menu.Item>,
             <Menu.Item key="/project/new">
               <Link to="/project/new">
-                <img src={projectIcon} alt="project" className="project-icon" />
+                <Icon type="plus" className="nav-icon" />
               </Link>
             </Menu.Item>,
             <Menu.Item key="/profile" className="profile-menu">
