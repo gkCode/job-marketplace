@@ -105,19 +105,20 @@ class NewProject extends Component {
                             className="project-form-row">
                             <Input.Group>
                                 <Input placeholder="Enter Project Name"
-                                    style = {{ fontSize: '16px' }} 
+                                    style = {{ fontSize: '16px', marginTop:10, marginBottom:10 }} 
                                     name = "Name"
                                     onChange = {this.handleNameChange} />
                                 <Input placeholder="Enter Project Description"
-                                    style = {{ fontSize: '16px' }} 
+                                    style = {{ fontSize: '16px', marginTop:10, marginBottom:10 }} 
                                     name = "Description"
                                     onChange = {this.handleDescriptionChange} />
                                 <Input placeholder="Enter Project Budget"
-                                    style = {{ fontSize: '16px' }} 
+                                    style = {{ fontSize: '16px', marginTop:10, marginBottom:10 }} 
                                     name = "Budget"
                                     onChange = {this.handleBudgetChange} />
-                                <DatePicker 
-                                    onChange = {this.handleBidExpiry}  />
+                                <DatePicker placeholder="Enter Budget Expiration Date"
+                                    onChange = {this.handleBidExpiry} 
+                                    style = {{ fontSize: '16px', width: '230px', marginTop:10, marginBottom:10 }} />
                             </Input.Group>
                         </FormItem>
                         <FormItem className="project-form-row">

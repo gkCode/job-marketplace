@@ -15,7 +15,6 @@
     border-color: #1890ff;
 }
 
-
 .dynamic-delete-button {
     cursor: pointer;
     position: relative;
@@ -38,6 +37,6 @@
     margin-bottom: 20px;
 }
 
-.project-form-row input, .project-form-row textarea {
+.project-form-row input, .ant-input {
     margin-bottom: 4px;
 }
