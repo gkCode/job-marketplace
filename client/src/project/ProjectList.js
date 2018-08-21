@@ -8,7 +8,8 @@ import { Button, Icon, notification } from "antd";
 import { PROJECT_LIST_SIZE } from "../constants";
 import { withRouter } from "react-router-dom";
 import "./ProjectList.css";
-import { Grid, TableView, Table , TableHeaderRow} from "@devexpress/dx-react-grid-material-ui";
+import { Table } from 'antd';
+import { getProjectsRowModel, getProjectsColumnModel } from '../util/ModelUtils'
 
 class ProjectList extends Component {
     constructor(props){
@@ -48,9 +49,8 @@ class ProjectList extends Component {
         promise            
         .then(response => {
             const projects = this.state.projects.slice();
-            
             this.setState({
-                projects: projects.concat(response.content),
+                projects: getProjectsRowModel(response),
                 page: response.page,
                 size: response.size,
                 totalElements: response.totalElements,
@@ -88,21 +88,17 @@ class ProjectList extends Component {
 
     render() {
         return (
+            
         <div className="project-grid">
-            <Grid
-            rows={
-                this.state.projects
-            }
-            columns={[
-                { name: "id", title: "ID" },
-                { name: "name", title: "Project Name" },
-                { name: "budget", title: "Budget" },
-                { name: "bidExpiry", title: "Bid Deadline" }
-            ]}
-            >
-            <Table />
-            <TableHeaderRow />
-            </Grid>
+            <Table 
+                dataSource={this.state.projects}
+                columns={[
+                    { key: "id", dataIndex: "id", title: "ID" },
+                    { key: "name", dataIndex: "name", title: "Project Name" },
+                    { key: "budget", dataIndex: "budget", title: "Budget" },
+                    { key: "bidExpiry", dataIndex: "bidExpiry", title: "Bid Deadline" },
+                    { key: "bid", dataIndex: "bid", title: "Bid"}
+                ]} />           
         </div>
         );
     }

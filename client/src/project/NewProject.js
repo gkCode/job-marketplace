@@ -98,7 +98,7 @@ class NewProject extends Component {
     render() {
         return (
             <div className="new-project-container">
-                <h1 className="page-title">Create Project #####</h1>
+                <h1 className="page-title">Create Project</h1>
                 <div className="new-project-content">
                     <Form onSubmit={this.handleSubmit} className="create-project-form">
                         <FormItem validateStatus={this.state.validateStatus}

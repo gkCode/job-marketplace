@@ -99,7 +99,7 @@ class Profile extends Component {
                                     tabBarStyle={tabBarStyle}
                                     size="large"
                                     className="profile-tabs">
-                                    <TabPane tab={`${this.state.user.projectCount} Projects`} key="1">
+                                    <TabPane tab={`Placed Bids`} key="1">
                                         <ProjectList username={this.props.match.params.username} type="USER_CREATED_PROJECTS" />
                                     </TabPane>
                                 </Tabs>
