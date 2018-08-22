@@ -22,25 +22,23 @@ class ProjectSearch extends Component {
     }
 
     componentWillMount() {
-        this.setState({
-            query: this.props.location.query,
-            isLoading: false
-        }, () => {
-            this.loadProjectInfo(this.state)
-        }); 
+        if(this.props.location.query){
+            this.setState({
+                query: this.props.location.query,
+                isLoading: true
+            }, () => {
+                this.loadProjectInfo(this.state)
+            }); 
+        }
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
             query: nextProps.location.query,
-            isLoading: false
+            isLoading: true
         }, () => {
             this.loadProjectInfo(this.state)
         }); 
-    }
-
-    componentDidUpdate(prevProps) {
-        // Typical usage (don't forget to compare props):
     }
 
     loadProjectInfo = () => {
@@ -68,22 +66,33 @@ class ProjectSearch extends Component {
     }
 
     render() {
-        return (
-        <div className="project-grid">
-            { 
-                this.state.isLoading ? <LoadingIndicator />: 
-                <Card title="Project Details">
-                    <div>  Name: {this.state.project.name}   </div>
-                    <div>  Descrition: {this.state.project.description}    </div>
-                    <div>  Budget: {this.state.project.budget}   </div>
-                    <div>  Bid Expiration: {this.state.project.bidExpiry}  </div>  
-                    <div>  Lowest Bid: {this.state.project.bid}  </div>  
-                    <Bid projectId={this.state.project.id}></Bid>  
-                </Card>               
-            }    
-            
-        </div>
-        );
+        if(!this.state.query){
+            return (
+                <div className="page-not-found">
+                    <div className="desc">
+                        Enter Project ID
+                    </div>
+                </div>
+            );
+        }else if(this.state.isLoading) {
+            return <LoadingIndicator />;
+        }else{
+            return (
+                <div className="project-grid">
+                    { 
+                        <Card title="Project Details">
+                            <div>  Name: {this.state.project.name}   </div>
+                            <div>  Descrition: {this.state.project.description}    </div>
+                            <div>  Budget: {this.state.project.budget}   </div>
+                            <div>  Bid Expiration: {this.state.project.bidExpiry}  </div>  
+                            <div>  Lowest Bid: {this.state.project.bid}  </div>  
+                            <Bid projectId={this.state.project.id}></Bid>  
+                        </Card>               
+                    }    
+                    
+                </div>
+                );
+        }   
     }
 }
 

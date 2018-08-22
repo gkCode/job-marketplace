@@ -82,10 +82,12 @@ class NewProject extends Component {
     }
 
     handleBidExpiry = (value) => {
-        this.setState({
+        if(value !== null){
+            this.setState({
                 bidExpiry: value.toDate()
                 // ...this.validateBid(value)
-        });
+             });
+        }
     }
 
     isFormInvalid = () => {
@@ -93,6 +95,10 @@ class NewProject extends Component {
             return true;
         }
         return false;
+    }
+
+    getDisabledDates = (current) => {
+        return current && current.valueOf() < Date.now();
     }
 
     render() {
@@ -117,8 +123,9 @@ class NewProject extends Component {
                                     name = "Budget"
                                     onChange = {this.handleBudgetChange} />
                                 <DatePicker placeholder="Budget Expiration Date"
+                                    disabledDate = {this.getDisabledDates}
                                     onChange = {this.handleBidExpiry} 
-                                    style = {{ fontSize: '16px', width: '230px', marginTop:10, marginBottom:10 }} />
+                                    style = {{ fontSize: '16px', width: '220px', marginTop:10, marginBottom:10 }} />
                             </Input.Group>
                         </FormItem>
                         <FormItem className="project-form-row">
