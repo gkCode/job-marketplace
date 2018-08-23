@@ -89,7 +89,7 @@ class ProjectSearch extends Component {
                             <Bid projectId={this.state.project.id}></Bid>  
                         </Card>               
                     }    
-                    
+                    <FormattedMessage id="Weather.message" defaultMessage="Because it is sunny!" />
                 </div>
                 );
         }   
