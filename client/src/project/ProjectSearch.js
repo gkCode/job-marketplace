@@ -9,6 +9,7 @@ import { withRouter } from "react-router-dom";
 import "./ProjectList.css";
 import { Card, Input } from "antd";
 import Bid from "./Bid";
+import { FormattedMessage } from 'react-intl';
 
 class ProjectSearch extends Component {
     constructor(props){
