@@ -23,13 +23,13 @@ public class JobApplication implements ApplicationListener<ApplicationReadyEvent
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(JobApplication.class);
 
+	public static void main(String[] args) {
+		SpringApplication.run(JobApplication.class, args);
+	}
+	
 	@PostConstruct
 	void init() {
 		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-	}
-
-	public static void main(String[] args) {
-		SpringApplication.run(JobApplication.class, args);
 	}
 
 	@Override

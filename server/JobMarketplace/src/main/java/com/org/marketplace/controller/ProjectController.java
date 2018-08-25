@@ -87,4 +87,12 @@ public class ProjectController {
 		return projectService.getProjectById(projectId);
 	}
 
+	@GetMapping
+	public PagedResponse<ProjectResponse> getB(@CurrentUser UserPrincipal currentUser,
+			@RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
+			@RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
+		
+		return projectService.getAllProjects(currentUser, page, size);
+	}
+	
 }

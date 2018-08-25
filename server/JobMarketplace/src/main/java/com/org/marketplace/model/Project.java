@@ -1,5 +1,6 @@
 package com.org.marketplace.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -51,8 +52,7 @@ public class Project extends UserDateAudit {
 
 	@NotNull
 	@Column(name = "expiration_date_time")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date bidExpiry;
+	private LocalDate bidExpiry;
 
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	@OrderBy("value ASC")
@@ -79,11 +79,11 @@ public class Project extends UserDateAudit {
 		this.budget = budget;
 	}
 
-	public Date getBidExpiry() {
+	public LocalDate getBidExpiry() {
 		return bidExpiry;
 	}
 
-	public void setBidExpiry(Date bidExpiry) {
+	public void setBidExpiry(LocalDate bidExpiry) {
 		this.bidExpiry = bidExpiry;
 	}
 

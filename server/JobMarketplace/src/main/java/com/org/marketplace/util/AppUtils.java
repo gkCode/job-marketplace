@@ -1,27 +1,27 @@
 package com.org.marketplace.util;
 
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author gauravkahadane
  *
  */
 public final class AppUtils {
-	public static Instant getInstant(String dateStr) {
+	private static final Logger LOGGER = LoggerFactory.getLogger(AppUtils.class);
 
-		return Instant.now();
-	}
-
-	public static Date getDate(String dateStr) {
-		SimpleDateFormat formatter = new SimpleDateFormat("EEEE, dd/MM/yyyy/hh:mm:ss");
+	public static LocalDate getDate(String dateStr) {
 		try {
-//			return formatter.parse(dateStr);
-			return new Date();
+			DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
+			DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyy", Locale.ENGLISH);
+			LocalDate date = LocalDate.parse(dateStr, inputFormatter);
+			return date;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Parsing Date: "+e);
 		}
 		return null;
 	}

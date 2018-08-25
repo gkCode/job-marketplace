@@ -68,8 +68,14 @@ public class ProjectService {
 		}).getContent();
 
 		return new PagedResponse<>(projectResponses, projects.getNumber(), projects.getSize(),
+				// Get All Users and create UserSummary //TODO : may make use of HATEOS
 				projects.getTotalElements(), projects.getTotalPages(), projects.isLast());
 	}
+	
+	public PagedResponse<ProjectResponse> getAllProjects(int page, int size) {
+		return this.getAllProjects(null, page, size);
+	}
+
 
 	public Project createProject(ProjectRequest projectRequest, UserPrincipal userPrincipal) throws Exception {
 		if(!ValidatorUtils.validateName(projectRequest.getName())) {
