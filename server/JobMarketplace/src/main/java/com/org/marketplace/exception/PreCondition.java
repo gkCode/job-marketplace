@@ -7,15 +7,6 @@ package com.org.marketplace.exception;
  * @author gauravkahadane
  *
  */
-/**
- * This class provides static utility methods that are used to ensure that a
- * constructor or a method was invoked properly. These methods throw an
- * exception if the specified precondition is violated.
- *
- * This class selects the thrown exception by using the guideline given in
- * Effective Java by Joshua Bloch (Item 60).
- *	gauravkahadane
- */
 public final class PreCondition {
 
 	private PreCondition() {

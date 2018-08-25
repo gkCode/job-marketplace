@@ -67,7 +67,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
 		final BindingResult result = ex.getBindingResult();
 		final List<FieldError> fieldErrors = result.getFieldErrors();
-		final ValidationErrorDTO dto = processFieldErrors(fieldErrors);
+		final ValidationError dto = processFieldErrors(fieldErrors);
 
 		return handleExceptionInternal(ex, dto, headers, HttpStatus.BAD_REQUEST, request);
 	}
@@ -136,8 +136,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
 	// UTIL
 
-	private ValidationErrorDTO processFieldErrors(final List<FieldError> fieldErrors) {
-		final ValidationErrorDTO dto = new ValidationErrorDTO();
+	private ValidationError processFieldErrors(final List<FieldError> fieldErrors) {
+		final ValidationError dto = new ValidationError();
 
 		for (final FieldError fieldError : fieldErrors) {
 			final String localizedErrorMessage = fieldError.getDefaultMessage();

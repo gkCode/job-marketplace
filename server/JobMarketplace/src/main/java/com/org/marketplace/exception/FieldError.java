@@ -7,12 +7,12 @@ import static com.org.marketplace.exception.PreCondition.notNull;
  * @author gauravkahadane
  *
  */
-public class FieldErrorDTO {
+public class FieldError {
 	private final String field;
 
 	private final String message;
 
-	FieldErrorDTO(String field, String message) {
+	FieldError(String field, String message) {
 		notNull(field, "Field cannot be null.");
 		notEmpty(field, "Field cannot be empty");
 

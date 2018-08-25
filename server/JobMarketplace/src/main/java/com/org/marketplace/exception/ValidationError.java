@@ -10,21 +10,21 @@ import java.util.List;
  * @author gauravkahadane
  *
  */
-public class ValidationErrorDTO {
-	private final List<FieldErrorDTO> fieldErrors = new ArrayList<FieldErrorDTO>();
+public class ValidationError {
+	private final List<FieldError> fieldErrors = new ArrayList<FieldError>();
 
-	public ValidationErrorDTO() {
+	public ValidationError() {
 		super();
 	}
 
 	//
 
 	public final void addFieldError(final String path, final String message) {
-		final FieldErrorDTO error = new FieldErrorDTO(path, message);
+		final FieldError error = new FieldError(path, message);
 		fieldErrors.add(error);
 	}
 
-	public final List<FieldErrorDTO> getFieldErrors() {
+	public final List<FieldError> getFieldErrors() {
 		return fieldErrors;
 	}
 
