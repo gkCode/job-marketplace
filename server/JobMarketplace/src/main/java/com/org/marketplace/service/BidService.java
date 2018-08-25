@@ -24,7 +24,7 @@ public class BidService {
 
 	@Autowired
 	private BidRepository bidRepository;
-	
+
 	@Autowired
 	private UserRepository userRepository;
 

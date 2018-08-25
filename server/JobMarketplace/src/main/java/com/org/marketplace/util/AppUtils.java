@@ -8,7 +8,7 @@ import java.util.Date;
  * @author gauravkahadane
  *
  */
-final public class AppUtils {
+public final class AppUtils {
 	public static Instant getInstant(String dateStr) {
 
 		return Instant.now();

@@ -13,7 +13,7 @@ import com.org.marketplace.model.Bid;
  * @author gauravkahadane
  *
  */
-public class BidUtils {
+public final class BidUtils {
 	public static Double getLowestBid(Set<Bid> bidSet) {
 		if (bidSet != null) {
 			TreeSet<Bid> sortedBid = new TreeSet<Bid>(/* new BidComparator() */);

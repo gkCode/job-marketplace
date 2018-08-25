@@ -29,6 +29,7 @@ import com.org.marketplace.security.UserPrincipal;
 import com.org.marketplace.util.AppConstants;
 import com.org.marketplace.util.AppUtils;
 import com.org.marketplace.util.ModelUtils;
+import com.org.marketplace.util.ValidatorUtils;
 
 /**
  * @author gauravkahadane
@@ -51,7 +52,7 @@ public class ProjectService {
 	public PagedResponse<ProjectResponse> getAllProjects(UserPrincipal currentUser, int page, int size) {
 		validatePageNumberAndSize(page, size);
 
-		Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "id");
+		Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
 
 		Page<Project> projects = projectRepository.findAll(pageable);
 
@@ -60,7 +61,7 @@ public class ProjectService {
 					projects.getTotalElements(), projects.getTotalPages(), projects.isLast());
 		}
 
-		pageable = PageRequest.of(page, size, Sort.Direction.DESC, "id");
+		pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
 
 		List<ProjectResponse> projectResponses = projects.map(project -> {
 			return ModelUtils.mapProjectToProjectResponse(project);
@@ -70,13 +71,18 @@ public class ProjectService {
 				projects.getTotalElements(), projects.getTotalPages(), projects.isLast());
 	}
 
-	public Project createProject(ProjectRequest projectRequest, UserPrincipal userPrincipal) {
+	public Project createProject(ProjectRequest projectRequest, UserPrincipal userPrincipal) throws Exception {
+		if(!ValidatorUtils.validateName(projectRequest.getName())) {
+			throw new Exception("Invalid Project Name");
+		}
 		Project project = new Project();
 		project.setName(projectRequest.getName());
 		project.setDescription(projectRequest.getDescription());
 		project.setBidExpiry(AppUtils.getDate(projectRequest.getBidExpiry()));
 		project.setBudget(projectRequest.getBudget());
 		Project savedProject = projectRepository.save(project);
+
+		LOGGER.info("Created a project: " + project.toString());
 		return savedProject;
 	}
 
@@ -120,7 +126,7 @@ public class ProjectService {
 				userbiddedprojectIds.isLast());
 	}
 
-	private void validatePageNumberAndSize(int page, int size) {
+	private void validatePageNumberAndSize(int page, int size) throws BadRequestException {
 		if (page < 0) {
 			throw new BadRequestException("Page number cannot be less than zero.");
 		}

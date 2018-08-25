@@ -9,7 +9,6 @@ import { withRouter } from "react-router-dom";
 import "./ProjectList.css";
 import { Card, Input } from "antd";
 import Bid from "./Bid";
-import { FormattedMessage } from 'react-intl';
 
 class ProjectSearch extends Component {
     constructor(props){
@@ -63,6 +62,14 @@ class ProjectSearch extends Component {
             this.setState({
                 isLoading: false
             })
+            if(error.status === 401) {
+                this.props.handleLogout('/login', 'error', 'You have been logged out. Please login create project.');    
+            } else {
+                notification.error({
+                    message: 'Unable to find project',
+                    description: error.message
+                });              
+            }
         });  
     }
 
@@ -90,7 +97,6 @@ class ProjectSearch extends Component {
                             <Bid projectId={this.state.project.id}></Bid>  
                         </Card>               
                     }    
-                    <FormattedMessage id="Weather.message" defaultMessage="Because it is sunny!" />
                 </div>
                 );
         }   

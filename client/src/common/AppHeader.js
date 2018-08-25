@@ -78,7 +78,6 @@ class AppHeader extends Component {
     }
 
     handleSearch = (query) => {
-      // this.props.history.push('/project/search/:'+query);
       this.props.history.push({pathname: '/project/search', query})
     }
 }

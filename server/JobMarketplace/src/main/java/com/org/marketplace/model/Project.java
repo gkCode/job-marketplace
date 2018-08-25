@@ -15,6 +15,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -30,21 +31,22 @@ public class Project extends UserDateAudit {
 
 	private static final long serialVersionUID = -6674017353910255564L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
 	public Project() {
 		super();
 	}
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	@Size(max = 20)
+	@NotNull
 	private String name;
 
 	@Size(max = 400)
 	private String description;
 
-	@NotNull
+	@Min(1)
 	private Double budget;
 
 	@NotNull
@@ -55,10 +57,6 @@ public class Project extends UserDateAudit {
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	@OrderBy("value ASC")
 	private List<Bid> bids;
-
-//	@OneToMany(targetEntity = Bid.class, cascade = CascadeType.ALL)
-//	@JoinColumn(name = "id", referencedColumnName = "id")
-//	private List<Bid> bid;
 
 	public String getName() {
 		return name;
@@ -111,6 +109,12 @@ public class Project extends UserDateAudit {
 
 	public void setBids(List<Bid> bids) {
 		this.bids = bids;
+	}
+
+	@Override
+	public String toString() {
+		return "Project [id=" + id + ", name=" + name + ", description=" + description + ", budget=" + budget
+				+ ", bidExpiry=" + bidExpiry + ", bids=" + bids + "]";
 	}
 
 }

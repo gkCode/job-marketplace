@@ -26,6 +26,7 @@
   "devDependencies": {
     "babel-plugin-import": "^1.8.0",
     "react-app-rewire-less": "^2.1.2",
-    "react-app-rewired": "^1.5.2"
+    "react-app-rewired": "^1.5.2",
+    "react-localize-redux": "^3.3.2"
   }
 }

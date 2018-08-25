@@ -9,7 +9,7 @@ import com.org.marketplace.payload.UserSummary;
  * @author gauravkahadane
  *
  */
-public class ModelUtils {
+public final class ModelUtils {
 
 	public static ProjectResponse mapProjectToProjectResponse(Project project, User creator) {
 		ProjectResponse projectResponse = new ProjectResponse();

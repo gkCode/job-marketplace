@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Min;
 
 import com.org.marketplace.model.audit.DateAudit;
 
@@ -35,6 +36,7 @@ public class Bid extends DateAudit {
 	private User user;
 
 	@Column(name = "value")
+	@Min(1)
 	private Double bid;
 
 	public Long getId() {

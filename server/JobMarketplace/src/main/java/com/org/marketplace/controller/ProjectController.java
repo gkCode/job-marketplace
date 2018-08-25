@@ -30,6 +30,7 @@ import com.org.marketplace.security.UserPrincipal;
 import com.org.marketplace.service.BidService;
 import com.org.marketplace.service.ProjectService;
 import com.org.marketplace.util.AppConstants;
+
 /**
  * @author gauravkahadane
  *
@@ -40,23 +41,26 @@ public class ProjectController {
 
 	@Autowired
 	private ProjectService projectService;
-	
+
 	@Autowired
 	private BidService bidService;
 	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProjectController.class);
 
 	@GetMapping
 	public PagedResponse<ProjectResponse> getProjects(@CurrentUser UserPrincipal currentUser,
 			@RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
 			@RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
+		
 		return projectService.getAllProjects(currentUser, page, size);
 	}
 
 	@PostMapping
 	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> createProject(@Valid @RequestBody ProjectRequest projectRequest,
-			@CurrentUser UserPrincipal currentUser) {
+			@CurrentUser UserPrincipal currentUser) throws Exception {
+		
 		Project project = projectService.createProject(projectRequest, currentUser);
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{projectId}")
@@ -69,6 +73,7 @@ public class ProjectController {
 	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> placeBid(@Valid @RequestBody BidRequest bidRequest,
 			@CurrentUser UserPrincipal currentUser) {
+		
 		Bid project = bidService.placeBid(bidRequest, currentUser);
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{bidValue}")
