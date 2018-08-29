@@ -8,18 +8,31 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedStoredProcedureQuery;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Min;
 
 import com.org.marketplace.model.audit.DateAudit;
 
-@Entity
-@Table(name = "bid", uniqueConstraints = { @UniqueConstraint(columnNames = { "project_id", "user_id" }) })
 /**
  * @author gauravkahadane
  *
  */
+
+@Entity
+@Table(name = "bid", uniqueConstraints = { @UniqueConstraint(columnNames = { "project_id", "user_id" }) })
+@NamedStoredProcedureQuery(
+		name = "getLowestBidsByUser", 
+		procedureName = "getLowestBidsByUser", 
+		resultClasses = {Bid.class}, 
+		parameters = {
+						@StoredProcedureParameter(
+								name = "userId", mode = ParameterMode.IN, type = Long.class)
+					 }
+		)
 public class Bid extends DateAudit {
 	private static final long serialVersionUID = 8630195241252302680L;
 
@@ -70,4 +83,10 @@ public class Bid extends DateAudit {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	@Override
+	public String toString() {
+		return "Bid [id=" + id + ", project=" + project + ", user=" + user + ", bid=" + bid + "]";
+	}
+	
 }

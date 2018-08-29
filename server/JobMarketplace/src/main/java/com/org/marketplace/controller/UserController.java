@@ -1,7 +1,5 @@
 package com.org.marketplace.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +18,7 @@ import com.org.marketplace.payload.UserSummary;
 import com.org.marketplace.repository.UserRepository;
 import com.org.marketplace.security.CurrentUser;
 import com.org.marketplace.security.UserPrincipal;
+import com.org.marketplace.service.BidService;
 import com.org.marketplace.service.ProjectService;
 import com.org.marketplace.util.AppConstants;
 
@@ -37,7 +36,9 @@ public class UserController {
 	@Autowired
 	private ProjectService projectService;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+	@Autowired
+	private BidService bidService;
+	
 
 	@GetMapping("/user/me")
 	@PreAuthorize("hasRole('USER')")
@@ -78,4 +79,11 @@ public class UserController {
 		return projectService.getBidsPlacedBy(username, currentUser, page, size);
 	}
 
+	@GetMapping("/users/{username}/bidsWon")
+	public PagedResponse<ProjectResponse> getBidsWonBy(@PathVariable(value = "username") String username,
+			@CurrentUser UserPrincipal currentUser,
+			@RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
+			@RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
+		return bidService.getBidsWonBy(username, currentUser, page, size);
+	}
 }

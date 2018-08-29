@@ -4,8 +4,6 @@ import java.net.URI;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -44,15 +42,13 @@ public class ProjectController {
 
 	@Autowired
 	private BidService bidService;
-	
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ProjectController.class);
 
 	@GetMapping
 	public PagedResponse<ProjectResponse> getProjects(@CurrentUser UserPrincipal currentUser,
 			@RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
 			@RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
-		
+
 		return projectService.getAllProjects(currentUser, page, size);
 	}
 
@@ -60,7 +56,7 @@ public class ProjectController {
 	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> createProject(@Valid @RequestBody ProjectRequest projectRequest,
 			@CurrentUser UserPrincipal currentUser) throws Exception {
-		
+
 		Project project = projectService.createProject(projectRequest, currentUser);
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{projectId}")
@@ -73,7 +69,7 @@ public class ProjectController {
 	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> placeBid(@Valid @RequestBody BidRequest bidRequest,
 			@CurrentUser UserPrincipal currentUser) {
-		
+
 		Bid project = bidService.placeBid(bidRequest, currentUser);
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{bidValue}")
@@ -87,12 +83,4 @@ public class ProjectController {
 		return projectService.getProjectById(projectId);
 	}
 
-	@GetMapping
-	public PagedResponse<ProjectResponse> getB(@CurrentUser UserPrincipal currentUser,
-			@RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
-			@RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
-		
-		return projectService.getAllProjects(currentUser, page, size);
-	}
-	
 }

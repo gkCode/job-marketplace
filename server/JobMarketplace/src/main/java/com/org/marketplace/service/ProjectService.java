@@ -1,5 +1,6 @@
 package com.org.marketplace.service;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -71,14 +72,13 @@ public class ProjectService {
 				// Get All Users and create UserSummary //TODO : may make use of HATEOS
 				projects.getTotalElements(), projects.getTotalPages(), projects.isLast());
 	}
-	
+
 	public PagedResponse<ProjectResponse> getAllProjects(int page, int size) {
 		return this.getAllProjects(null, page, size);
 	}
 
-
 	public Project createProject(ProjectRequest projectRequest, UserPrincipal userPrincipal) throws Exception {
-		if(!ValidatorUtils.validateName(projectRequest.getName())) {
+		if (!ValidatorUtils.validateName(projectRequest.getName())) {
 			throw new Exception("Invalid Project Name");
 		}
 		Project project = new Project();
@@ -121,6 +121,50 @@ public class ProjectService {
 		Sort sort = new Sort(Sort.Direction.DESC, "createdAt");
 		List<Project> projects = projectRepository.findByIdIn(projectIds, sort);
 
+		Map<Long, User> creatorMap = getProjectCreatorMap(projects);
+
+		List<ProjectResponse> projectResponses = projects.stream().map(project -> {
+			return ModelUtils.mapProjectToProjectResponse(project, creatorMap.get(project.getCreatedBy()));
+		}).collect(Collectors.toList());
+
+		return new PagedResponse<>(projectResponses, userbiddedprojectIds.getNumber(), userbiddedprojectIds.getSize(),
+				userbiddedprojectIds.getTotalElements(), userbiddedprojectIds.getTotalPages(),
+				userbiddedprojectIds.isLast());
+	}
+
+	public PagedResponse<ProjectResponse> getBidsWonBy(String username, UserPrincipal currentUser, int page, int size) {
+		validatePageNumberAndSize(page, size);
+
+		User user = userRepository.findByUsername(username)
+				.orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
+
+		Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
+		Page<Long> userbiddedprojectIds = bidRepository.findBiddedProjectIdsByUserId(user.getId(), pageable);
+
+		if (userbiddedprojectIds.getNumberOfElements() == 0) {
+			return new PagedResponse<>(Collections.emptyList(), userbiddedprojectIds.getNumber(),
+					userbiddedprojectIds.getSize(), userbiddedprojectIds.getTotalElements(),
+					userbiddedprojectIds.getTotalPages(), userbiddedprojectIds.isLast());
+		}
+		
+		List<Long> projectIds = userbiddedprojectIds.getContent();
+		
+		LOGGER.info("User bidded projects: "+projectIds.size());
+		
+		Sort sort = new Sort(Sort.Direction.DESC, "createdAt");
+		List<Project> projects = projectRepository.findByIdIn(projectIds, sort);
+		
+		projects = projects.stream().filter(project -> project.getBidExpiry().isBefore(LocalDate.now()))
+				.collect(Collectors.toList());
+
+		LOGGER.info("Filtered sold projects, size:" + projects.size());
+
+		if (projects.size() == 0) {
+			return new PagedResponse<>(Collections.emptyList(), userbiddedprojectIds.getNumber(),
+					userbiddedprojectIds.getSize(), userbiddedprojectIds.getTotalElements(),
+					userbiddedprojectIds.getTotalPages(), userbiddedprojectIds.isLast());
+		}
+		
 		Map<Long, User> creatorMap = getProjectCreatorMap(projects);
 
 		List<ProjectResponse> projectResponses = projects.stream().map(project -> {

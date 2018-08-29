@@ -16,12 +16,12 @@ public final class AppUtils {
 
 	public static LocalDate getDate(String dateStr) {
 		try {
-			DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
-			DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyy", Locale.ENGLISH);
+			DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+					Locale.ENGLISH);
 			LocalDate date = LocalDate.parse(dateStr, inputFormatter);
 			return date;
 		} catch (Exception e) {
-			LOGGER.error("Parsing Date: "+e);
+			LOGGER.error("Parsing Date: " + e);
 		}
 		return null;
 	}

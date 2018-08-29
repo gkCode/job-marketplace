@@ -15,4 +15,5 @@ import com.org.marketplace.model.Bid;
 public interface BidRepository extends JpaRepository<Bid, Long> {
 	@Query("SELECT b.project.id FROM Bid b WHERE b.user.id = :userId")
 	Page<Long> findBiddedProjectIdsByUserId(@Param("userId") Long userId, Pageable pageable);
+
 }
