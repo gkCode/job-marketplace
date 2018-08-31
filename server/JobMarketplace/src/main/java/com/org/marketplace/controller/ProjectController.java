@@ -80,7 +80,7 @@ public class ProjectController {
 	 * @throws Exception REST API exception
 	 */
 	@PostMapping
-	@PreAuthorize("hasRole()")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> createProject(@Valid @RequestBody ProjectRequest projectRequest,
 			@CurrentUser UserPrincipal currentUser) throws Exception {
 

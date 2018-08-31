@@ -32,6 +32,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.org.marketplace.payload.ApiError;
 
 /**
+ * REST response exception handler
+ * 
  * @author gauravkahadane
  *
  */
@@ -45,10 +47,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 		super();
 	}
 
-	// API
-
-	// 400
-
+	/**
+	 * Handler for HTTP 400 error
+	 */
 	@Override
 	protected final ResponseEntity<Object> handleHttpMessageNotReadable(final HttpMessageNotReadableException ex,
 			final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
@@ -81,8 +82,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 		return handleExceptionInternal(ex, apiError, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
 	}
 
-	// 403
-
+	/**
+	 * Handler for HTTP 403 error
+	 */
 	@ExceptionHandler({ AccessDeniedException.class })
 	public ResponseEntity<Object> handleEverything(final AccessDeniedException ex, final WebRequest request) {
 		LOGGER.error("403 Status Code", ex);
@@ -92,8 +94,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 		return handleExceptionInternal(ex, apiError, new HttpHeaders(), HttpStatus.FORBIDDEN, request);
 	}
 
-	// 404
-
+	/**
+	 * Handler for HTTP 404 error
+	 */
 	@ExceptionHandler({ EntityNotFoundException.class, MyResourceNotFoundException.class })
 	protected ResponseEntity<Object> handleNotFound(final RuntimeException ex, final WebRequest request) {
 		LOGGER.warn("Not Found: {}", ex.getMessage());
@@ -102,8 +105,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 		return handleExceptionInternal(ex, apiError, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
 	}
 
-	// 409
-
+	/**
+	 * Handler for HTTP 409 error
+	 */
 	@ExceptionHandler({ InvalidDataAccessApiUsageException.class, DataAccessException.class })
 	protected ResponseEntity<Object> handleConflict(final RuntimeException ex, final WebRequest request) {
 		LOGGER.warn("Conflict: {}", ex.getMessage());
@@ -112,8 +116,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 		return handleExceptionInternal(ex, apiError, new HttpHeaders(), HttpStatus.CONFLICT, request);
 	}
 
-	// 415
-
+	/**
+	 * Handler for HTTP 415 error
+	 */
 	@ExceptionHandler({ InvalidMimeTypeException.class, InvalidMediaTypeException.class })
 	protected ResponseEntity<Object> handleInvalidMimeTypeException(final IllegalArgumentException ex,
 			final WebRequest request) {
@@ -123,8 +128,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 		return handleExceptionInternal(ex, apiError, new HttpHeaders(), HttpStatus.UNSUPPORTED_MEDIA_TYPE, request);
 	}
 
-	// 500
-
+	/**
+	 * Handler for HTTP 500 error
+	 */
 	@ExceptionHandler({ NullPointerException.class, IllegalArgumentException.class, IllegalStateException.class,
 			Exception.class })
 	public ResponseEntity<Object> handle500s(final RuntimeException ex, final WebRequest request) {
@@ -134,8 +140,6 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
 		return handleExceptionInternal(ex, apiError, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
 	}
-
-	// UTIL
 
 	private ValidationError processFieldErrors(final List<FieldError> fieldErrors) {
 		final ValidationError dto = new ValidationError();
@@ -151,7 +155,6 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 	private ApiError message(final HttpStatus httpStatus, final Exception ex) {
 		final String message = ex.getMessage() == null ? ex.getClass().getSimpleName() : ex.getMessage();
 		final String devMessage = ex.getClass().getSimpleName();
-		// devMessage = ExceptionUtils.getStackTrace(ex);
 
 		return new ApiError(httpStatus.value(), message, devMessage);
 	}
