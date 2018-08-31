@@ -11,6 +11,8 @@ import org.springframework.data.repository.query.Param;
 import com.org.marketplace.model.Bid;
 
 /**
+ * JPA repository for bid table
+ * 
  * @author gauravkahadane
  *
  */

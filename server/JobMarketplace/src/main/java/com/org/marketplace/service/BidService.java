@@ -32,6 +32,8 @@ import com.org.marketplace.security.UserPrincipal;
 import com.org.marketplace.util.ModelUtils;
 
 /**
+ * Service for managing bids placed on a project
+ * 
  * @author gauravkahadane
  *
  */
@@ -52,6 +54,13 @@ public class BidService {
 	@Autowired
 	private EntityManagerFactory entityManagerFactory;
 
+	/**
+	 * Places the bid on a project
+	 * 
+	 * @param bidRequest    contains bid details
+	 * @param userPrincipal represents authenticated user
+	 * @return placed bid
+	 */
 	public Bid placeBid(BidRequest bidRequest, UserPrincipal userPrincipal) {
 		Bid bid = new Bid();
 		try {
@@ -85,6 +94,15 @@ public class BidService {
 		return bid;
 	}
 
+	/**
+	 * Retrieves the projects/bids won by a user
+	 * 
+	 * @param username    name of a user
+	 * @param currentUser represent authenticated user
+	 * @param page        index of a page
+	 * @param size        size of a page
+	 * @return paged project response
+	 */
 	public PagedResponse<ProjectResponse> getBidsWonBy(String username, UserPrincipal currentUser, int page, int size) {
 		Session session = entityManagerFactory.unwrap(SessionFactory.class).openSession();
 		PagedResponse<ProjectResponse> response = new PagedResponse<ProjectResponse>();

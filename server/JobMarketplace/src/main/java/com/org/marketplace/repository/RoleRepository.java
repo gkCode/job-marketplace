@@ -9,11 +9,13 @@ import com.org.marketplace.model.Role;
 import com.org.marketplace.model.RoleType;
 
 /**
+ * JPA repository for roles table
+ * 
  * @author gauravkahadane
  *
  */
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
 	Optional<Role> findByName(RoleType roleName);
-	
+
 }

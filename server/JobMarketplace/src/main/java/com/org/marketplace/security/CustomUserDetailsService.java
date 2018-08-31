@@ -1,8 +1,5 @@
 package com.org.marketplace.security;
 
-import com.org.marketplace.exception.ResourceNotFoundException;
-import com.org.marketplace.model.User;
-import com.org.marketplace.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,7 +7,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.org.marketplace.exception.ResourceNotFoundException;
+import com.org.marketplace.model.User;
+import com.org.marketplace.repository.UserRepository;
+
 /**
+ * Loads user specific data
+ * 
  * @author gauravkahadane
  *
  */

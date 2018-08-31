@@ -27,12 +27,13 @@ import com.org.marketplace.repository.BidRepository;
 import com.org.marketplace.repository.ProjectRepository;
 import com.org.marketplace.repository.UserRepository;
 import com.org.marketplace.security.UserPrincipal;
-import com.org.marketplace.util.AppConstants;
 import com.org.marketplace.util.AppUtils;
 import com.org.marketplace.util.ModelUtils;
 import com.org.marketplace.util.ValidatorUtils;
 
 /**
+ * Service for managing projects
+ * 
  * @author gauravkahadane
  *
  */
@@ -49,12 +50,19 @@ public class ProjectService {
 	@Autowired
 	private UserRepository userRepository;
 
+	/**
+	 * Retrieves all the projects
+	 * 
+	 * @param page index of a page
+	 * @param size size of a page
+	 * @return paged response of projects
+	 */
 	public PagedResponse<ProjectResponse> getAllProjects(int page, int size) {
 		List<ProjectResponse> projectResponses;
 		Page<Project> projects;
 
 		try {
-			validatePageNumberAndSize(page, size);
+			ValidatorUtils.validatePageNumberAndSize(page, size);
 
 			Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
 
@@ -83,6 +91,14 @@ public class ProjectService {
 				projects.getTotalElements(), projects.getTotalPages(), projects.isLast());
 	}
 
+	/**
+	 * Creates a project
+	 * 
+	 * @param projectRequest contains project details
+	 * @param userPrincipal  authenticated user
+	 * @return the created project
+	 * @throws Exception
+	 */
 	public Project createProject(ProjectRequest projectRequest, UserPrincipal userPrincipal) throws Exception {
 		try {
 			if (!ValidatorUtils.validateName(projectRequest.getName())) {
@@ -103,6 +119,12 @@ public class ProjectService {
 		}
 	}
 
+	/**
+	 * Retrieves a project by the given id
+	 * 
+	 * @param projectId id of project
+	 * @return project response
+	 */
 	public ProjectResponse getProjectById(Long projectId) {
 		Project project = projectRepository.findById(projectId)
 				.orElseThrow(() -> new ResourceNotFoundException("Project", "id", projectId));
@@ -116,10 +138,19 @@ public class ProjectService {
 
 	}
 
+	/**
+	 * Retrieves the projects/bids placed by a user
+	 * 
+	 * @param username
+	 * @param currentUser authenticated user
+	 * @param page        index of a page
+	 * @param size        size of a page
+	 * @return projects on which user has placed the bid
+	 */
 	public PagedResponse<ProjectResponse> getBidsPlacedBy(String username, UserPrincipal currentUser, int page,
 			int size) {
 		try {
-			validatePageNumberAndSize(page, size);
+			ValidatorUtils.validatePageNumberAndSize(page, size);
 
 			User user = userRepository.findByUsername(username)
 					.orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
@@ -157,9 +188,18 @@ public class ProjectService {
 		}
 	}
 
+	/**
+	 * Retrieves projects/bids won by a user
+	 * 
+	 * @param username
+	 * @param currentUser authenticated user
+	 * @param page        index of a page
+	 * @param size        size of a page
+	 * @return projects won by a user
+	 */
 	public PagedResponse<ProjectResponse> getBidsWonBy(String username, UserPrincipal currentUser, int page, int size) {
 		try {
-			validatePageNumberAndSize(page, size);
+			ValidatorUtils.validatePageNumberAndSize(page, size);
 
 			User user = userRepository.findByUsername(username)
 					.orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
@@ -210,16 +250,12 @@ public class ProjectService {
 		}
 	}
 
-	private void validatePageNumberAndSize(int page, int size) throws BadRequestException {
-		if (page < 0) {
-			throw new BadRequestException("Page number cannot be less than zero.");
-		}
-
-		if (size > AppConstants.MAX_PAGE_SIZE) {
-			throw new BadRequestException("Page size must not be greater than " + AppConstants.MAX_PAGE_SIZE);
-		}
-	}
-
+	/**
+	 * Maps a project to its creator user
+	 * 
+	 * @param projects list of projects
+	 * @return project to creator user map
+	 */
 	private Map<Long, User> getProjectCreatorMap(List<Project> projects) {
 		List<Long> creatorIds = projects.stream().map(Project::getCreatedBy).distinct().collect(Collectors.toList());
 

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.org.marketplace.model.User;
 
 /**
+ * JPA repository for users table
+ * 
  * @author gauravkahadane
  *
  */
@@ -25,5 +27,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	Boolean existsByUsername(String username);
 
 	Boolean existsByEmail(String email);
-	
+
 }
