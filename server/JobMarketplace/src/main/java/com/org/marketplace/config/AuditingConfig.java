@@ -14,6 +14,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.org.marketplace.security.UserPrincipal;
 
+/**
+ * Configures the current auditor(user) of this application
+ * 
+ * @author gauravkahadane
+ */
 @Configuration
 @EnableJpaAuditing
 public class AuditingConfig {
@@ -24,10 +29,6 @@ public class AuditingConfig {
 	}
 }
 
-/**
- * @author gauravkahadane
- *
- */
 class SpringSecurityAuditAwareImpl implements AuditorAware<Long> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SpringSecurityAuditAwareImpl.class);
 

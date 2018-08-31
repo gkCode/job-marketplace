@@ -16,8 +16,8 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 @SpringBootApplication
 @EntityScan(basePackageClasses = { JobApplication.class, Jsr310JpaConverters.class })
 /**
+ * This class bootstraps and launches spring application
  * @author gauravkahadane
- *
  */
 public class JobApplication implements ApplicationListener<ApplicationReadyEvent> {
 
@@ -26,7 +26,10 @@ public class JobApplication implements ApplicationListener<ApplicationReadyEvent
 	public static void main(String[] args) {
 		SpringApplication.run(JobApplication.class, args);
 	}
-	
+
+	/**
+	 * Sets the default time zone of server to UTC.
+	 */
 	@PostConstruct
 	void init() {
 		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));

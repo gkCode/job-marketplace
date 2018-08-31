@@ -7,6 +7,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import javax.persistence.MappedSuperclass;
 
 /**
+ * Represents audit information related to user activity 
+ * 
  * @author gauravkahadane
  *
  */

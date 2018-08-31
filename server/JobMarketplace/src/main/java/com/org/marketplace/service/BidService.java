@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.StoredProcedureQuery;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.org.marketplace.exception.BadRequestException;
 import com.org.marketplace.exception.ResourceNotFoundException;
 import com.org.marketplace.model.Bid;
 import com.org.marketplace.model.Project;
@@ -54,14 +56,31 @@ public class BidService {
 		Bid bid = new Bid();
 		try {
 			bid.setBid(bidRequest.getBid());
-			bid.setProject(new Project(bidRequest.getProjectId()));
+
+			Optional<Project> projectToBeBidded = projectRepository.findById(bidRequest.getProjectId());
+			if (projectToBeBidded.isPresent()) {
+				Project project = projectToBeBidded.get();
+				if (project.getBidExpiry().compareTo(LocalDate.now()) < 0) {
+					throw new BadRequestException("Bidding is expired for project: " + project.getName());
+				} else {
+					// Verify if the bid value is unique
+					Set<Double> currentBids = bidRepository.findBidsForProject(project.getId());
+					if (currentBids.contains(bidRequest.getBid())) {
+						throw new BadRequestException("Bid is already placed on project. Enter a different bid");
+					}
+					bid.setProject(project);
+				}
+			} else {
+				throw new BadRequestException("Project does not exist");
+			}
 
 			User user = userRepository.getOne(userPrincipal.getId());
-
 			bid.setUser(user);
+
 			bidRepository.save(bid);
 		} catch (Exception e) {
 			LOGGER.error("Error persisting bid: " + e);
+			throw e;
 		}
 		return bid;
 	}
@@ -90,10 +109,12 @@ public class BidService {
 					}
 				}
 			}
-			
+
 			response.setContent(projectsWon);
+
 		} catch (HibernateException e) {
 			LOGGER.error("Failed to fetch bids won by " + currentUser.getUsername() + ": " + e);
+			throw e;
 		} finally {
 			session.close();
 		}

@@ -12,7 +12,7 @@ public class FieldError {
 
 	private final String message;
 
-	FieldError(String field, String message) {
+	public FieldError(String field, String message) {
 		notNull(field, "Field cannot be null.");
 		notEmpty(field, "Field cannot be empty");
 

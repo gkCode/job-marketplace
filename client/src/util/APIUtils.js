@@ -113,3 +113,13 @@ export function getUserPlacedBids(username, page, size) {
         method: 'GET'
     });
 }
+
+export function getBidsWonBy(username, page, size) {
+    page = page || 0;
+    size = size || PROJECT_LIST_SIZE;
+
+    return request({
+        url: API_BASE_URL + "/users/" + username + "/bidsWon?page=" + page + "&size=" + size,
+        method: 'GET'
+    });
+}

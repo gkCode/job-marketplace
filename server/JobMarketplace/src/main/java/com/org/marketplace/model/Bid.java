@@ -18,21 +18,17 @@ import javax.validation.constraints.Min;
 import com.org.marketplace.model.audit.DateAudit;
 
 /**
+ * Represents bid table in the database
+ * 
  * @author gauravkahadane
  *
  */
 
 @Entity
 @Table(name = "bid", uniqueConstraints = { @UniqueConstraint(columnNames = { "project_id", "user_id" }) })
-@NamedStoredProcedureQuery(
-		name = "getLowestBidsByUser", 
-		procedureName = "getLowestBidsByUser", 
-		resultClasses = {Bid.class}, 
-		parameters = {
-						@StoredProcedureParameter(
-								name = "userId", mode = ParameterMode.IN, type = Long.class)
-					 }
-		)
+@NamedStoredProcedureQuery(name = "getLowestBidsByUser", procedureName = "getLowestBidsByUser", resultClasses = {
+		Bid.class }, parameters = {
+				@StoredProcedureParameter(name = "userId", mode = ParameterMode.IN, type = Long.class) })
 public class Bid extends DateAudit {
 	private static final long serialVersionUID = 8630195241252302680L;
 
@@ -83,10 +79,4 @@ public class Bid extends DateAudit {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-	@Override
-	public String toString() {
-		return "Bid [id=" + id + ", project=" + project + ", user=" + user + ", bid=" + bid + "]";
-	}
-	
 }

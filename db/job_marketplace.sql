@@ -56,8 +56,7 @@ CREATE TABLE `bid` (
   KEY `fk_bids_user_id` (`user_id`),
   KEY `fk_bids_project_id` (`project_id`),
   CONSTRAINT `fk_bids_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `fk_bids_project_id` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`),
-  UNIQUE KEY `uk_bids_bidvalue` (`value`)
+  CONSTRAINT `fk_bids_project_id` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT IGNORE INTO roles(name) VALUES('ROLE_USER');

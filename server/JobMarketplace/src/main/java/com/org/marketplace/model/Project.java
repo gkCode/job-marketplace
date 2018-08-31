@@ -1,7 +1,6 @@
 package com.org.marketplace.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,8 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,6 +20,8 @@ import javax.validation.constraints.Size;
 import com.org.marketplace.model.audit.UserDateAudit;
 
 /**
+ * Represents projects table in the database
+ * 
  * @author gauravkahadane
  *
  */
@@ -31,10 +30,6 @@ import com.org.marketplace.model.audit.UserDateAudit;
 public class Project extends UserDateAudit {
 
 	private static final long serialVersionUID = -6674017353910255564L;
-
-	public Project() {
-		super();
-	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,6 +53,21 @@ public class Project extends UserDateAudit {
 	@OrderBy("value ASC")
 	private List<Bid> bids;
 
+	public Project() {
+		super();
+	}
+
+	public Project(Long id, @Size(max = 20) @NotNull String name, @Size(max = 400) String description,
+			@Min(1) Double budget, @NotNull LocalDate bidExpiry, List<Bid> bids) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.budget = budget;
+		this.bidExpiry = bidExpiry;
+		this.bids = bids;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -110,11 +120,4 @@ public class Project extends UserDateAudit {
 	public void setBids(List<Bid> bids) {
 		this.bids = bids;
 	}
-
-	@Override
-	public String toString() {
-		return "Project [id=" + id + ", name=" + name + ", description=" + description + ", budget=" + budget
-				+ ", bidExpiry=" + bidExpiry + ", bids=" + bids + "]";
-	}
-
 }

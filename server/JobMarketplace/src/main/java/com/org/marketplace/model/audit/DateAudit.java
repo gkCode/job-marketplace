@@ -11,6 +11,8 @@ import java.io.Serializable;
 import java.time.Instant;
 
 /**
+ * Base class for auditing
+ * 
  * @author gauravkahadane
  *
  */

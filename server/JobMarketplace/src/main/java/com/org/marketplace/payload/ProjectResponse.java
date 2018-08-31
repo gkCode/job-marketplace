@@ -22,6 +22,22 @@ public class ProjectResponse {
 		super();
 		this.bid = (double) 0;
 	}
+	
+	public ProjectResponse(Long id, String name, UserSummary createdBy, Instant creationDateTime,
+			Instant expirationDateTime, Boolean isExpired, Double budget, LocalDate bidExpiry, Double bid) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.createdBy = createdBy;
+		this.creationDateTime = creationDateTime;
+		this.expirationDateTime = expirationDateTime;
+		this.isExpired = isExpired;
+		this.budget = budget;
+		this.bidExpiry = bidExpiry;
+		this.bid = bid;
+	}
+
+
 
 	public Double getBudget() {
 		return budget;

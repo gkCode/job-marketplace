@@ -30,6 +30,8 @@ import com.org.marketplace.service.ProjectService;
 import com.org.marketplace.util.AppConstants;
 
 /**
+ * This class exposes REST APIs for managing projects
+ * 
  * @author gauravkahadane
  *
  */
@@ -43,17 +45,42 @@ public class ProjectController {
 	@Autowired
 	private BidService bidService;
 
-
+	/**
+	 * Retrieves all the projects
+	 * 
+	 * @param page page index
+	 * @param size size of the page
+	 * @return Paged response for projects
+	 */
 	@GetMapping
-	public PagedResponse<ProjectResponse> getProjects(@CurrentUser UserPrincipal currentUser,
+	public PagedResponse<ProjectResponse> getProjects(
 			@RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
 			@RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
 
-		return projectService.getAllProjects(currentUser, page, size);
+		return projectService.getAllProjects(page, size);
 	}
 
+	/**
+	 * Retrieves a project by given id
+	 * 
+	 * @param projectId the id of project to be retrieved
+	 * @return project response
+	 */
+	@GetMapping("/{projectId}")
+	public ProjectResponse getprojectById(@PathVariable Long projectId) {
+		return projectService.getProjectById(projectId);
+	}
+
+	/**
+	 * Creates a project
+	 * 
+	 * @param projectRequest contains project details
+	 * @param currentUser    authenticated user
+	 * @return REST response
+	 * @throws Exception REST API exception
+	 */
 	@PostMapping
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize("hasRole()")
 	public ResponseEntity<?> createProject(@Valid @RequestBody ProjectRequest projectRequest,
 			@CurrentUser UserPrincipal currentUser) throws Exception {
 
@@ -65,6 +92,13 @@ public class ProjectController {
 		return ResponseEntity.created(location).body(new ApiResponse(true, "Project Created Successfully"));
 	}
 
+	/**
+	 * Places the bid on a project
+	 * 
+	 * @param bidRequest  contains bid details
+	 * @param currentUser authenticated user
+	 * @return REST response
+	 */
 	@PostMapping("/placeBid")
 	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> placeBid(@Valid @RequestBody BidRequest bidRequest,
@@ -77,10 +111,4 @@ public class ProjectController {
 
 		return ResponseEntity.created(location).body(new ApiResponse(true, "Bid Placed Successfully"));
 	}
-
-	@GetMapping("/{projectId}")
-	public ProjectResponse getprojectById(@PathVariable Long projectId) {
-		return projectService.getProjectById(projectId);
-	}
-
 }

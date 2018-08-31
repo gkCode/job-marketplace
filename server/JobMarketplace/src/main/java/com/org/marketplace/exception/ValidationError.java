@@ -17,8 +17,6 @@ public class ValidationError {
 		super();
 	}
 
-	//
-
 	public final void addFieldError(final String path, final String message) {
 		final FieldError error = new FieldError(path, message);
 		fieldErrors.add(error);
@@ -28,12 +26,10 @@ public class ValidationError {
 		return fieldErrors;
 	}
 
-	//
-
 	@Override
 	public final String toString() {
 		final StringBuilder builder = new StringBuilder();
-		builder.append("ValidationErrorDTO [fieldErrors=").append(fieldErrors).append("]");
+		builder.append("ValidationError [fieldErrors=").append(fieldErrors).append("]");
 		return builder.toString();
 	}
 }

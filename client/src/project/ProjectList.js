@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import {
   getAllProjects,
-  getUserPlacedBids
+  getUserPlacedBids,
+  getBidsWonBy
 } from "../util/APIUtils";
 import LoadingIndicator from "../common/LoadingIndicator";
 import { Button, Icon, notification } from "antd";
@@ -33,7 +34,9 @@ class ProjectList extends Component {
         if(this.props.username) {
             if(this.props.type === 'USER_CREATED_PROJECTS') {
                 promise = getUserPlacedBids(this.props.username, page, size);
-            } 
+            } else if(this.props.type === 'BIDS_WON_BY_USER'){
+                promise = getBidsWonBy(this.props.username, page, size);
+            }
         } else {
             promise = getAllProjects(page, size);
         }

@@ -21,14 +21,13 @@ import java.io.IOException;
  *
  */
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+	private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
 	@Autowired
 	private JwtTokenProvider tokenProvider;
 
 	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -46,8 +45,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 			}
-		} catch (Exception ex) {
-			LOGGER.error("Could not set user authentication in security context", ex);
+		} catch (Exception e) {
+			LOGGER.error("Could not set user authentication in security context: " + e);
+			throw e;
 		}
 
 		filterChain.doFilter(request, response);

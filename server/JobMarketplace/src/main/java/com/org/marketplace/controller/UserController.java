@@ -23,6 +23,8 @@ import com.org.marketplace.service.ProjectService;
 import com.org.marketplace.util.AppConstants;
 
 /**
+ * Exposes REST APIs relevant to user actions
+ * 
  * @author gauravkahadane
  *
  */
@@ -38,8 +40,13 @@ public class UserController {
 
 	@Autowired
 	private BidService bidService;
-	
 
+	/**
+	 * Retrieves the current authenticated user details
+	 * 
+	 * @param currentUser the authenticated user
+	 * @return user summary
+	 */
 	@GetMapping("/user/me")
 	@PreAuthorize("hasRole('USER')")
 	public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
@@ -48,18 +55,34 @@ public class UserController {
 		return userSummary;
 	}
 
+	/**
+	 * Determines user name availability
+	 * 
+	 * @param username to be checked for availability
+	 * @return true if available otherwise false
+	 */
 	@GetMapping("/user/checkUsernameAvailability")
 	public UserIdentityAvailability checkUsernameAvailability(@RequestParam(value = "username") String username) {
-		Boolean isAvailable = !userRepository.existsByUsername(username);
-		return new UserIdentityAvailability(isAvailable);
+		return new UserIdentityAvailability(!userRepository.existsByUsername(username));
 	}
 
+	/**
+	 * Determines user email availability
+	 * 
+	 * @param email to be checked for availability
+	 * @return true if available otherwise false
+	 */
 	@GetMapping("/user/checkEmailAvailability")
 	public UserIdentityAvailability checkEmailAvailability(@RequestParam(value = "email") String email) {
-		Boolean isAvailable = !userRepository.existsByEmail(email);
-		return new UserIdentityAvailability(isAvailable);
+		return new UserIdentityAvailability(!userRepository.existsByEmail(email));
 	}
 
+	/**
+	 * Retrieves user profile
+	 * 
+	 * @param username of the user
+	 * @return user profile
+	 */
 	@GetMapping("/users/{username}")
 	public UserProfile getUserProfile(@PathVariable(value = "username") String username) {
 		User user = userRepository.findByUsername(username)
@@ -71,6 +94,15 @@ public class UserController {
 		return userProfile;
 	}
 
+	/**
+	 * Retrieves the projects on which buyer has placed the bids
+	 * 
+	 * @param username    buyer name
+	 * @param currentUser user principal representing the buyer
+	 * @param page        index of the page
+	 * @param size        size of the page
+	 * @return projects on which user has placed the bids
+	 */
 	@GetMapping("/users/{username}/bids")
 	public PagedResponse<ProjectResponse> getBidsPlacedBy(@PathVariable(value = "username") String username,
 			@CurrentUser UserPrincipal currentUser,
@@ -79,6 +111,15 @@ public class UserController {
 		return projectService.getBidsPlacedBy(username, currentUser, page, size);
 	}
 
+	/**
+	 * Retrieves the bids won by a buyer
+	 * 
+	 * @param username    buyer name
+	 * @param currentUser user principal representing the buyer
+	 * @param page        index of the page
+	 * @param size        size of the page
+	 * @return project bids won by a buyer
+	 */
 	@GetMapping("/users/{username}/bidsWon")
 	public PagedResponse<ProjectResponse> getBidsWonBy(@PathVariable(value = "username") String username,
 			@CurrentUser UserPrincipal currentUser,

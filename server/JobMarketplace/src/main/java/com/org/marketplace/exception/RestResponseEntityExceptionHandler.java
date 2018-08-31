@@ -125,7 +125,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
 	// 500
 
-	@ExceptionHandler({ NullPointerException.class, IllegalArgumentException.class, IllegalStateException.class })
+	@ExceptionHandler({ NullPointerException.class, IllegalArgumentException.class, IllegalStateException.class,
+			Exception.class })
 	public ResponseEntity<Object> handle500s(final RuntimeException ex, final WebRequest request) {
 		LOGGER.error("500 Status Code", ex);
 

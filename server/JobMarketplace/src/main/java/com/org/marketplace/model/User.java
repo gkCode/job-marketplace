@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Represents users table in the database
+ * 
  * @author gauravkahadane
  *
  */

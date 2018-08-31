@@ -21,7 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.org.marketplace.exception.AppException;
 import com.org.marketplace.model.Role;
-import com.org.marketplace.model.RoleName;
+import com.org.marketplace.model.RoleType;
 import com.org.marketplace.model.User;
 import com.org.marketplace.payload.ApiResponse;
 import com.org.marketplace.payload.JwtAuthenticationResponse;
@@ -32,6 +32,8 @@ import com.org.marketplace.repository.UserRepository;
 import com.org.marketplace.security.JwtTokenProvider;
 
 /**
+ * User authentication controller for the application
+ * 
  * @author gauravkahadane
  *
  */
@@ -54,6 +56,12 @@ public class AuthController {
 	@Autowired
 	JwtTokenProvider tokenProvider;
 
+	/**
+	 * Signs in the authenticated user
+	 * 
+	 * @param loginRequest contains user credentials
+	 * @return JWT authentication response
+	 */
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -66,6 +74,13 @@ public class AuthController {
 		return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
 	}
 
+	/**
+	 * Registers a new user
+	 * 
+	 * @param signUpRequest contains user credentials
+	 * @return API response based on whether the user registration is successful or
+	 *         failure.
+	 */
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
@@ -81,7 +96,7 @@ public class AuthController {
 
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-		Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+		Role userRole = roleRepository.findByName(RoleType.ROLE_USER)
 				.orElseThrow(() -> new AppException("User Role not set."));
 
 		user.setRoles(Collections.singleton(userRole));
