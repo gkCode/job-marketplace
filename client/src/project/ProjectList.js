@@ -89,6 +89,11 @@ class ProjectList extends Component {
         }
     }
 
+    onChange = (pagination, filters, sorter) => {
+        console.log('params', pagination, filters, sorter);
+    }
+      
+
     render() {
         return (
             

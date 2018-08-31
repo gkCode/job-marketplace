@@ -25,15 +25,16 @@ class AppHeader extends Component {
         let menuItems;
         if(this.props.currentUser) {
           menuItems = [
-            <Menu.Item key="/">
+             <Menu.Item key="/">
               <Link to="/">
-                <Icon type="home" className="nav-icon" />
+                <Icon type="home"  className="nav-icon"/>
               </Link>
             </Menu.Item>,
             <Menu.Item>         
                 <Input.Search
                       placeholder="Enter Project Id"
                       onSearch={value => this.handleSearch(value)}
+                      style={{ width: 200 }}
                       enterButton
                 />             
             </Menu.Item>,
@@ -70,7 +71,7 @@ class AppHeader extends Component {
                 mode="horizontal"
                 selectedKeys={[this.props.location.pathname]}
                 style={{ lineHeight: '64px' }} >
-                  {menuItems}
+                {menuItems}
               </Menu>
             </div>
           </Header>

@@ -1,15 +1,12 @@
-/**
- * 
- */
 package com.org.marketplace.exception;
 
 /**
  * @author gauravkahadane
  *
  */
-public final class PreCondition {
+public final class PreConditions {
 
-	private PreCondition() {
+	private PreConditions() {
 	}
 
 	/**

@@ -93,7 +93,6 @@ class ProjectSearch extends Component {
                             <div>  Descrition: {this.state.project.description}    </div>
                             <div>  Budget: {this.state.project.budget}   </div>
                             <div>  Bid Expiration: {this.state.project.bidExpiry}  </div>  
-                            <div>  Lowest Bid: {this.state.project.bid}  </div>  
                             <Bid projectId={this.state.project.id}></Bid>  
                         </Card>               
                     }    

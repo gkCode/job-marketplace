@@ -1,7 +1,7 @@
 package com.org.marketplace.exception;
 
-import static com.org.marketplace.exception.PreCondition.notEmpty;
-import static com.org.marketplace.exception.PreCondition.notNull;
+import static com.org.marketplace.exception.PreConditions.notEmpty;
+import static com.org.marketplace.exception.PreConditions.notNull;
 
 /**
  * @author gauravkahadane
