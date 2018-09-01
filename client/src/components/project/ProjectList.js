@@ -4,13 +4,11 @@ import {
   getUserPlacedBids,
   getBidsWonBy
 } from "util/APIUtils";
-import LoadingIndicator from "../../common/LoadingIndicator";
-import { Button, Icon, notification } from "antd";
-import { PROJECT_LIST_SIZE } from "../../constants/index";
+import { PROJECT_LIST_SIZE } from "../../constants/AppConstants";
 import { withRouter } from "react-router-dom";
 import "./ProjectList.css";
 import { Table } from 'antd';
-import { getProjectsRowModel, getProjectsColumnModel } from 'util/ModelUtils'
+import { getProjectsRowModel } from 'util/ModelUtils'
 
 class ProjectList extends Component {
     constructor(props){
@@ -51,7 +49,6 @@ class ProjectList extends Component {
 
         promise            
         .then(response => {
-            const projects = this.state.projects.slice();
             this.setState({
                 projects: getProjectsRowModel(response),
                 page: response.page,
@@ -67,7 +64,7 @@ class ProjectList extends Component {
             })
         });  
         
-    }
+    };
 
     componentWillMount() {
         this.loadProjectList();
@@ -91,7 +88,7 @@ class ProjectList extends Component {
 
     onChange = (pagination, filters, sorter) => {
         console.log('params', pagination, filters, sorter);
-    }
+    };
       
 
     render() {

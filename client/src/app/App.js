@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { getCurrentUser } from '../util/APIUtils';
-import { ACCESS_TOKEN } from '../constants';
+import { ACCESS_TOKEN } from '../constants/AppConstants';
 
 import NewProject from '../components/project/NewProject';
 import ProjectInfo from '../components/project/ProjectInfo';

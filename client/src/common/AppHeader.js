@@ -1,119 +1,118 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     Link,
     withRouter
 } from 'react-router-dom';
 import './AppHeader.css';
-import { Layout, Menu, Dropdown, Icon, Input } from 'antd';
-import {browserHistory} from 'react-router';
+import {Layout, Menu, Dropdown, Icon, Input} from 'antd';
 
 
 const Header = Layout.Header;
-    
-class AppHeader extends Component {
-    constructor(props) {
-        super(props);   
-    }
 
-    handleMenuClick = ({ key }) => {
-      if(key === "logout") {
-        this.props.onLogout();
-      }
-    }
+class AppHeader extends Component {
+    handleMenuClick = ({key}) => {
+        if (key === "logout") {
+            this.props.onLogout();
+        }
+    };
+
+    onLogout = () =>{
+
+    };
 
     render() {
         let menuItems;
-        if(this.props.currentUser) {
-          menuItems = [
-             <Menu.Item key="/">
-              <Link to="/">
-                <Icon type="home"  className="nav-icon"/>
-              </Link>
-            </Menu.Item>,
-            <Menu.Item>         
-                <Input.Search
-                      placeholder="Enter Project Id"
-                      onSearch={value => this.handleSearch(value)}
-                      style={{ width: 200 }}
-                      enterButton
-                />             
-            </Menu.Item>,
-            <Menu.Item key="/project/new">
-              <Link to="/project/new">
-                <Icon type="plus" className="nav-icon" />
-              </Link>
-            </Menu.Item>,
-            <Menu.Item key="/profile" className="profile-menu">
-                <ProfileDropdownMenu 
-                  currentUser={this.props.currentUser} 
-                  handleMenuClick={this.handleMenuClick}/>
-            </Menu.Item>
-          ]; 
+        if (this.props.currentUser) {
+            menuItems = [
+                <Menu.Item key="/">
+                    <Link to="/">
+                        <Icon type="home" className="nav-icon"/>
+                    </Link>
+                </Menu.Item>,
+                <Menu.Item>
+                    <Input.Search
+                        placeholder="Enter Project Id"
+                        onSearch={value => this.handleSearch(value)}
+                        style={{width: 200}}
+                        enterButton
+                    />
+                </Menu.Item>,
+                <Menu.Item key="/project/new">
+                    <Link to="/project/new">
+                        <Icon type="plus" className="nav-icon"/>
+                    </Link>
+                </Menu.Item>,
+                <Menu.Item key="/profile" className="profile-menu">
+                    <ProfileDropdownMenu
+                        currentUser={this.props.currentUser}
+                        handleMenuClick={this.handleMenuClick}/>
+                </Menu.Item>
+            ];
         } else {
-          menuItems = [
-            <Menu.Item key="/login">
-              <Link to="/login">Login</Link>
-            </Menu.Item>,
-            <Menu.Item key="/signup">
-              <Link to="/signup">Signup</Link>
-            </Menu.Item>                  
-          ];
+            menuItems = [
+                <Menu.Item key="/login">
+                    <Link to="/login">Login</Link>
+                </Menu.Item>,
+                <Menu.Item key="/signup">
+                    <Link to="/signup">Signup</Link>
+                </Menu.Item>
+            ];
         }
 
         return (
-          <Header className="app-header">
-            <div className="container">
-              <div className="app-title" >
-                <Link to="/">Job Marketplace</Link>
-              </div>
-              <Menu
-                className="app-menu"
-                mode="horizontal"
-                selectedKeys={[this.props.location.pathname]}
-                style={{ lineHeight: '64px' }} >
-                {menuItems}
-              </Menu>
-            </div>
-          </Header>
+            <Header className="app-header">
+                <div className="container">
+                    <div className="app-title">
+                        <Link to="/">Job Marketplace</Link>
+                    </div>
+                    <Menu
+                        className="app-menu"
+                        mode="horizontal"
+                        selectedKeys={[this.props.location.pathname]}
+                        style={{lineHeight: '64px'}}>
+                        {menuItems}
+                    </Menu>
+                </div>
+            </Header>
         );
     }
 
     handleSearch = (query) => {
-      this.props.history.push({pathname: '/project/search', query})
+        this.props.history.push({pathname: '/project/search', query})
     }
 }
 
 function ProfileDropdownMenu(props) {
-  const dropdownMenu = (
-    <Menu onClick={props.handleMenuClick} className="profile-dropdown-menu">
-      <Menu.Item key="user-info" className="dropdown-item" disabled>
-        <div className="user-full-name-info">
-          {props.currentUser.name}
-        </div>
-        <div className="username-info">
-          @{props.currentUser.username}
-        </div>
-      </Menu.Item>
-      <Menu.Divider />
-      <Menu.Item key="profile" className="dropdown-item">
-        <Link to={`/users/${props.currentUser.username}`}>Profile</Link>
-      </Menu.Item>
-      <Menu.Item key="logout" className="dropdown-item">
-        Logout
-      </Menu.Item>
-    </Menu>
-  );
+    const dropdownMenu = (
+        <Menu onClick={props.handleMenuClick} className="profile-dropdown-menu">
+            <Menu.Item key="user-info" className="dropdown-item" disabled>
+                <div className="user-full-name-info">
+                    {props.currentUser.name}
+                </div>
+                <div className="username-info">
+                    @{props.currentUser.username}
+                </div>
+            </Menu.Item>
+            <Menu.Divider/>
+            <Menu.Item key="profile" className="dropdown-item">
+                <Link to={`/users/${props.currentUser.username}`}>Profile</Link>
+            </Menu.Item>
+            <Menu.Item key="logout" className="dropdown-item">
+                Logout
+            </Menu.Item>
+        </Menu>
+    );
 
-  return (
-    <Dropdown 
-      overlay={dropdownMenu} 
-      trigger={['click']}
-      getPopupContainer = { () => document.getElementsByClassName('profile-menu')[0]}>
-      <a className="ant-dropdown-link">
-         <Icon type="user" className="nav-icon" style={{marginRight: 0}} /> <Icon type="down" />
-      </a>
-    </Dropdown>
-  );
+    return (
+        <Dropdown
+            overlay={dropdownMenu}
+            trigger={['click']}
+            getPopupContainer={() => document.getElementsByClassName('profile-menu')[0]}>
+            <a className="ant-dropdown-link">
+                <Icon type="user" className="nav-icon" style={{marginRight: 0}}/> <Icon type="down"/>
+            </a>
+        </Dropdown>
+    );
 }
 
 

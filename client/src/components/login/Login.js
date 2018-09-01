@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { login } from '../../util/APIUtils';
 import './Login.css';
 import { Link } from 'react-router-dom';
-import { ACCESS_TOKEN } from '../../constants';
+import { ACCESS_TOKEN } from '../../constants/AppConstants';
 
 import { Form, Input, Button, Icon, notification } from 'antd';
 const FormItem = Form.Item;
 
 class Login extends Component {
     render() {
-        const AntWrappedLoginForm = Form.create()(LoginForm)
+        const AntWrappedLoginForm = Form.create()(LoginForm);
         return (
             <div className="login-container">
                 <h1 className="page-title">Login</h1>
@@ -50,7 +50,7 @@ class LoginForm extends Component {
                 });
             }
         });
-    }
+    };
 
     render() {
         const { getFieldDecorator } = this.props.form;

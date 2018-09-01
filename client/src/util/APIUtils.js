@@ -1,4 +1,4 @@
-import { API_BASE_URL, PROJECT_LIST_SIZE, ACCESS_TOKEN } from '../constants';
+import { API_BASE_URL, PROJECT_LIST_SIZE, ACCESS_TOKEN } from '../constants/AppConstants';
 
 const request = (options) => {
     const headers = new Headers({

@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import { createProject } from '../../util/APIUtils';
 import './NewProject.css';  
-import { Form, Input, Button, Icon, Select, Col, notification, DatePicker } from 'antd';
-import Moment from 'react-moment';
-import moment from 'moment';
-const Option = Select.Option;
+import { Form, Input, Button, notification, DatePicker } from 'antd';
 const FormItem = Form.Item;
-const { TextArea } = Input
 
 class NewProject extends Component {
     constructor(props) {

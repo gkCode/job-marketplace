@@ -1,10 +1,8 @@
 {
-  "name": "job-marketplace-client",
+  "name": "job-marketplace",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@devexpress/dx-react-core": "^1.6.0",
-    "@devexpress/dx-react-grid": "^1.6.0",
     "antd": "^3.8.0",
     "babel-plugin-react-intl": "^2.4.0",
     "moment": "^2.22.2",
