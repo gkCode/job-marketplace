@@ -1,11 +1,11 @@
-import { API_BASE_URL, PROJECT_LIST_SIZE, ACCESS_TOKEN } from '../constants/AppConstants';
+import {API_BASE_URL, PROJECT_LIST_SIZE, ACCESS_TOKEN} from 'constants/AppConstants';
 
 const request = (options) => {
     const headers = new Headers({
         'Content-Type': 'application/json',
     })
-    
-    if(localStorage.getItem(ACCESS_TOKEN)) {
+
+    if (localStorage.getItem(ACCESS_TOKEN)) {
         headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN))
     }
 
@@ -13,14 +13,14 @@ const request = (options) => {
     options = Object.assign({}, defaults, options);
 
     return fetch(options.url, options)
-    .then(response => 
-        response.json().then(json => {
-            if(!response.ok) {
-                return Promise.reject(json);
-            }
-            return json;
-        })
-    );
+        .then(response =>
+            response.json().then(json => {
+                if (!response.ok) {
+                    return Promise.reject(json);
+                }
+                return json;
+            })
+        );
 };
 
 export function getAllProjects(page, size) {
@@ -44,7 +44,7 @@ export function createProject(projectData) {
     return request({
         url: API_BASE_URL + "/projects",
         method: 'POST',
-        body: JSON.stringify(projectData)         
+        body: JSON.stringify(projectData)
     });
 }
 
@@ -52,7 +52,7 @@ export function placeBid(bidInfo) {
     return request({
         url: API_BASE_URL + "/projects/placeBid",
         method: 'POST',
-        body: JSON.stringify(bidInfo)         
+        body: JSON.stringify(bidInfo)
     });
 }
 
@@ -87,7 +87,7 @@ export function checkEmailAvailability(email) {
 }
 
 export function getCurrentUser() {
-    if(!localStorage.getItem(ACCESS_TOKEN)) {
+    if (!localStorage.getItem(ACCESS_TOKEN)) {
         return Promise.reject("No access token set.");
     }
 

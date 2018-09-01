@@ -1,17 +1,17 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import {
-  getAllProjects,
-  getUserPlacedBids,
-  getBidsWonBy
+    getAllProjects,
+    getUserPlacedBids,
+    getBidsWonBy
 } from "util/APIUtils";
-import { PROJECT_LIST_SIZE } from "../../constants/AppConstants";
-import { withRouter } from "react-router-dom";
+import {PROJECT_LIST_SIZE} from "constants/AppConstants";
+import {withRouter} from "react-router-dom";
 import "./ProjectList.css";
-import { Table } from 'antd';
-import { getProjectsRowModel } from 'util/ModelUtils'
+import {Table} from 'antd';
+import {getProjectsRowModel} from 'util/ModelUtils'
 
 class ProjectList extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             rows: '',
@@ -28,18 +28,18 @@ class ProjectList extends Component {
 
     loadProjectList = (page = 0, size = PROJECT_LIST_SIZE) => {
         let promise = getAllProjects(page, size);
-        
-        if(this.props.username) {
-            if(this.props.type === 'USER_CREATED_PROJECTS') {
+
+        if (this.props.username) {
+            if (this.props.type === 'USER_CREATED_PROJECTS') {
                 promise = getUserPlacedBids(this.props.username, page, size);
-            } else if(this.props.type === 'BIDS_WON_BY_USER'){
+            } else if (this.props.type === 'BIDS_WON_BY_USER') {
                 promise = getBidsWonBy(this.props.username, page, size);
             }
         } else {
             promise = getAllProjects(page, size);
         }
 
-        if(!promise) {
+        if (!promise) {
             return;
         }
 
@@ -47,23 +47,23 @@ class ProjectList extends Component {
             isLoading: true
         });
 
-        promise            
-        .then(response => {
+        promise
+            .then(response => {
+                this.setState({
+                    projects: getProjectsRowModel(response),
+                    page: response.page,
+                    size: response.size,
+                    totalElements: response.totalElements,
+                    totalPages: response.totalPages,
+                    last: response.last,
+                    isLoading: false
+                })
+            }).catch(error => {
             this.setState({
-                projects: getProjectsRowModel(response),
-                page: response.page,
-                size: response.size,
-                totalElements: response.totalElements,
-                totalPages: response.totalPages,
-                last: response.last,
                 isLoading: false
             })
-        }).catch(error => {
-            this.setState({
-                isLoading: false
-            })
-        });  
-        
+        });
+
     };
 
     componentWillMount() {
@@ -71,7 +71,7 @@ class ProjectList extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(this.props.isAuthenticated !== nextProps.isAuthenticated) {
+        if (this.props.isAuthenticated !== nextProps.isAuthenticated) {
             // Reset State
             this.setState({
                 projects: [],
@@ -81,7 +81,7 @@ class ProjectList extends Component {
                 totalPages: 0,
                 last: true,
                 isLoading: false
-            });    
+            });
             this.loadProjectList();
         }
     }
@@ -89,22 +89,21 @@ class ProjectList extends Component {
     onChange = (pagination, filters, sorter) => {
         console.log('params', pagination, filters, sorter);
     };
-      
+
 
     render() {
         return (
-            
-        <div className="project-grid">
-            <Table 
-                dataSource={this.state.projects}
-                columns={[
-                    { key: "id", dataIndex: "id", title: "ID" },
-                    { key: "name", dataIndex: "name", title: "Project Name" },
-                    { key: "budget", dataIndex: "budget", title: "Budget" },
-                    { key: "bidExpiry", dataIndex: "bidExpiry", title: "Bid Deadline" },
-                    { key: "bid", dataIndex: "bid", title: "Bid"}
-                ]} />           
-        </div>
+            <div className="project-grid">
+                <Table
+                    dataSource={this.state.projects}
+                    columns={[
+                        {key: "id", dataIndex: "id", title: "ID"},
+                        {key: "name", dataIndex: "name", title: "Project Name"},
+                        {key: "budget", dataIndex: "budget", title: "Budget"},
+                        {key: "bidExpiry", dataIndex: "bidExpiry", title: "Bid Deadline"},
+                        {key: "bid", dataIndex: "bid", title: "Bid"}
+                    ]}/>
+            </div>
         );
     }
 }

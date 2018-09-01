@@ -2,11 +2,11 @@ import React, {Component} from "react";
 import {
     getProjectById
 } from "util/APIUtils";
-import LoadingIndicator from "../../common/LoadingIndicator";
-import { notification} from "antd";
+import LoadingIndicator from "common/LoadingIndicator";
+import {notification} from "antd";
 import {withRouter} from "react-router-dom";
 import "./ProjectList.css";
-import {Card } from "antd";
+import {Card} from "antd";
 import Bid from "./Bid";
 
 class ProjectSearch extends Component {
@@ -89,7 +89,7 @@ class ProjectSearch extends Component {
                     {
                         <Card title="Project Details">
                             <div> Name: {this.state.project.name}   </div>
-                            <div> Descrition: {this.state.project.description}    </div>
+                            <div> Description: {this.state.project.description}    </div>
                             <div> Budget: {this.state.project.budget}   </div>
                             <div> Bid Expiration: {this.state.project.bidExpiry}  </div>
                             <Bid projectId={this.state.project.id}></Bid>

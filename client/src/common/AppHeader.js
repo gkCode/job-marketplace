@@ -16,10 +16,6 @@ class AppHeader extends Component {
         }
     };
 
-    onLogout = () =>{
-
-    };
-
     render() {
         let menuItems;
         if (this.props.currentUser) {
@@ -29,7 +25,7 @@ class AppHeader extends Component {
                         <Icon type="home" className="nav-icon"/>
                     </Link>
                 </Menu.Item>,
-                <Menu.Item>
+                <Menu.Item key="/project/search">
                     <Input.Search
                         placeholder="Enter Project Id"
                         onSearch={value => this.handleSearch(value)}

@@ -5,7 +5,10 @@
 }
 
 .create-project-form-button {
-    width: 100%;
+    width: 75%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
 }
 
 .create-project-form-button[disabled], .create-project-form-button[disabled]:hover, .create-project-form-button[disabled]:focus {

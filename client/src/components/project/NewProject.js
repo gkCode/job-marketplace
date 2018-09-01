@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {createProject} from '../../util/APIUtils';
-import './Signup.css';
+import {createProject} from 'util/APIUtils';
 import './NewProject.css'
 import {
     NAME_MIN_LENGTH, NAME_MAX_LENGTH,
@@ -10,7 +9,7 @@ import {
 import {Form, Input, Button, notification, DatePicker} from 'antd';
 
 const FormItem = Form.Item;
-const { TextArea } = Input;
+const {TextArea} = Input;
 
 class NewProject extends Component {
     constructor(props) {
@@ -33,7 +32,6 @@ class NewProject extends Component {
 
     handleInputChange = (event, validate) => {
         const target = event.target;
-        console.log(target);
         const inputName = target.name;
         const inputValue = target.value;
 
@@ -114,7 +112,7 @@ class NewProject extends Component {
         }
 
         return {
-            validateStatus: null,
+            validateStatus: 'success',
             errorMsg: null
         }
     }
@@ -127,23 +125,25 @@ class NewProject extends Component {
             }
         } else {
             return {
-                validateStatus: null,
+                validateStatus: 'success',
                 errorMsg: null
             }
         }
     }
 
-    validateBidExpiry = (bidExpiry) => {
-       if (bidExpiry === null) {
+    handleBidExpiry = (value) => {
+        if (value === null) {
             return {
                 validationStatus: 'error',
                 errorMsg: `Enter a valid bid expiration date`
             }
         } else {
-            return {
-                validateStatus: 'success',
-                errorMsg: null,
-            };
+            this.setState({
+                bidExpiry: {
+                    value: value,
+                    validateStatus: 'success'
+                }
+            });
         }
     }
 
@@ -165,7 +165,7 @@ class NewProject extends Component {
                                 size="default"
                                 name="name"
                                 autoComplete="off"
-                                placeholder="Project Name"
+                                placeholder="Name of the Project"
                                 value={this.state.name.value}
                                 onChange={(event) => this.handleInputChange(event, this.validateName)}/>
                         </FormItem>
@@ -177,9 +177,8 @@ class NewProject extends Component {
                                 size="default"
                                 name="description"
                                 autoComplete="off"
-                                placeholder="Project Description"
+                                placeholder="Description of the Project"
                                 value={this.state.description.value}
-                                onBlur={this.validateDescriptionAvailability}
                                 onChange={(event) => this.handleInputChange(event, this.validateDescription)}/>
                         </FormItem>
                         <FormItem
@@ -191,9 +190,8 @@ class NewProject extends Component {
                                 size="default"
                                 name="budget"
                                 autoComplete="off"
-                                placeholder="Project Cost Budget"
+                                placeholder="Maximum Cost of Budget"
                                 value={this.state.budget.value}
-                                onBlur={this.validateBudgetAvailability}
                                 onChange={(event) => this.handleInputChange(event, this.validateBudget)}/>
                         </FormItem>
                         <FormItem
@@ -202,16 +200,16 @@ class NewProject extends Component {
                             help={this.state.bidExpiry.errorMsg}>
                             <DatePicker
                                 size="default"
-                                placeholder="Project Bid Expiry Date"
+                                style={{width: 250}}
+                                placeholder="Bid Expiry Date of Project"
                                 disabledDate={this.getDisabledDates}
-                                value={this.state.bidExpiry.value}
-                                onChange={(event) => this.handleInputChange(event, this.validateBidExpiry)}/>
+                                onChange={this.handleBidExpiry}/>
                         </FormItem>
                         <FormItem>
                             <Button type="primary"
                                     htmlType="submit"
                                     size="large"
-                                    className="signup-form-button"
+                                    className="create-project-form-button"
                                     disabled={this.isFormInvalid()}>Add Project</Button>
                         </FormItem>
                     </Form>
