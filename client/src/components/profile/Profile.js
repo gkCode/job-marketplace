@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ProjectList from '../../project/ProjectList';
+import ProjectList from '../project/ProjectList';
 import { getUserProfile } from '../../util/APIUtils';
 import { Avatar, Tabs } from 'antd';
 import { getAvatarColor } from '../../util/Colors';

@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import {
   getAllProjects,
   getUserCreatedProjects
-} from "../util/APIUtils";
-import LoadingIndicator from "../common/LoadingIndicator";
+} from "./../../util/APIUtils";
+import LoadingIndicator from "../../common/LoadingIndicator";
 import { Button, Icon, notification } from "antd";
-import { PROJECT_LIST_SIZE } from "../constants";
+import { PROJECT_LIST_SIZE } from "../../constants/index";
 import { withRouter } from "react-router-dom";
 import "./ProjectList.css";
 import { Card } from "antd";
@@ -31,10 +31,6 @@ class ProjectInfo extends Component {
             });    
             this.loadProjectInfo();
         }
-    }
-
-    loadProjectInfo = () => {
-
     }
 
     render() {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { placeBid } from '../util/APIUtils';
+import { placeBid } from '../../util/APIUtils';
 import { withRouter } from "react-router-dom";
 import { Form, Button, InputNumber, notification } from 'antd';
 

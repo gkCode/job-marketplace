@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { createProject } from '../util/APIUtils';
+import { createProject } from '../../util/APIUtils';
 import './NewProject.css';  
 import { Form, Input, Button, Icon, Select, Col, notification, DatePicker } from 'antd';
 import Moment from 'react-moment';

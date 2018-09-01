@@ -3,14 +3,14 @@ import {
   getAllProjects,
   getUserPlacedBids,
   getBidsWonBy
-} from "../util/APIUtils";
-import LoadingIndicator from "../common/LoadingIndicator";
+} from "util/APIUtils";
+import LoadingIndicator from "../../common/LoadingIndicator";
 import { Button, Icon, notification } from "antd";
-import { PROJECT_LIST_SIZE } from "../constants";
+import { PROJECT_LIST_SIZE } from "../../constants/index";
 import { withRouter } from "react-router-dom";
 import "./ProjectList.css";
 import { Table } from 'antd';
-import { getProjectsRowModel, getProjectsColumnModel } from '../util/ModelUtils'
+import { getProjectsRowModel, getProjectsColumnModel } from 'util/ModelUtils'
 
 class ProjectList extends Component {
     constructor(props){

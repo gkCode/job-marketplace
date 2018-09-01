@@ -9,17 +9,17 @@ import {
 import { getCurrentUser } from '../util/APIUtils';
 import { ACCESS_TOKEN } from '../constants';
 
-import NewProject from '../project/NewProject';
-import ProjectInfo from '../project/ProjectInfo';
-import Login from '../user/login/Login';
-import Signup from '../user/signup/Signup';
-import Profile from '../user/profile/Profile';
+import NewProject from '../components/project/NewProject';
+import ProjectInfo from '../components/project/ProjectInfo';
+import Login from '../components/login/Login';
+import Signup from '../components/signup/Signup';
+import Profile from '../components/profile/Profile';
 import AppHeader from '../common/AppHeader';
 import NotFound from '../common/NotFound';
 import LoadingIndicator from '../common/LoadingIndicator';
 import PrivateRoute from '../common/PrivateRoute';
-import ProjectList from '../project/ProjectList';
-import ProjectSearch from '../project/ProjectSearch';
+import ProjectList from '../components/project/ProjectList';
+import ProjectSearch from '../components/project/ProjectSearch';
 
 import { Layout, notification } from 'antd';
 const { Content } = Layout;
