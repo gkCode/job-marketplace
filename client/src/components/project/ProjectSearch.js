@@ -181,7 +181,7 @@ class ProjectSearch extends Component {
                                 />
                             </FormItem>
                             <span> USD </span>
-                            <FormItem className="project-form-row">
+                            <FormItem>
                                 <Button type="primary"
                                         htmlType="submit"
                                         size="large"

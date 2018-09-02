@@ -1,14 +1,23 @@
 .new-project-container {
-    max-width: 520px;
-    margin: 0 auto;
-    margin-top: 40px;
+    border: 1px rgb(96, 139, 168);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.new-project-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 500px;
+    margin-top: 5%;
 }
 
 .create-project-form-button {
-    width: 75%;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: 5%;
+    width: 40%;
+    flex: 0 1 auto;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .create-project-form-button[disabled], .create-project-form-button[disabled]:hover, .create-project-form-button[disabled]:focus {
@@ -18,28 +27,14 @@
     border-color: #1890ff;
 }
 
-.dynamic-delete-button {
-    cursor: pointer;
-    position: relative;
-    top: 4px;
-    font-size: 24px;
-    color: #999;
-    transition: all .3s;
+.new-project-form {
+    width: 400px;
 }
 
-.dynamic-delete-button:hover {
-    color: #777;
+.new-project-bid {
+    width: 150px;
 }
 
-.dynamic-delete-button[disabled] {
-    cursor: not-allowed;
-    opacity: 0.5;
-}
-
-.project-form-row {
-    margin-bottom: 20px;
-}
-
-.project-form-row input, .ant-input {
-    margin-bottom: 4px;
+.new-project-budget {
+    width: 240px;
 }

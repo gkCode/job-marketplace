@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {createProject} from 'util/APIUtils';
 import './NewProject.css'
 import {DESCRIPTION_MAX_LENGTH, NAME_MAX_LENGTH, NAME_MIN_LENGTH} from 'constants/AppConstants';
-
 import {Button, DatePicker, Form, Input, notification} from 'antd';
 
 const FormItem = Form.Item;
@@ -151,9 +150,9 @@ class NewProject extends Component {
     render() {
         return (
             <div className="new-project-container">
-                <h1 className="page-title">Enter Project Details</h1>
-                <div className="new-project-content">
-                    <Form onSubmit={this.handleSubmit} className="signup-form">
+                <div className="new-project-box">
+                    <h1>Enter Project Details</h1>
+                    <Form onSubmit={this.handleSubmit} className="new-project-form">
                         <FormItem
                             label="Name"
                             validateStatus={this.state.name.validateStatus}
@@ -168,7 +167,6 @@ class NewProject extends Component {
                         </FormItem>
                         <FormItem label="Description"
                                   hasFeedback
-                                  className="project-description"
                                   validateStatus={this.state.description.validateStatus}
                                   help={this.state.description.errorMsg}>
                             <TextArea
@@ -187,7 +185,7 @@ class NewProject extends Component {
                             help={this.state.budget.errorMsg}>
                             <Input
                                 size="default"
-                                style={{width: 250}}
+                                className="new-project-budget"
                                 name="budget"
                                 autoComplete="off"
                                 placeholder="Maximum Cost of Budget in USD"
@@ -200,8 +198,8 @@ class NewProject extends Component {
                             help={this.state.bidExpiry.errorMsg}>
                             <DatePicker
                                 size="default"
-                                style={{width: 230}}
-                                placeholder="Bid Expiry Date of Project"
+                                className="new-project-bid"
+                                placeholder="Expiration Date"
                                 disabledDate={this.getDisabledDates}
                                 onChange={this.handleBidExpiry}/>
                         </FormItem>
