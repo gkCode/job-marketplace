@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.org.marketplace.payload.ApiError;
@@ -72,6 +73,17 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
 		return handleExceptionInternal(ex, dto, headers, HttpStatus.BAD_REQUEST, request);
 	}
+	
+	
+	@ExceptionHandler(value = { MethodArgumentTypeMismatchException.class })
+	protected final ResponseEntity<Object> handleMethodArgumentMissMatch(final RuntimeException ex, final WebRequest request) {
+		LOGGER.info("Bad Request: {}", ex.getMessage());
+		LOGGER.debug("Bad Request: ", ex);
+
+		final ApiError apiError = message(HttpStatus.BAD_REQUEST, ex);
+
+		return handleExceptionInternal(ex, apiError, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+	}
 
 	@ExceptionHandler(value = { ConstraintViolationException.class, DataIntegrityViolationException.class })
 	public final ResponseEntity<Object> handleBadRequest(final RuntimeException ex, final WebRequest request) {
@@ -82,6 +94,19 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 		return handleExceptionInternal(ex, apiError, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
 	}
 
+	/**
+	 * Handler for HTTP 500 error
+	 */
+	@ExceptionHandler({ NullPointerException.class, IllegalArgumentException.class, IllegalStateException.class,
+			Exception.class })
+	public ResponseEntity<Object> handle500s(final RuntimeException ex, final WebRequest request) {
+		LOGGER.error("500 Status Code", ex);
+
+		final ApiError apiError = message(HttpStatus.INTERNAL_SERVER_ERROR, ex);
+
+		return handleExceptionInternal(ex, apiError, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+	}
+	
 	/**
 	 * Handler for HTTP 403 error
 	 */
@@ -126,19 +151,6 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
 		final ApiError apiError = message(HttpStatus.UNSUPPORTED_MEDIA_TYPE, ex);
 		return handleExceptionInternal(ex, apiError, new HttpHeaders(), HttpStatus.UNSUPPORTED_MEDIA_TYPE, request);
-	}
-
-	/**
-	 * Handler for HTTP 500 error
-	 */
-	@ExceptionHandler({ NullPointerException.class, IllegalArgumentException.class, IllegalStateException.class,
-			Exception.class })
-	public ResponseEntity<Object> handle500s(final RuntimeException ex, final WebRequest request) {
-		LOGGER.error("500 Status Code", ex);
-
-		final ApiError apiError = message(HttpStatus.INTERNAL_SERVER_ERROR, ex);
-
-		return handleExceptionInternal(ex, apiError, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
 	}
 
 	private ValidationError processFieldErrors(final List<FieldError> fieldErrors) {

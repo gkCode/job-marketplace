@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
-import {
-    Link,
-    withRouter
-} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import './AppHeader.css';
-import {Layout, Menu, Dropdown, Icon, Input} from 'antd';
+import {Dropdown, Icon, Input, Layout, Menu} from 'antd';
 
 
 const Header = Layout.Header;
@@ -30,7 +27,6 @@ class AppHeader extends Component {
                         placeholder="Enter Project Id"
                         onSearch={value => this.handleSearch(value)}
                         style={{width: 200}}
-                        enterButton
                     />
                 </Menu.Item>,
                 <Menu.Item key="/project/new">

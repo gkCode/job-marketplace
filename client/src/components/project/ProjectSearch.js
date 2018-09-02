@@ -18,7 +18,7 @@ class ProjectSearch extends Component {
         else if (value.length === 0) {
             return {
                 validateStatus: 'error',
-                errorMsg: 'Please enter a valid bid ammount'
+                errorMsg: 'Please enter a valid bid value'
             }
         } else {
             return {
@@ -27,6 +27,54 @@ class ProjectSearch extends Component {
             }
         }
     }
+    loadProjectInfo = () => {
+        let promise = getProjectById(this.state.query);
+
+        if (!promise) {
+            return;
+        }
+
+        this.setState({
+            isLoading: true
+        });
+
+        promise
+            .then(response => {
+                this.setState({
+                    project: response,
+                    isLoading: false,
+                    pageError: ""
+                })
+            }).catch(error => {
+            this.setState({
+                isLoading: false
+            })
+            if (error.status === 400) {
+                let errorTitle = 'Enter a valid numeric project Id';
+                notification.error({
+                    message: errorTitle,
+                    description: error.message
+                });
+                this.setState({
+                    pageError: errorTitle,
+                    isLoading: false
+                });
+            }
+            else if (error.status === 401) {
+                this.props.handleLogout('/login', 'error', 'You have been logged out. Please login create project.');
+            } else {
+                let errorTitle = 'Unable to find project';
+                notification.error({
+                    message: errorTitle,
+                    description: error.message
+                });
+                this.setState({
+                    pageError: errorTitle,
+                    isLoading: false
+                });
+            }
+        });
+    };
 
     componentWillMount() {
         if (this.props.location.query) {
@@ -47,6 +95,7 @@ class ProjectSearch extends Component {
             this.loadProjectInfo(this.state)
         });
     }
+
     handlePlacedBidChange = (value) => {
         if (value === null) {
             return {
@@ -59,12 +108,14 @@ class ProjectSearch extends Component {
             ...this.validatePlacedBid(value)
         });
     }
+
     isFormInvalid = () => {
         if (this.state.validateStatus !== 'success') {
             return true;
         }
         return false;
     }
+
     handleSubmit = (event) => {
         event.preventDefault();
         const bidInfo = {
@@ -95,56 +146,32 @@ class ProjectSearch extends Component {
             isLoading: true,
             bid: '',
             placedBid: '',
-            validateStatus: ''
+            validateStatus: '',
+            pageError: ''
         };
     }
-
-    loadProjectInfo = () => {
-        let promise = getProjectById(this.state.query);
-
-        if (!promise) {
-            return;
-        }
-
-        this.setState({
-            isLoading: true
-        });
-
-        promise
-            .then(response => {
-                this.setState({
-                    project: response,
-                    isLoading: false
-                })
-            }).catch(error => {
-            this.setState({
-                isLoading: false
-            })
-            if (error.status === 401) {
-                this.props.handleLogout('/login', 'error', 'You have been logged out. Please login create project.');
-            } else {
-                notification.error({
-                    message: 'Unable to find project',
-                    description: error.message
-                });
-            }
-        });
-    };
 
     render() {
         if (!this.state.query) {
             return (
                 <div className="page-not-found">
                     <div className="desc">
-                        Enter Project ID
+                        Enter Project Id in the Search Field
                     </div>
                 </div>
             );
         } else if (this.state.isLoading) {
             return <LoadingIndicator/>;
+        } else if (this.state.pageError) {
+            return (
+                <div className="page-not-found">
+                    <div className="desc">
+                        {this.state.pageError}
+                    </div>
+                </div>
+            );
         } else {
             return (
-
                 <div className="project-wrapper">
                     <div className="project-box">
                         <div className="project-prop-name"> Name:</div>

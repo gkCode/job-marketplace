@@ -1,5 +1,4 @@
 export function getProjectsRowModel(projects) {
-    console.log(projects);
     let i = 0;
     return projects.content.map((obj) => {
         obj.key = (++i) + "";

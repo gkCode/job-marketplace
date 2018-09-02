@@ -1,9 +1,5 @@
 import React, {Component} from "react";
-import {
-    getAllProjects,
-    getUserPlacedBids,
-    getBidsWonBy
-} from "util/APIUtils";
+import {getAllProjects, getBidsWonBy, getUserPlacedBids} from "util/APIUtils";
 import {PROJECT_LIST_SIZE} from "constants/AppConstants";
 import {withRouter} from "react-router-dom";
 import "./ProjectList.css";
@@ -85,11 +81,6 @@ class ProjectList extends Component {
             this.loadProjectList();
         }
     }
-
-    onChange = (pagination, filters, sorter) => {
-        console.log('params', pagination, filters, sorter);
-    };
-
 
     render() {
         return (
