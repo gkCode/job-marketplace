@@ -104,7 +104,7 @@ class NewProject extends Component {
         if (!BUDGET_REGEX.test(budget)) {
             return {
                 validateStatus: 'error',
-                errorMsg: 'Budget not valid'
+                errorMsg: 'Budget is not valid'
             }
         }
 
@@ -185,9 +185,10 @@ class NewProject extends Component {
                             help={this.state.budget.errorMsg}>
                             <Input
                                 size="default"
+                                style={{width: 250}}
                                 name="budget"
                                 autoComplete="off"
-                                placeholder="Maximum Cost of Budget"
+                                placeholder="Maximum Cost of Budget in USD"
                                 value={this.state.budget.value}
                                 onChange={(event) => this.handleInputChange(event, this.validateBudget)}/>
                         </FormItem>
