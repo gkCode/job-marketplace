@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
 import {createProject} from 'util/APIUtils';
 import './NewProject.css'
-import {
-    NAME_MIN_LENGTH, NAME_MAX_LENGTH,
-    DESCRIPTION_MAX_LENGTH
-} from 'constants/AppConstants';
+import {DESCRIPTION_MAX_LENGTH, NAME_MAX_LENGTH, NAME_MIN_LENGTH} from 'constants/AppConstants';
 
-import {Form, Input, Button, notification, DatePicker} from 'antd';
+import {Button, DatePicker, Form, Input, notification} from 'antd';
 
 const FormItem = Form.Item;
 const {TextArea} = Input;
@@ -103,8 +100,8 @@ class NewProject extends Component {
             }
         }
 
-        const BUDGET_REGEX = RegExp('[^@ ]+@[^@ ]+\\.[^@ ]+');
-        if (!BUDGET_REGEX.test(budget) && false) {
+        const BUDGET_REGEX = RegExp('^\\d+(\\.\\d{1,3})?$');
+        if (!BUDGET_REGEX.test(budget)) {
             return {
                 validateStatus: 'error',
                 errorMsg: 'Budget not valid'

@@ -1,23 +1,31 @@
 import React, {Component} from "react";
-import {
-    getProjectById
-} from "util/APIUtils";
+import {getProjectById, placeBid} from "util/APIUtils";
 import LoadingIndicator from "common/LoadingIndicator";
-import {notification} from "antd";
+import {Button, Form, InputNumber, notification} from "antd";
 import {withRouter} from "react-router-dom";
-import "./ProjectList.css";
-import {Card} from "antd";
-import Bid from "./Bid";
+import "./ProjectSearch.css";
+
+const FormItem = Form.Item;
 
 class ProjectSearch extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            query: '',
-            project: '',
-            isLoading: true,
-            bid: ''
-        };
+    validatePlacedBid = (value) => {
+        if (value === null || value === "") {
+            return {
+                validateStatus: null,
+                errorMsg: null
+            }
+        }
+        else if (value.length === 0) {
+            return {
+                validateStatus: 'error',
+                errorMsg: 'Please enter a valid bid ammount'
+            }
+        } else {
+            return {
+                validateStatus: 'success',
+                errorMsg: null
+            }
+        }
     }
 
     componentWillMount() {
@@ -38,6 +46,57 @@ class ProjectSearch extends Component {
         }, () => {
             this.loadProjectInfo(this.state)
         });
+    }
+    handlePlacedBidChange = (value) => {
+        if (value === null) {
+            return {
+                validateStatus: null,
+                errorMsg: null
+            }
+        }
+        this.setState({
+            placedBid: value,
+            ...this.validatePlacedBid(value)
+        });
+    }
+    isFormInvalid = () => {
+        if (this.state.validateStatus !== 'success') {
+            return true;
+        }
+        return false;
+    }
+    handleSubmit = (event) => {
+        event.preventDefault();
+        const bidInfo = {
+            projectId: this.state.project.id,
+            bid: this.state.placedBid
+        };
+
+        placeBid(bidInfo)
+            .then(response => {
+                this.props.history.push("/");
+            }).catch(error => {
+            if (error.status === 401) {
+                this.props.handleLogout('/login', 'error', 'You have been logged out. Please login create project.');
+            } else {
+                notification.error({
+                    message: 'Job Marketplace',
+                    description: error.message || 'Sorry! Something went wrong. Please try again!'
+                });
+            }
+        });
+    }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            query: '',
+            project: '',
+            isLoading: true,
+            bid: '',
+            placedBid: '',
+            validateStatus: ''
+        };
     }
 
     loadProjectInfo = () => {
@@ -85,16 +144,38 @@ class ProjectSearch extends Component {
             return <LoadingIndicator/>;
         } else {
             return (
-                <div className="project-grid">
-                    {
-                        <Card title="Project Details">
-                            <div> Name: {this.state.project.name}   </div>
-                            <div> Description: {this.state.project.description}    </div>
-                            <div> Budget: {this.state.project.budget}   </div>
-                            <div> Bid Expiration: {this.state.project.bidExpiry}  </div>
-                            <Bid projectId={this.state.project.id}></Bid>
-                        </Card>
-                    }
+
+                <div className="project-wrapper">
+                    <div className="project-box">
+                        <div className="project-prop-name"> Name:</div>
+                        <div> {this.state.project.name} </div>
+                        <div className="project-prop-name"> Description:</div>
+                        <textarea style={{border: "dotted 1px"}} rows="4" cols="80"
+                                  maxLength="400" readOnly value={this.state.project.description}></textarea>
+                        <div className="project-prop-name"> Budget:</div>
+                        <div> {this.state.project.budget} <span> USD </span></div>
+                        <div className="project-prop-name"> Bid Expiration:</div>
+                        <div> {this.state.project.bidExpiry} </div>
+                        <div className="project-prop-name"> Your Bid:</div>
+                        <Form onSubmit={this.handleSubmit} className="place-bid-form">
+                            <FormItem validateStatus={this.state.validateStatus}>
+                                <InputNumber
+                                    min={1}
+                                    step={0.1}
+                                    className="bid-input"
+                                    onChange={this.handlePlacedBidChange}
+                                />
+                            </FormItem>
+                            <span> USD </span>
+                            <FormItem className="project-form-row">
+                                <Button type="primary"
+                                        htmlType="submit"
+                                        size="large"
+                                        disabled={this.isFormInvalid()}
+                                        className="bid-submit-button">Place Bid</Button>
+                            </FormItem>
+                        </Form>
+                    </div>
                 </div>
             );
         }
