@@ -98,7 +98,7 @@
 }
 
 .bid-input {
-    width: 115px;
+    width: 120px;
 }
 
 .place-bid-form {
@@ -110,7 +110,6 @@
 
 .place-bid-form > :nth-child(1) {
     flex-basis: 3px;
-    margin-left: 0px;
 }
 
 .place-bid-form > :nth-child(2) {
@@ -120,6 +119,6 @@
 
 .place-bid-form > :nth-child(3) {
     flex: 1 1 75%;
-    margin-left: 1%;
+    margin-left: 2%;
 }
 
