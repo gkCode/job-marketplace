@@ -4,7 +4,7 @@ import './Login.css';
 import {Link} from 'react-router-dom';
 import {ACCESS_TOKEN} from 'constants/AppConstants';
 
-import {Form, Input, Button, Icon, notification} from 'antd';
+import {Button, Form, Icon, Input, notification} from 'antd';
 
 const FormItem = Form.Item;
 
@@ -13,8 +13,8 @@ class Login extends Component {
         const AntWrappedLoginForm = Form.create()(LoginForm);
         return (
             <div className="login-container">
-                <h1 className="page-title">Login</h1>
-                <div className="login-content">
+                <div className="login-box">
+                    <h1 className="page-title">Login</h1>
                     <AntWrappedLoginForm onLogin={this.props.onLogin}/>
                 </div>
             </div>
@@ -77,13 +77,14 @@ class LoginForm extends Component {
                     )}
                 </FormItem>
                 <FormItem>
-                    <Button type="primary" htmlType="submit" size="large" className="login-form-button">Login</Button>
+                    <Button type="primary" htmlType="submit" size="large"
+                            className="login-form-button">Login</Button>
                     Or <Link to="/signup">Register</Link>
                 </FormItem>
             </Form>
+
         );
     }
 }
-
 
 export default Login;

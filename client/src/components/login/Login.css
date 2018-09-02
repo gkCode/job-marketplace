@@ -1,6 +1,21 @@
 .login-container {
-    max-width: 420px;
-    margin: 40px auto 0;
+    border: 1px rgb(96, 139, 168);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.login-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 500px;
+    margin-top: 5%;
+}
+
+.login-form input {
+    margin-bottom: 3px;
+    width: 400px;
 }
 
 .login-form-button {
