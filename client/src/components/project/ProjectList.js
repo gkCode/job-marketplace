@@ -88,11 +88,31 @@ class ProjectList extends Component {
                 <Table
                     dataSource={this.state.projects}
                     columns={[
-                        {key: "id", dataIndex: "id", title: "ID"},
-                        {key: "name", dataIndex: "name", title: "Project Name"},
-                        {key: "budget", dataIndex: "budget", title: "Budget"},
-                        {key: "bidExpiry", dataIndex: "bidExpiry", title: "Bid Deadline"},
-                        {key: "bid", dataIndex: "bid", title: "Bid"}
+                        {
+                            key: "id",
+                            dataIndex: "id",
+                            title: "ID",
+                            width: 140,
+                            defaultSortOrder: 'ascend',
+                            sorter: (a, b) => a.id - b.id
+                        },
+                        {key: "name", dataIndex: "name", title: "Project Name", width: 450},
+                        {
+                            key: "budget",
+                            dataIndex: "budget",
+                            title: "Budget",
+                            width: 180,
+                            defaultSortOrder: 'ascend',
+                            sorter: (a, b) => a.budget - b.budget
+                        },
+                        {
+                            key: "bidExpiry",
+                            dataIndex: "bidExpiry",
+                            title: "Bid Deadline",
+                            width: 120,
+                            defaultSortOrder: 'ascend',
+                            sorter: (a, b) => a.bidExpiry - b.bidExpiry
+                        },
                     ]}/>
             </div>
         );
