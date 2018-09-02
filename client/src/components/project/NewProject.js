@@ -168,12 +168,14 @@ class NewProject extends Component {
                         </FormItem>
                         <FormItem label="Description"
                                   hasFeedback
+                                  className="project-description"
                                   validateStatus={this.state.description.validateStatus}
                                   help={this.state.description.errorMsg}>
                             <TextArea
                                 size="default"
                                 name="description"
                                 autoComplete="off"
+                                rows="5"
                                 placeholder="Description of the Project"
                                 value={this.state.description.value}
                                 onChange={(event) => this.handleInputChange(event, this.validateDescription)}/>

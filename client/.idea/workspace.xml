@@ -2,13 +2,15 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/src/components/project/ProjectSearch.js" line="5" />
-    <bookmark url="file://$PROJECT_DIR$/src/components/project/ProjectSearch.js" line="107" />
+    <bookmark url="file://$PROJECT_DIR$/src/components/project/ProjectSearch.js" line="99" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce0086c4-64b0-4747-abba-521c47ed07dc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/project/ProjectList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/project/ProjectList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/profile/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/profile/Profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/project/NewProject.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/project/NewProject.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/project/ProjectSearch.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/project/ProjectSearch.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/project/ProjectSearch.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/project/ProjectSearch.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -35,18 +37,18 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="964" />
-          <entry key="js" value="2497" />
+          <entry key="css" value="988" />
+          <entry key="js" value="2580" />
           <entry key="json" value="42" />
-          <entry key="txt" value="98" />
+          <entry key="txt" value="111" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="964" />
+          <entry key="CSS" value="988" />
           <entry key="JSON" value="42" />
-          <entry key="JavaScript" value="2497" />
-          <entry key="PLAIN_TEXT" value="98" />
+          <entry key="JavaScript" value="2580" />
+          <entry key="PLAIN_TEXT" value="111" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -55,7 +57,7 @@
           <entry key="css" value="16" />
           <entry key="env" value="1" />
           <entry key="java" value="2" />
-          <entry key="js" value="119" />
+          <entry key="js" value="122" />
           <entry key="json" value="1" />
         </counts>
       </usages-collector>
@@ -63,7 +65,7 @@
         <counts>
           <entry key="CSS" value="16" />
           <entry key="JSON" value="2" />
-          <entry key="JavaScript" value="119" />
+          <entry key="JavaScript" value="122" />
           <entry key="PLAIN_TEXT" value="3" />
         </counts>
       </usages-collector>
@@ -79,7 +81,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/project/ProjectList.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1909">
+            <state relative-caret-position="-39">
               <caret line="83" lean-forward="true" selection-start-line="83" selection-end-line="83" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
@@ -88,11 +90,47 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/profile/Profile.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="93">
+              <caret line="95" column="54" lean-forward="true" selection-start-line="95" selection-start-column="54" selection-end-line="95" selection-end-column="54" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/project/ProjectSearch.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="245">
+              <caret line="61" column="73" selection-start-line="61" selection-start-column="73" selection-end-line="61" selection-end-column="73" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/project/ProjectSearch.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="122" column="18" selection-start-line="122" selection-start-column="18" selection-end-line="122" selection-end-column="18" />
+            <state relative-caret-position="599">
+              <caret line="123" lean-forward="true" selection-start-line="123" selection-end-line="123" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/project/NewProject.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="452">
+              <caret line="177" column="41" selection-start-line="177" selection-start-column="41" selection-end-line="177" selection-end-column="41" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -101,12 +139,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>flex</find>
-      <find>project-container</find>
-      <find>item</find>
-      <find>username</find>
-      <find>flexItem</find>
-      <find>.item</find>
       <find>style</find>
       <find>order</find>
       <find>wrapper</find>
@@ -120,7 +152,6 @@
       <find>project-prop-name</find>
       <find>console.log</find>
       <find>.ant-input-affix-wrapper</find>
-      <find>120</find>
       <find>Enter pr</find>
       <find>this.state.isLoadin</find>
       <find>isLoading</find>
@@ -131,6 +162,13 @@
       <find>projectList.</find>
       <find>state</find>
       <find>projectl</find>
+      <find>newpro</find>
+      <find>120</find>
+      <find>your b</find>
+      <find>joined</find>
+      <find>Unable to find project</find>
+      <find>descr</find>
+      <find>bid-input</find>
     </findStrings>
     <replaceStrings>
       <replace>validate</replace>
@@ -151,6 +189,7 @@
       <replace>projectItem</replace>
       <replace>project-wrapper</replace>
       <replace>110</replace>
+      <replace>115</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src</dir>
@@ -179,7 +218,6 @@
         <option value="$PROJECT_DIR$/src/components/project/NewProject.css" />
         <option value="$PROJECT_DIR$/src/app/App.js" />
         <option value="$PROJECT_DIR$/src/components/login/Login.js" />
-        <option value="$PROJECT_DIR$/src/components/profile/Profile.js" />
         <option value="$PROJECT_DIR$/src/components/signup/Signup.js" />
         <option value="$PROJECT_DIR$/src/components/project/Bid.css" />
         <option value="$PROJECT_DIR$/src/components/project/Bid.js" />
@@ -189,10 +227,11 @@
         <option value="$PROJECT_DIR$/src/common/NotFound.css" />
         <option value="$PROJECT_DIR$/src/util/APIUtils.js" />
         <option value="$PROJECT_DIR$/src/util/ErrorResponseUtils.js" />
-        <option value="$PROJECT_DIR$/src/components/project/ProjectSearch.js" />
-        <option value="$PROJECT_DIR$/src/components/project/NewProject.js" />
         <option value="$PROJECT_DIR$/src/components/project/ProjectList.js" />
+        <option value="$PROJECT_DIR$/src/components/project/ProjectSearch.js" />
+        <option value="$PROJECT_DIR$/src/components/profile/Profile.js" />
         <option value="$PROJECT_DIR$/src/components/project/ProjectSearch.css" />
+        <option value="$PROJECT_DIR$/src/components/project/NewProject.js" />
       </list>
     </option>
   </component>
@@ -246,6 +285,13 @@
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="client" type="b2602c69:ProjectViewProjectNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="profile" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="client" type="b2602c69:ProjectViewProjectNode" />
@@ -319,7 +365,7 @@
       <workItem from="1535766344834" duration="14645000" />
       <workItem from="1535782004247" duration="125000" />
       <workItem from="1535782130984" duration="1181000" />
-      <workItem from="1535819670806" duration="27888000" />
+      <workItem from="1535819670806" duration="29058000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor">
       <created>1535762881834</created>
@@ -370,11 +416,25 @@
       <option name="project" value="LOCAL" />
       <updated>1535858644432</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="CSS alignment">
+      <created>1535861794067</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1535861794067</updated>
+    </task>
+    <task id="LOCAL-00009" summary="CSS alignment">
+      <created>1535862296565</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1535862296565</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48084000" />
+    <option name="totallyTimeSpent" value="49254000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -423,7 +483,8 @@
     <MESSAGE value="Description fix" />
     <MESSAGE value="Fixed Error Handling" />
     <MESSAGE value="Fix error msg" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix error msg" />
+    <MESSAGE value="CSS alignment" />
+    <option name="LAST_COMMIT_MESSAGE" value="CSS alignment" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -544,16 +605,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/profile/Profile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2070">
-          <caret line="90" column="60" selection-start-line="90" selection-start-column="52" selection-end-line="90" selection-end-column="60" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/profile/Profile.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="274">
@@ -660,20 +711,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/project/NewProject.js">
+    <entry file="file://$PROJECT_DIR$/src/components/profile/Profile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="108" column="9" lean-forward="true" selection-start-line="108" selection-start-column="9" selection-end-line="108" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/project/ProjectSearch.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2842">
-          <caret line="44" column="37" selection-start-line="44" selection-start-column="37" selection-end-line="44" selection-end-column="37" />
+        <state relative-caret-position="93">
+          <caret line="95" column="54" lean-forward="true" selection-start-line="95" selection-start-column="54" selection-end-line="95" selection-end-column="54" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -682,8 +723,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/project/ProjectList.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1909">
+        <state relative-caret-position="-39">
           <caret line="83" lean-forward="true" selection-start-line="83" selection-end-line="83" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/project/ProjectSearch.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="61" column="73" selection-start-line="61" selection-start-column="73" selection-end-line="61" selection-end-column="73" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -692,8 +743,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/project/ProjectSearch.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="122" column="18" selection-start-line="122" selection-start-column="18" selection-end-line="122" selection-end-column="18" />
+        <state relative-caret-position="599">
+          <caret line="123" lean-forward="true" selection-start-line="123" selection-end-line="123" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/project/NewProject.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="452">
+          <caret line="177" column="41" selection-start-line="177" selection-start-column="41" selection-end-line="177" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

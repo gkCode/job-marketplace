@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {getProjectById, placeBid} from "util/APIUtils";
 import LoadingIndicator from "common/LoadingIndicator";
-import {Button, Form, InputNumber, notification} from "antd";
+import {Button, Form, InputNumber} from "antd";
 import {withRouter} from "react-router-dom";
 import "./ProjectSearch.css";
 
@@ -51,10 +51,6 @@ class ProjectSearch extends Component {
             })
             if (error.status === 400) {
                 let errorTitle = 'Enter a valid numeric project Id';
-                notification.error({
-                    message: errorTitle,
-                    description: error.message
-                });
                 this.setState({
                     pageError: errorTitle,
                     isLoading: false
@@ -63,11 +59,7 @@ class ProjectSearch extends Component {
             else if (error.status === 401) {
                 this.props.handleLogout('/login', 'error', 'You have been logged out. Please login create project.');
             } else {
-                let errorTitle = 'Unable to find project';
-                notification.error({
-                    message: errorTitle,
-                    description: error.message
-                });
+                let errorTitle = 'Project does not exist with the give Id';
                 this.setState({
                     pageError: errorTitle,
                     isLoading: false
@@ -129,11 +121,6 @@ class ProjectSearch extends Component {
             }).catch(error => {
             if (error.status === 401) {
                 this.props.handleLogout('/login', 'error', 'You have been logged out. Please login create project.');
-            } else {
-                notification.error({
-                    message: 'Job Marketplace',
-                    description: error.message || 'Sorry! Something went wrong. Please try again!'
-                });
             }
         });
     }
