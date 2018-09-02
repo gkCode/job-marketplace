@@ -5,6 +5,8 @@ import java.util.Collections;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,7 @@ import com.org.marketplace.entity.Role;
 import com.org.marketplace.entity.RoleType;
 import com.org.marketplace.entity.User;
 import com.org.marketplace.exception.AppException;
+import com.org.marketplace.exception.BadRequestException;
 import com.org.marketplace.payload.ApiResponse;
 import com.org.marketplace.payload.JwtAuthenticationResponse;
 import com.org.marketplace.payload.LoginRequest;
@@ -55,6 +58,8 @@ public class AuthController {
 
 	@Autowired
 	JwtTokenProvider tokenProvider;
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
 
 	/**
 	 * Signs in the authenticated user
@@ -84,11 +89,13 @@ public class AuthController {
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-			return new ResponseEntity<ApiResponse>(new ApiResponse(false, "Username is already taken!"), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<ApiResponse>(new ApiResponse(false, "Username is already taken!"),
+					HttpStatus.BAD_REQUEST);
 		}
 
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-			return new ResponseEntity<ApiResponse>(new ApiResponse(false, "Email Address already in use!"), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<ApiResponse>(new ApiResponse(false, "Email Address already in use!"),
+					HttpStatus.BAD_REQUEST);
 		}
 
 		User user = new User(signUpRequest.getName(), signUpRequest.getUsername(), signUpRequest.getEmail(),
@@ -96,8 +103,15 @@ public class AuthController {
 
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-		Role userRole = roleRepository.findByName(RoleType.ROLE_USER)
-				.orElseThrow(() -> new AppException("User Role not set."));
+		RoleType roleType;
+		try {
+			roleType = RoleType.valueOf(signUpRequest.getUserRole());
+		} catch (Exception e) {
+			LOGGER.error("Invalid user role type: "+e);
+			throw new BadRequestException("Invalid user role type: "+signUpRequest.getUserRole());
+		}
+
+		Role userRole = roleRepository.findByName(roleType).orElseThrow(() -> new AppException("User Role not set."));
 
 		user.setRoles(Collections.singleton(userRole));
 
