@@ -151,8 +151,8 @@ class NewProject extends Component {
         return (
             <div className="new-project-container">
                 <div className="new-project-box">
-                    <h1>Enter Project Details</h1>
                     <Form onSubmit={this.handleSubmit} className="new-project-form">
+                        <h1>Enter Project Details</h1>
                         <FormItem
                             label="Name"
                             validateStatus={this.state.name.validateStatus}

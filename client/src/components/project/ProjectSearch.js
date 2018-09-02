@@ -8,25 +8,6 @@ import "./ProjectSearch.css";
 const FormItem = Form.Item;
 
 class ProjectSearch extends Component {
-    validatePlacedBid = (value) => {
-        if (value === null || value === "") {
-            return {
-                validateStatus: null,
-                errorMsg: null
-            }
-        }
-        else if (value.length === 0) {
-            return {
-                validateStatus: 'error',
-                errorMsg: 'Please enter a valid bid value'
-            }
-        } else {
-            return {
-                validateStatus: 'success',
-                errorMsg: null
-            }
-        }
-    }
     loadProjectInfo = () => {
         let promise = getProjectById(this.state.query);
 
@@ -59,7 +40,7 @@ class ProjectSearch extends Component {
             else if (error.status === 401) {
                 this.props.handleLogout('/login', 'error', 'You have been logged out. Please login create project.');
             } else {
-                let errorTitle = 'Project does not exist with the give Id';
+                let errorTitle = 'Project does not exist!';
                 this.setState({
                     pageError: errorTitle,
                     isLoading: false
@@ -67,6 +48,19 @@ class ProjectSearch extends Component {
             }
         });
     };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            query: '',
+            project: '',
+            isLoading: true,
+            bid: '',
+            placedBid: '',
+            validateStatus: '',
+            pageError: ''
+        };
+    }
 
     componentWillMount() {
         if (this.props.location.query) {
@@ -76,6 +70,26 @@ class ProjectSearch extends Component {
             }, () => {
                 this.loadProjectInfo(this.state)
             });
+        }
+    }
+
+    validatePlacedBid = (value) => {
+        if (value === null || value === "") {
+            return {
+                validateStatus: null,
+                errorMsg: null
+            }
+        }
+        else if (value.length === 0) {
+            return {
+                validateStatus: 'error',
+                errorMsg: 'Please enter a valid bid value'
+            }
+        } else {
+            return {
+                validateStatus: 'success',
+                errorMsg: null
+            }
         }
     }
 
@@ -123,19 +137,6 @@ class ProjectSearch extends Component {
                 this.props.handleLogout('/login', 'error', 'You have been logged out. Please login create project.');
             }
         });
-    }
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            query: '',
-            project: '',
-            isLoading: true,
-            bid: '',
-            placedBid: '',
-            validateStatus: '',
-            pageError: ''
-        };
     }
 
     render() {
