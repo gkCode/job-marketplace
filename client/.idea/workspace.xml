@@ -6,10 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce0086c4-64b0-4747-abba-521c47ed07dc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/project/NewProject.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/project/NewProject.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/project/NewProject.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/project/NewProject.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/project/ProjectSearch.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/project/ProjectSearch.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -37,17 +35,17 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="1255" />
-          <entry key="js" value="3078" />
+          <entry key="css" value="1258" />
+          <entry key="js" value="3080" />
           <entry key="json" value="42" />
           <entry key="txt" value="126" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="1255" />
+          <entry key="CSS" value="1258" />
           <entry key="JSON" value="42" />
-          <entry key="JavaScript" value="3078" />
+          <entry key="JavaScript" value="3080" />
           <entry key="PLAIN_TEXT" value="126" />
         </counts>
       </usages-collector>
@@ -81,8 +79,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/project/NewProject.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="599">
-              <caret line="35" column="1" selection-start-line="35" selection-start-column="1" selection-end-line="35" selection-end-column="1" />
+            <state relative-caret-position="484">
+              <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -90,8 +88,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/project/NewProject.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="200" column="60" selection-start-line="200" selection-start-column="45" selection-end-line="200" selection-end-column="60" />
+            <state relative-caret-position="412">
+              <caret line="199" column="48" selection-start-line="199" selection-start-column="41" selection-end-line="199" selection-end-column="48" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -379,7 +377,7 @@
       <workItem from="1535782004247" duration="125000" />
       <workItem from="1535782130984" duration="1181000" />
       <workItem from="1535819670806" duration="29241000" />
-      <workItem from="1535902431395" duration="6135000" />
+      <workItem from="1535902431395" duration="6373000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor">
       <created>1535762881834</created>
@@ -472,11 +470,18 @@
       <option name="project" value="LOCAL" />
       <updated>1535917926523</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="CSS alignment">
+      <created>1535919244724</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1535919244724</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55572000" />
+    <option name="totallyTimeSpent" value="55810000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -491,7 +496,7 @@
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1952079" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1952079" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -772,8 +777,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/project/NewProject.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="200" column="60" selection-start-line="200" selection-start-column="45" selection-end-line="200" selection-end-column="60" />
+        <state relative-caret-position="412">
+          <caret line="199" column="48" selection-start-line="199" selection-start-column="41" selection-end-line="199" selection-end-column="48" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -782,8 +787,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/project/NewProject.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="599">
-          <caret line="35" column="1" selection-start-line="35" selection-start-column="1" selection-end-line="35" selection-end-column="1" />
+        <state relative-caret-position="484">
+          <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
         </state>
       </provider>
     </entry>

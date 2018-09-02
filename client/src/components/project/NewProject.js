@@ -197,8 +197,10 @@ class NewProject extends Component {
                             validateStatus={this.state.bidExpiry.validateStatus}
                             help={this.state.bidExpiry.errorMsg}>
                             <DatePicker
-                                size="default"
+                                // size="default"
+                                showTime
                                 className="new-project-bid"
+                                format="YYYY-MM-DD HH:mm:ss"
                                 placeholder="Expiration Date"
                                 disabledDate={this.getDisabledDates}
                                 onChange={this.handleBidExpiry}/>
