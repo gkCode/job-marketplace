@@ -35,8 +35,8 @@ public class Project extends UserDateAudit {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Size(max = 20)
 	@NotNull
+	@Size(max = 40)
 	private String name;
 
 	@Size(max = 400)
@@ -57,7 +57,7 @@ public class Project extends UserDateAudit {
 		super();
 	}
 
-	public Project(Long id, @Size(max = 20) @NotNull String name, @Size(max = 400) String description,
+	public Project(Long id, @Size(max = 40) @NotNull String name, @Size(max = 400) String description,
 			@Min(1) Double budget, @NotNull LocalDate bidExpiry, List<Bid> bids) {
 		super();
 		this.id = id;

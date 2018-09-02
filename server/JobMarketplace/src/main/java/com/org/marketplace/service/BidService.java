@@ -64,6 +64,10 @@ public class BidService {
 	public Bid placeBid(BidRequest bidRequest, UserPrincipal userPrincipal) {
 		Bid bid = new Bid();
 		try {
+			if(bidRequest.getBid() == null && bidRequest.getBid() < 0) {
+				throw new BadRequestException("Enter a valid bid value");
+			}
+			
 			bid.setBid(bidRequest.getBid());
 
 			Optional<Project> projectToBeBidded = projectRepository.findById(bidRequest.getProjectId());
@@ -74,7 +78,7 @@ public class BidService {
 				} else {
 					// Verify if the bid value is unique
 					Set<Double> currentBids = bidRepository.findBidsForProject(project.getId());
-					if (currentBids.contains(bidRequest.getBid())) {
+					if (currentBids.size() > 0 && currentBids.contains(bidRequest.getBid())) {
 						throw new BadRequestException("Bid is already placed on project. Enter a different bid");
 					}
 					bid.setProject(project);

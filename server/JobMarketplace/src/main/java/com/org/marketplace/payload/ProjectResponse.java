@@ -10,6 +10,7 @@ import java.time.LocalDate;
 public class ProjectResponse {
 	private Long id;
 	private String name;
+	private String description;
 	private UserSummary createdBy;
 	private Instant creationDateTime;
 	private Instant expirationDateTime;
@@ -22,12 +23,13 @@ public class ProjectResponse {
 		super();
 		this.bid = (double) 0;
 	}
-	
-	public ProjectResponse(Long id, String name, UserSummary createdBy, Instant creationDateTime,
+
+	public ProjectResponse(Long id, String name, String description, UserSummary createdBy, Instant creationDateTime,
 			Instant expirationDateTime, Boolean isExpired, Double budget, LocalDate bidExpiry, Double bid) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.description = description;
 		this.createdBy = createdBy;
 		this.creationDateTime = creationDateTime;
 		this.expirationDateTime = expirationDateTime;
@@ -36,8 +38,6 @@ public class ProjectResponse {
 		this.bidExpiry = bidExpiry;
 		this.bid = bid;
 	}
-
-
 
 	public Double getBudget() {
 		return budget;
@@ -117,6 +117,14 @@ public class ProjectResponse {
 
 	public void setBid(Double bid) {
 		this.bid = bid;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
  */
 public class ProjectRequest {
 	@NotBlank
-	@Size(min = 3, max = 20)
+	@Size(min = 3, max = 40)
 	private String name;
 
 	@NotNull
