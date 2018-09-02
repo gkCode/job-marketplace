@@ -34,6 +34,7 @@ public final class ModelUtils {
 
 			projectResponse.setId(project.getId());
 			projectResponse.setName(project.getName());
+			projectResponse.setDescription(project.getDescription());
 			projectResponse.setBudget(project.getBudget());
 
 			if (project.getBids() != null && project.getBids().size() > 0) {
