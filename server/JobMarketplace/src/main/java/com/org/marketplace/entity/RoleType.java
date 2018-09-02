@@ -1,4 +1,4 @@
-package com.org.marketplace.model;
+package com.org.marketplace.entity;
 
 /**
  * Placeholder for user roles types
@@ -7,5 +7,5 @@ package com.org.marketplace.model;
  *
  */
 public enum RoleType {
-	ROLE_USER, ROLE_ADMIN
+	ROLE_BUYER, ROLE_SELLER, ROLE_USER, ROLE_ADMIN
 }

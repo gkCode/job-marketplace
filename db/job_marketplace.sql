@@ -1,5 +1,4 @@
-
-CREATE TABLE `users` (
+CREATE TABLE `user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) NOT NULL,
   `username` varchar(15) NOT NULL,
@@ -8,16 +7,16 @@ CREATE TABLE `users` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_users_username` (`username`),
-  UNIQUE KEY `uk_users_email` (`email`)
+  UNIQUE KEY `uk_user_username` (`username`),
+  UNIQUE KEY `uk_user_email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `roles` (
+CREATE TABLE `role` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(60) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_roles_name` (`name`)
+  UNIQUE KEY `uk_role_name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 
@@ -26,12 +25,12 @@ CREATE TABLE `user_roles` (
   `role_id` bigint(20) NOT NULL,
   PRIMARY KEY (`user_id`,`role_id`),
   KEY `fk_user_roles_role_id` (`role_id`),
-  CONSTRAINT `fk_user_roles_role_id` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`),
-  CONSTRAINT `fk_user_roles_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `fk_user_roles_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`),
+  CONSTRAINT `fk_user_roles_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `projects` (
+CREATE TABLE `project` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) NOT NULL,
   `description` varchar(400) NOT NULL,
@@ -53,11 +52,14 @@ CREATE TABLE `bid` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_bids_user_id` (`user_id`),
-  KEY `fk_bids_project_id` (`project_id`),
-  CONSTRAINT `fk_bids_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `fk_bids_project_id` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`)
+  KEY `fk_bid_user_id` (`user_id`),
+  KEY `fk_bid_project_id` (`project_id`),
+  CONSTRAINT `fk_bid_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `fk_bid_project_id` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT IGNORE INTO roles(name) VALUES('ROLE_USER');
-INSERT IGNORE INTO roles(name) VALUES('ROLE_ADMIN');
+
+INSERT IGNORE INTO role(name) VALUES('ROLE_USER');
+INSERT IGNORE INTO role(name) VALUES('ROLE_ADMIN');
+INSERT IGNORE INTO role(name) VALUES('ROLE_BUYER');
+INSERT IGNORE INTO role(name) VALUES('ROLE_SELLER');

@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.org.marketplace.model.User;
+import com.org.marketplace.entity.User;
 
 /**
  * JPA repository for users table

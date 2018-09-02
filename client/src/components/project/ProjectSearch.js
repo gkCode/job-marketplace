@@ -159,7 +159,7 @@ class ProjectSearch extends Component {
             );
         } else {
             return (
-                <div className="project-wrapper">
+                <div className="project-container">
                     <div className="project-box">
                         <div className="project-prop-name"> Name:</div>
                         <div> {this.state.project.name} </div>

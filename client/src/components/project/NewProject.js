@@ -200,7 +200,7 @@ class NewProject extends Component {
                             help={this.state.bidExpiry.errorMsg}>
                             <DatePicker
                                 size="default"
-                                style={{width: 250}}
+                                style={{width: 230}}
                                 placeholder="Bid Expiry Date of Project"
                                 disabledDate={this.getDisabledDates}
                                 onChange={this.handleBidExpiry}/>

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.org.marketplace.entity.User;
 import com.org.marketplace.exception.ResourceNotFoundException;
-import com.org.marketplace.model.User;
 import com.org.marketplace.payload.PagedResponse;
 import com.org.marketplace.payload.ProjectResponse;
 import com.org.marketplace.payload.UserIdentityAvailability;

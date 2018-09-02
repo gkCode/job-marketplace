@@ -3,8 +3,8 @@ package com.org.marketplace.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.org.marketplace.model.Project;
-import com.org.marketplace.model.User;
+import com.org.marketplace.entity.Project;
+import com.org.marketplace.entity.User;
 import com.org.marketplace.payload.ProjectResponse;
 import com.org.marketplace.payload.UserSummary;
 

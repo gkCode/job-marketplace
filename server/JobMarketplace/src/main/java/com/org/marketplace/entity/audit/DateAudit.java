@@ -1,4 +1,4 @@
-package com.org.marketplace.model.audit;
+package com.org.marketplace.entity.audit;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.CreatedDate;

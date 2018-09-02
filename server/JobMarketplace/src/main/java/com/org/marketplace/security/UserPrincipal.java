@@ -10,7 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.org.marketplace.model.User;
+import com.org.marketplace.entity.User;
 
 /**
  * Represents information of a core user of the application

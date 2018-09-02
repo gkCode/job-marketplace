@@ -1,4 +1,4 @@
-package com.org.marketplace.model;
+package com.org.marketplace.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Min;
 
-import com.org.marketplace.model.audit.DateAudit;
+import com.org.marketplace.entity.audit.DateAudit;
 
 /**
  * Represents bid table in the database

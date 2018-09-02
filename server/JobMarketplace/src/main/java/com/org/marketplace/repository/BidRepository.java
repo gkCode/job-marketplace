@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.org.marketplace.model.Bid;
+import com.org.marketplace.entity.Bid;
 
 /**
  * JPA repository for bid table

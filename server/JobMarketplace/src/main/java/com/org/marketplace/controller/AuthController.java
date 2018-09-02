@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.org.marketplace.entity.Role;
+import com.org.marketplace.entity.RoleType;
+import com.org.marketplace.entity.User;
 import com.org.marketplace.exception.AppException;
-import com.org.marketplace.model.Role;
-import com.org.marketplace.model.RoleType;
-import com.org.marketplace.model.User;
 import com.org.marketplace.payload.ApiResponse;
 import com.org.marketplace.payload.JwtAuthenticationResponse;
 import com.org.marketplace.payload.LoginRequest;

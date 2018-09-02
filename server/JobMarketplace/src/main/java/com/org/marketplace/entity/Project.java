@@ -1,4 +1,4 @@
-package com.org.marketplace.model;
+package com.org.marketplace.entity;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,22 +11,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.org.marketplace.model.audit.UserDateAudit;
+import com.org.marketplace.entity.audit.UserDateAudit;
 
 /**
- * Represents projects table in the database
+ * Represents project table in the database
  * 
  * @author gauravkahadane
  *
  */
 @Entity
-@Table(name = "projects")
+@Table(name = "project")
 public class Project extends UserDateAudit {
 
 	private static final long serialVersionUID = -6674017353910255564L;
@@ -38,7 +39,7 @@ public class Project extends UserDateAudit {
 	@NotNull
 	@Size(max = 40)
 	private String name;
-
+	
 	@Size(max = 400)
 	private String description;
 

@@ -1,12 +1,23 @@
 .signup-container {
-    max-width: 420px;
-    margin: 0 auto;
-    margin-top: 40px;    
+    border: 1px rgb(96, 139, 168);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.signup-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 500px;
+    margin-top: 5%;
 }
 
 .signup-form-button {
-    width: 100%;
-    margin-top: 15px;
+    width: 40%;
+    flex: 0 1 auto;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .signup-form-button[disabled], .signup-form-button[disabled]:hover, .signup-form-button[disabled]:focus {
@@ -18,4 +29,10 @@
 
 .signup-form input {
     margin-bottom: 3px;
+    width: 400px;
+}
+
+.signup-user-option {
+    margin-bottom: 10px;
+    flex: 0 1 auto;
 }

@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.org.marketplace.model.Bid;
-import com.org.marketplace.model.Project;
+import com.org.marketplace.entity.Bid;
+import com.org.marketplace.entity.Project;
 import com.org.marketplace.payload.ApiResponse;
 import com.org.marketplace.payload.BidRequest;
 import com.org.marketplace.payload.PagedResponse;
@@ -80,7 +80,7 @@ public class ProjectController {
 	 * @throws Exception REST API exception
 	 */
 	@PostMapping
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> createProject(@Valid @RequestBody ProjectRequest projectRequest,
 			@CurrentUser UserPrincipal currentUser) throws Exception {
 

@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.org.marketplace.entity.User;
 import com.org.marketplace.exception.ResourceNotFoundException;
-import com.org.marketplace.model.User;
 import com.org.marketplace.repository.UserRepository;
 
 /**

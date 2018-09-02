@@ -5,8 +5,8 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.org.marketplace.model.Role;
-import com.org.marketplace.model.RoleType;
+import com.org.marketplace.entity.Role;
+import com.org.marketplace.entity.RoleType;
 
 /**
  * JPA repository for roles table

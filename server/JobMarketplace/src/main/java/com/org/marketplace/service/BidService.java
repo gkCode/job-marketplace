@@ -17,11 +17,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.org.marketplace.entity.Bid;
+import com.org.marketplace.entity.Project;
+import com.org.marketplace.entity.User;
 import com.org.marketplace.exception.BadRequestException;
 import com.org.marketplace.exception.ResourceNotFoundException;
-import com.org.marketplace.model.Bid;
-import com.org.marketplace.model.Project;
-import com.org.marketplace.model.User;
 import com.org.marketplace.payload.BidRequest;
 import com.org.marketplace.payload.PagedResponse;
 import com.org.marketplace.payload.ProjectResponse;

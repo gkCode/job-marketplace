@@ -16,10 +16,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.org.marketplace.entity.Project;
+import com.org.marketplace.entity.User;
 import com.org.marketplace.exception.BadRequestException;
 import com.org.marketplace.exception.ResourceNotFoundException;
-import com.org.marketplace.model.Project;
-import com.org.marketplace.model.User;
 import com.org.marketplace.payload.PagedResponse;
 import com.org.marketplace.payload.ProjectRequest;
 import com.org.marketplace.payload.ProjectResponse;

@@ -1,16 +1,16 @@
-package com.org.marketplace.model;
+package com.org.marketplace.entity;
 
 import org.hibernate.annotations.NaturalId;
 import javax.persistence.*;
 
 /**
- * Represents roles table in the database
+ * Represents role table in the database
  * 
  * @author gauravkahadane
  *
  */
 @Entity
-@Table(name = "roles")
+@Table(name = "role")
 public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
