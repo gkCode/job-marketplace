@@ -14,10 +14,12 @@
 }
 
 .login-form input {
-    margin-bottom: 3px;
     width: 400px;
 }
 
 .login-form-button {
-    width: 100%;
+    width: 40%;
+    flex: 0 1 auto;
+    left: 50%;
+    transform: translateX(-50%);
 }

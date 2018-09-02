@@ -1,6 +1,8 @@
 package com.org.marketplace.payload;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * @author gauravkahadane
@@ -23,7 +25,8 @@ public class SignUpRequest {
 	@NotBlank
 	@Size(min = 6, max = 20)
 	private String password;
-
+	
+	
 	public String getName() {
 		return name;
 	}

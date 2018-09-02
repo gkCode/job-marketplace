@@ -266,6 +266,7 @@ class Signup extends Component {
                             <Radio value={1}>Buyer</Radio>
                             <Radio value={2}>Seller</Radio>
                         </RadioGroup>
+
                         <FormItem
                             label="Full Name"
                             validateStatus={this.state.name.validateStatus}
