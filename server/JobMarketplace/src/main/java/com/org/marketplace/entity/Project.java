@@ -1,6 +1,6 @@
 package com.org.marketplace.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
@@ -48,7 +47,7 @@ public class Project extends UserDateAudit {
 
 	@NotNull
 	@Column(name = "expiration_date_time")
-	private LocalDate bidExpiry;
+	private LocalDateTime bidExpiry;
 
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	@OrderBy("value ASC")
@@ -59,7 +58,7 @@ public class Project extends UserDateAudit {
 	}
 
 	public Project(Long id, @Size(max = 40) @NotNull String name, @Size(max = 400) String description,
-			@Min(1) Double budget, @NotNull LocalDate bidExpiry, List<Bid> bids) {
+			@Min(1) Double budget, @NotNull LocalDateTime bidExpiry, List<Bid> bids) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -90,11 +89,11 @@ public class Project extends UserDateAudit {
 		this.budget = budget;
 	}
 
-	public LocalDate getBidExpiry() {
+	public LocalDateTime getBidExpiry() {
 		return bidExpiry;
 	}
 
-	public void setBidExpiry(LocalDate bidExpiry) {
+	public void setBidExpiry(LocalDateTime bidExpiry) {
 		this.bidExpiry = bidExpiry;
 	}
 

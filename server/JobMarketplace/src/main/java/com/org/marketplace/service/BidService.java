@@ -1,6 +1,6 @@
 package com.org.marketplace.service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -73,7 +73,7 @@ public class BidService {
 			Optional<Project> projectToBeBidded = projectRepository.findById(bidRequest.getProjectId());
 			if (projectToBeBidded.isPresent()) {
 				Project project = projectToBeBidded.get();
-				if (project.getBidExpiry().compareTo(LocalDate.now()) < 0) {
+				if (project.getBidExpiry().compareTo(LocalDateTime.now()) < 0) {
 					throw new BadRequestException("Bidding is expired for project: " + project.getName());
 				} else {
 					// Verify if the bid value is unique
@@ -126,7 +126,7 @@ public class BidService {
 				Optional<Project> project = projectRepository.findById(bid.getProject().getId());
 				if (project.isPresent()) {
 					Project biddedProject = project.get();
-					if (biddedProject.getBidExpiry().compareTo(LocalDate.now()) > 0) {
+					if (biddedProject.getBidExpiry().compareTo(LocalDateTime.now()) > 0) {
 						projectsWon.add(ModelUtils.mapProjectToProjectResponse(bid.getProject(), user));
 					}
 				}

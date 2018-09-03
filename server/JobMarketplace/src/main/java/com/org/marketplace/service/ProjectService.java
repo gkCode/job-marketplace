@@ -1,6 +1,6 @@
 package com.org.marketplace.service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -221,7 +221,7 @@ public class ProjectService {
 			Sort sort = new Sort(Sort.Direction.DESC, "createdAt");
 			List<Project> projects = projectRepository.findByIdIn(projectIds, sort);
 
-			projects = projects.stream().filter(project -> project.getBidExpiry().isBefore(LocalDate.now()))
+			projects = projects.stream().filter(project -> project.getBidExpiry().isBefore(LocalDateTime.now()))
 					.collect(Collectors.toList());
 
 			LOGGER.info("Filtered sold projects, size:" + projects.size());

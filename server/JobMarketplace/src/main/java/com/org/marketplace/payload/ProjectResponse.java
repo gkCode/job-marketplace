@@ -1,7 +1,7 @@
 package com.org.marketplace.payload;
 
 import java.time.Instant;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * @author gauravkahadane
@@ -16,7 +16,7 @@ public class ProjectResponse {
 	private Instant expirationDateTime;
 	private Boolean isExpired;
 	private Double budget;
-	private LocalDate bidExpiry;
+	private LocalDateTime bidExpiry;
 	private Double bid;
 
 	public ProjectResponse() {
@@ -25,7 +25,7 @@ public class ProjectResponse {
 	}
 
 	public ProjectResponse(Long id, String name, String description, UserSummary createdBy, Instant creationDateTime,
-			Instant expirationDateTime, Boolean isExpired, Double budget, LocalDate bidExpiry, Double bid) {
+			Instant expirationDateTime, Boolean isExpired, Double budget, LocalDateTime bidExpiry, Double bid) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -95,11 +95,11 @@ public class ProjectResponse {
 		isExpired = expired;
 	}
 
-	public LocalDate getBidExpiry() {
+	public LocalDateTime getBidExpiry() {
 		return bidExpiry;
 	}
 
-	public void setBidExpiry(LocalDate bidExpiry) {
+	public void setBidExpiry(LocalDateTime bidExpiry) {
 		this.bidExpiry = bidExpiry;
 	}
 
