@@ -11,13 +11,34 @@ import {
     USERNAME_MAX_LENGTH,
     USERNAME_MIN_LENGTH
 } from 'constants/AppConstants';
-
+import {ROLE_BUYER, ROLE_SELLER} from "constants/AppConstants";
 import {Button, Form, Input, notification, Radio} from 'antd';
 
 const RadioGroup = Radio.Group;
 const FormItem = Form.Item;
 
 class Signup extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: {
+                value: ''
+            },
+            username: {
+                value: ''
+            },
+            email: {
+                value: ''
+            },
+            password: {
+                value: ''
+            },
+            userRole: {
+                value: ROLE_BUYER
+            }
+        }
+    }
+
     handleInputChange = (event, validate) => {
         const target = event.target;
         const inputName = target.name;
@@ -30,6 +51,7 @@ class Signup extends Component {
             }
         });
     }
+
     handleSubmit = (event) => {
         event.preventDefault();
 
@@ -38,7 +60,7 @@ class Signup extends Component {
             email: this.state.email.value,
             username: this.state.username.value,
             password: this.state.password.value,
-            role: this.state.role.value
+            userRole: this.state.userRole.value
         };
         signup(signupRequest)
             .then(response => {
@@ -54,6 +76,7 @@ class Signup extends Component {
             });
         });
     }
+
     isFormInvalid = () => {
         return !(this.state.name.validateStatus === 'success' &&
             this.state.username.validateStatus === 'success' &&
@@ -61,6 +84,7 @@ class Signup extends Component {
             this.state.password.validateStatus === 'success'
         );
     }
+
     validateUsernameAvailability = () => {
         // First check for client side errors in username
         const usernameValue = this.state.username.value;
@@ -114,6 +138,7 @@ class Signup extends Component {
             });
         });
     }
+
     validateEmailAvailability = () => {
         const emailValue = this.state.email.value;
         const emailValidation = this.validateEmail(emailValue);
@@ -234,24 +259,41 @@ class Signup extends Component {
         }
     }
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: {
-                value: ''
-            },
-            username: {
-                value: ''
-            },
-            email: {
-                value: ''
-            },
-            password: {
-                value: ''
-            },
-            role: {
-                value: ''
+    validatePassword = (password) => {
+        if (password.length < PASSWORD_MIN_LENGTH) {
+            return {
+                validateStatus: 'error',
+                errorMsg: `Password is too short (Minimum ${PASSWORD_MIN_LENGTH} characters needed.)`
             }
+        } else if (password.length > PASSWORD_MAX_LENGTH) {
+            return {
+                validationStatus: 'error',
+                errorMsg: `Password is too long (Maximum ${PASSWORD_MAX_LENGTH} characters allowed.)`
+            }
+        } else {
+            return {
+                validateStatus: 'success',
+                errorMsg: null,
+            };
+        }
+    }
+
+    handleUserRoleChange = (event) => {
+        const target = event.target;
+        let userRole;
+        if (target.checked) {
+            if (target.value === 1) {
+                userRole = ROLE_BUYER;
+            }
+
+            if (target.value === 2) {
+                userRole = ROLE_SELLER;
+            }
+            this.setState({
+                userRole: {
+                    value: userRole
+                }
+            });
         }
     }
 
@@ -262,7 +304,11 @@ class Signup extends Component {
                     <Form onSubmit={this.handleSubmit} className="signup-form">
                         <h1 className="page-title">Sign Up</h1>
 
-                        <RadioGroup name="user-role" className="signup-user-option" defaultValue={1}>
+                        <RadioGroup
+                            name="user-role"
+                            className="signup-user-option"
+                            defaultValue={1}
+                            onChange={(event) => this.handleUserRoleChange(event)}>
                             <Radio value={1}>Buyer</Radio>
                             <Radio value={2}>Seller</Radio>
                         </RadioGroup>
@@ -331,31 +377,10 @@ class Signup extends Component {
                             Already registered? <Link to="/login">Login now!</Link>
                         </div>
                     </Form>
-                    {/*</div>*/}
                 </div>
             </div>
         );
     }
-
-    validatePassword = (password) => {
-        if (password.length < PASSWORD_MIN_LENGTH) {
-            return {
-                validateStatus: 'error',
-                errorMsg: `Password is too short (Minimum ${PASSWORD_MIN_LENGTH} characters needed.)`
-            }
-        } else if (password.length > PASSWORD_MAX_LENGTH) {
-            return {
-                validationStatus: 'error',
-                errorMsg: `Password is too long (Maximum ${PASSWORD_MAX_LENGTH} characters allowed.)`
-            }
-        } else {
-            return {
-                validateStatus: 'success',
-                errorMsg: null,
-            };
-        }
-    }
-
 }
 
 export default Signup;

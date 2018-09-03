@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import './AppHeader.css';
 import {Dropdown, Icon, Input, Layout, Menu} from 'antd';
-
+import {ROLE_BUYER} from "constants/AppConstants";
+import {ROLE_SELLER} from "../constants/AppConstants";
 
 const Header = Layout.Header;
 
@@ -14,9 +15,11 @@ class AppHeader extends Component {
     };
 
     render() {
-        let menuItems;
+        let menuItems = [];
+
         if (this.props.currentUser) {
-            menuItems = [
+            //avoiding array splice as number of elements is small
+            menuItems.push(
                 <Menu.Item key="/">
                     <Link to="/">
                         <Icon type="home" className="nav-icon"/>
@@ -28,18 +31,20 @@ class AppHeader extends Component {
                         onSearch={value => this.handleSearch(value)}
                         style={{width: 200}}
                     />
-                </Menu.Item>,
-                <Menu.Item key="/project/new">
+                </Menu.Item>,);
+            if (this.props.currentUser.role === ROLE_SELLER) {
+                menuItems.push(<Menu.Item key="/project/new">
                     <Link to="/project/new">
                         <Icon type="plus" className="nav-icon"/>
                     </Link>
-                </Menu.Item>,
+                </Menu.Item>,);
+            }
+            menuItems.push(
                 <Menu.Item key="/profile" className="profile-menu">
                     <ProfileDropdownMenu
                         currentUser={this.props.currentUser}
                         handleMenuClick={this.handleMenuClick}/>
-                </Menu.Item>
-            ];
+                </Menu.Item>);
         } else {
             menuItems = [
                 <Menu.Item key="/login">
