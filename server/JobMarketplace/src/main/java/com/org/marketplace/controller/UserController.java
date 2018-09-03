@@ -1,6 +1,7 @@
 package com.org.marketplace.controller;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.org.marketplace.entity.Role;
 import com.org.marketplace.entity.RoleType;
 import com.org.marketplace.entity.User;
 import com.org.marketplace.exception.ResourceNotFoundException;
@@ -113,7 +115,9 @@ public class UserController {
 
 		UserProfile userProfile = new UserProfile(user.getId(), user.getUsername(), user.getName(),
 				user.getCreatedAt());
-
+		
+		Set<Role> roles = user.getRoles();
+		userProfile.setRoles(roles);
 		return userProfile;
 	}
 
@@ -132,6 +136,23 @@ public class UserController {
 			@RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
 			@RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
 		return projectService.getBidsPlacedBy(username, currentUser, page, size);
+	}
+	
+	/**
+	 * Retrieves the projects created by a user
+	 * 
+	 * @param username    user name
+	 * @param currentUser user principal
+	 * @param page        index of the page
+	 * @param size        size of the page
+	 * @return projects created by a user
+	 */
+	@GetMapping("/users/{username}/projects")
+	public PagedResponse<ProjectResponse> getProjectsCreatedBy(@PathVariable(value = "username") String username,
+			@CurrentUser UserPrincipal currentUser,
+			@RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
+			@RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
+		return projectService.getProjectsCreatedBy(username, currentUser, page, size);
 	}
 
 	/**

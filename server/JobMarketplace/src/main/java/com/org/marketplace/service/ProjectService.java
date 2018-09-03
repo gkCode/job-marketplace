@@ -39,7 +39,7 @@ import com.org.marketplace.util.ValidatorUtils;
  */
 @Service
 public class ProjectService {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProjectService.class);
 
 	@Autowired
@@ -137,6 +137,57 @@ public class ProjectService {
 			throw e;
 		}
 
+	}
+
+	/**
+	 * Retrieves the projects created by a user
+	 * 
+	 * @param username
+	 * @param currentUser authenticated user
+	 * @param page        index of a page
+	 * @param size        size of a page
+	 * @return projects created by a user
+	 */
+	public PagedResponse<ProjectResponse> getProjectsCreatedBy(String username, UserPrincipal currentUser, int page,
+			int size) {
+		try {
+			ValidatorUtils.validatePageNumberAndSize(page, size);
+
+			User user = userRepository.findByUsername(username)
+					.orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
+
+			Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
+			
+			Page<Project> userCreatedProjects = projectRepository.findProjectsCreatedBy(user.getId(), pageable);
+
+			if (userCreatedProjects.getNumberOfElements() == 0) {
+				return new PagedResponse<>(Collections.emptyList(), userCreatedProjects.getNumber(),
+						userCreatedProjects.getSize(), userCreatedProjects.getTotalElements(),
+						userCreatedProjects.getTotalPages(), userCreatedProjects.isLast());
+			}
+
+			List<Project> projects = userCreatedProjects.getContent();
+
+			Sort sort = new Sort(Sort.Direction.DESC, "createdAt");
+//			List<Project> projects = projectRepository.findByIdIn(projectIds, sort);
+
+			Map<Long, User> creatorMap = getProjectCreatorMap(projects);
+
+			List<ProjectResponse> projectResponses = projects.stream().map(project -> {
+				return ModelUtils.mapProjectToProjectResponse(project, creatorMap.get(project.getCreatedBy()));
+			}).collect(Collectors.toList());
+
+			return new PagedResponse<>(projectResponses, userCreatedProjects.getNumber(),
+					userCreatedProjects.getSize(), userCreatedProjects.getTotalElements(),
+					userCreatedProjects.getTotalPages(), userCreatedProjects.isLast());
+
+		} catch (BadRequestException e) {
+			LOGGER.error("Bad Request: " + e);
+			throw e;
+		} catch (ResourceNotFoundException e) {
+			LOGGER.error("Resource Not Found: " + e);
+			throw e;
+		}
 	}
 
 	/**

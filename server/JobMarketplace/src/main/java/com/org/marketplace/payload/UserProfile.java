@@ -1,6 +1,9 @@
 package com.org.marketplace.payload;
 
 import java.time.Instant;
+import java.util.Set;
+
+import com.org.marketplace.entity.Role;
 
 /**
  * @author gauravkahadane
@@ -11,6 +14,8 @@ public class UserProfile {
 	private String username;
 	private String name;
 	private Instant joinedAt;
+	private Set<Role> roles;
+	
 
 	public UserProfile(Long id, String username, String name, Instant joinedAt) {
 		this.id = id;
@@ -49,6 +54,14 @@ public class UserProfile {
 
 	public void setJoinedAt(Instant joinedAt) {
 		this.joinedAt = joinedAt;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 }
