@@ -120,3 +120,7 @@
     flex: 1 1 75%;
     margin-left: 2%;
 }
+
+.place-bid-form .currency {
+    font-weight: bold;
+}

@@ -36,5 +36,9 @@
 }
 
 .new-project-budget {
-    width: 240px;
+    width: 200px;
+}
+
+.new-project-form label {
+    font-weight: bold;
 }

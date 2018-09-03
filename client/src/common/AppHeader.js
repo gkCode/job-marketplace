@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import './AppHeader.css';
 import {Dropdown, Icon, Input, Layout, Menu} from 'antd';
-import {ROLE_SELLER} from "constants/AppConstants";
+import {ROLE_BUYER, ROLE_SELLER} from "constants/AppConstants";
 
 const Header = Layout.Header;
 
@@ -23,14 +23,16 @@ class AppHeader extends Component {
                     <Link to="/">
                         <Icon type="home" className="nav-icon"/>
                     </Link>
-                </Menu.Item>,
-                <Menu.Item key="/project/search">
+                </Menu.Item>,);
+            if (this.props.currentUser.role === ROLE_BUYER) {
+                menuItems.push(<Menu.Item key="/project/search">
                     <Input.Search
                         placeholder="Enter Project Id"
                         onSearch={value => this.handleSearch(value)}
                         style={{width: 160}}
                     />
                 </Menu.Item>,);
+            }
             if (this.props.currentUser.role === ROLE_SELLER) {
                 menuItems.push(<Menu.Item key="/project/new">
                     <Link to="/project/new">

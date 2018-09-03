@@ -21,3 +21,8 @@ export const ROLE_BUYER = "ROLE_USER";
 export const ROLE_SELLER = "ROLE_ADMIN";
 
 export const BUDGET_REGEX = RegExp('^\\d+(\\.\\d{1,3})?$');
+
+export const USER_CREATED_PROJECTS = "USER_CREATED_PROJECTS";
+export const BIDS_WON_BY_USER = "BIDS_WON_BY_USER";
+export const BIDS_PLACED_BY_USER = "BIDS_PLACED_BY_USER";
+

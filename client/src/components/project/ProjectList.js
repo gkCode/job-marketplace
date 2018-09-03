@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import "./ProjectList.css";
 import {getProjectsRowModel} from 'util/ModelUtils'
-import {getAllProjects, getBidsWonBy, getUserPlacedBids} from "util/APIUtils";
-import {PROJECT_LIST_SIZE} from "constants/AppConstants";
+import {getAllProjects, getBidsWonBy, getProjectsCreatedByUser, getUserPlacedBids} from "util/APIUtils";
+import {BIDS_PLACED_BY_USER, BIDS_WON_BY_USER, PROJECT_LIST_SIZE, USER_CREATED_PROJECTS} from "constants/AppConstants";
 import {withRouter} from "react-router-dom";
 import {Table} from 'antd';
 
@@ -26,10 +26,12 @@ class ProjectList extends Component {
         let promise = getAllProjects(page, size);
 
         if (this.props.username) {
-            if (this.props.type === 'USER_CREATED_PROJECTS') {
+            if (this.props.type === BIDS_PLACED_BY_USER) {
                 promise = getUserPlacedBids(this.props.username, page, size);
-            } else if (this.props.type === 'BIDS_WON_BY_USER') {
+            } else if (this.props.type === BIDS_WON_BY_USER) {
                 promise = getBidsWonBy(this.props.username, page, size);
+            } else if (this.props.type === USER_CREATED_PROJECTS) {
+                promise = getProjectsCreatedByUser(this.props.username, page, size);
             }
         } else {
             promise = getAllProjects(page, size);
@@ -100,7 +102,7 @@ class ProjectList extends Component {
                             key: "name",
                             dataIndex: "name",
                             title: "Project Name",
-                            width: 360,
+                            width: 320,
                             sorter: (a, b) => a.id - b.id
                         },
                         {
@@ -115,7 +117,7 @@ class ProjectList extends Component {
                             key: "bidExpiry",
                             dataIndex: "bidExpiry",
                             title: "Bid Deadline",
-                            width: 130,
+                            width: 150,
                             defaultSortOrder: 'ascend',
                             sorter: (a, b) => a.bidExpiry - b.bidExpiry
                         },

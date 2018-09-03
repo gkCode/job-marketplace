@@ -10,17 +10,24 @@ import Moment from "react-moment";
 const FormItem = Form.Item;
 
 class ProjectSearch extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            query: '',
-            project: '',
-            isLoading: true,
-            bid: '',
-            placedBid: '',
-            validateStatus: '',
-            pageError: ''
-        };
+    handlePlacedBidChange = (value) => {
+        this.setState({
+            placedbid: {
+                value: value,
+            }
+        });
+
+        if (!BUDGET_REGEX.test(value)) {
+            this.setState({
+                validateStatus: 'error',
+                errorMsg: 'Bid is not valid'
+            });
+        } else {
+            this.setState({
+                validateStatus: 'success',
+                errorMsg: null
+            });
+        }
     }
 
     componentWillMount() {
@@ -83,51 +90,26 @@ class ProjectSearch extends Component {
             }
         });
     };
-
-    validatePlacedBid = (value) => {
-        if (value === null || value === "") {
-            return {
-                validateStatus: null,
-                errorMsg: null
-            }
-        } else if (!BUDGET_REGEX.test(value)) {
-            return {
-                validateStatus: 'error',
-                errorMsg: 'Please enter a valid bid value'
-            }
-        } else {
-            return {
-                validateStatus: 'success',
-                errorMsg: null
-            }
-        }
+    isFormInvalid = () => {
+        return this.state.validateStatus !== 'success';
     }
+    handleInputChange = (event, validate) => {
+        const target = event.target;
+        const inputName = target.name;
+        const inputValue = target.value;
 
-    handlePlacedBidChange = (value) => {
-        if (value === null) {
-            return {
-                validateStatus: null,
-                errorMsg: null
-            }
-        }
         this.setState({
-            placedBid: value,
-            ...this.validatePlacedBid(value)
+            [inputName]: {
+                value: inputValue,
+                ...validate(inputValue)
+            }
         });
     }
-
-    isFormInvalid = () => {
-        if (this.state.validateStatus !== 'success') {
-            return true;
-        }
-        return false;
-    }
-
     handleSubmit = (event) => {
         event.preventDefault();
         const bidInfo = {
             projectId: this.state.project.id,
-            bid: this.state.placedBid
+            bid: this.state.placedBid.value
         };
 
         placeBid(bidInfo)
@@ -140,6 +122,22 @@ class ProjectSearch extends Component {
                 message.error(error.message);
             }
         });
+    }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            query: '',
+            project: '',
+            isLoading: true,
+            currentBid: '',
+            placedBid: {
+                value: ''
+            },
+            errorMsg: '',
+            validateStatus: '',
+            pageError: ''
+        };
     }
 
     render() {
@@ -171,12 +169,14 @@ class ProjectSearch extends Component {
                         <textarea style={{border: "dotted 1px"}} rows="5" cols="10"
                                   maxLength="400" readOnly value={this.state.project.description}></textarea>
                         <div className="project-prop-name"> Budget:</div>
-                        <div>  {this.state.project.budget} <span> USD </span></div>
+                        <div> {this.state.project.budget} </div>
                         <div className="project-prop-name"> Bid Expiration:</div>
                         <div><Moment>{this.state.project.bidExpiry}</Moment></div>
                         <div className="project-prop-name"> Your Bid:</div>
                         <Form onSubmit={this.handleSubmit} className="place-bid-form">
-                            <FormItem validateStatus={this.state.validateStatus}>
+                            <FormItem
+                                validateStatus={this.state.validateStatus}
+                                help={this.state.errorMsg}>
                                 <InputNumber
                                     min={1}
                                     step={0.1}
@@ -184,7 +184,7 @@ class ProjectSearch extends Component {
                                     onChange={this.handlePlacedBidChange}
                                 />
                             </FormItem>
-                            <span> USD </span>
+                            <div className="currency">USD</div>
                             <FormItem>
                                 <Button type="primary"
                                         htmlType="submit"

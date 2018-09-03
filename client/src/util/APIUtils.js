@@ -1,4 +1,4 @@
-import {API_BASE_URL, PROJECT_LIST_SIZE, ACCESS_TOKEN} from 'constants/AppConstants';
+import {ACCESS_TOKEN, API_BASE_URL, PROJECT_LIST_SIZE} from 'constants/AppConstants';
 
 const request = (options) => {
     const headers = new Headers({
@@ -120,6 +120,16 @@ export function getBidsWonBy(username, page, size) {
 
     return request({
         url: API_BASE_URL + "/users/" + username + "/bidsWon?page=" + page + "&size=" + size,
+        method: 'GET'
+    });
+}
+
+export function getProjectsCreatedByUser(username, page, size) {
+    page = page || 0;
+    size = size || PROJECT_LIST_SIZE;
+
+    return request({
+        url: API_BASE_URL + "/users/" + username + "/projects?page=" + page + "&size=" + size,
         method: 'GET'
     });
 }

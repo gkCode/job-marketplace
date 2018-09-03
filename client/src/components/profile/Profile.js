@@ -5,19 +5,13 @@ import ServerError from 'common/ServerError';
 import ProjectList from 'components/project/ProjectList';
 import {getUserProfile} from 'util/APIUtils';
 import LoadingIndicator from 'common/LoadingIndicator';
+import {BIDS_PLACED_BY_USER, BIDS_WON_BY_USER, ROLE_SELLER, USER_CREATED_PROJECTS} from 'constants/AppConstants'
+
 import {Tabs} from 'antd'
 
 const TabPane = Tabs.TabPane;
 
 class Profile extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            user: null,
-            isLoading: false
-        }
-    }
-
     loadUserProfile = (username) => {
         this.setState({
             isLoading: true
@@ -27,6 +21,7 @@ class Profile extends Component {
             .then(response => {
                 this.setState({
                     user: response,
+                    isSeller: response.roles.some(e => e.name === ROLE_SELLER),
                     isLoading: false
                 });
             }).catch(error => {
@@ -42,6 +37,15 @@ class Profile extends Component {
                 });
             }
         });
+    }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: '',
+            isSeller: '',
+            isLoading: false
+        }
     }
 
     componentDidMount() {
@@ -75,7 +79,29 @@ class Profile extends Component {
         return (
             <div className="profile">
                 {
-                    this.state.user ? (
+                    this.state.user && this.state.isSeller ? (
+                        <div className="user-profile">
+                            <div className="user-details">
+                                <div className="user-summary">
+                                    <div className="full-name">{this.state.user.name}</div>
+                                    <div className="username">@{this.state.user.username}</div>
+                                </div>
+                            </div>
+                            <div className="user-project-details">
+                                <Tabs defaultActiveKey="1"
+                                      animated={false}
+                                      tabBarStyle={tabBarStyle}
+                                      size="large"
+                                      className="profile-tabs">
+                                    <TabPane tab={`Projects`} key="1">
+                                        <ProjectList username={this.props.match.params.username}
+                                                     type={USER_CREATED_PROJECTS}/>
+                                    </TabPane>
+                                </Tabs>
+                            </div>
+                        </div>
+
+                    ) : (
                         <div className="user-profile">
                             <div className="user-details">
                                 <div className="user-summary">
@@ -91,16 +117,16 @@ class Profile extends Component {
                                       className="profile-tabs">
                                     <TabPane tab={`Bids Won`} key="1">
                                         <ProjectList username={this.props.match.params.username}
-                                                     type="BIDS_WON_BY_USER"/>
+                                                     type={BIDS_WON_BY_USER}/>
                                     </TabPane>
                                     <TabPane tab={`Placed Bids`} key="2">
                                         <ProjectList username={this.props.match.params.username}
-                                                     type="USER_CREATED_PROJECTS"/>
+                                                     type={BIDS_PLACED_BY_USER}/>
                                     </TabPane>
                                 </Tabs>
                             </div>
                         </div>
-                    ) : null
+                    )
                 }
             </div>
         );

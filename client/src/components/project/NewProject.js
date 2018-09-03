@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import './NewProject.css'
-import {BUDGET_REGEX} from 'constants/AppConstants'
+import {BUDGET_REGEX, DESCRIPTION_MAX_LENGTH, NAME_MAX_LENGTH, NAME_MIN_LENGTH} from 'constants/AppConstants'
 import {createProject} from 'util/APIUtils';
-import {DESCRIPTION_MAX_LENGTH, NAME_MAX_LENGTH, NAME_MIN_LENGTH} from 'constants/AppConstants';
 import {Button, DatePicker, Form, Input, message} from 'antd';
 
 const FormItem = Form.Item;
@@ -182,7 +181,7 @@ class NewProject extends Component {
                                 className="new-project-budget"
                                 name="budget"
                                 autoComplete="off"
-                                placeholder="Maximum Cost of Budget in USD"
+                                placeholder="Maximum Budget in USD"
                                 value={this.state.budget.value}
                                 onChange={(event) => this.handleInputChange(event, this.validateBudget)}/>
                         </FormItem>
@@ -191,7 +190,6 @@ class NewProject extends Component {
                             validateStatus={this.state.bidExpiry.validateStatus}
                             help={this.state.bidExpiry.errorMsg}>
                             <DatePicker
-                                // size="default"
                                 showTime
                                 className="new-project-bid"
                                 format="YYYY-MM-DD HH:mm:ss"
