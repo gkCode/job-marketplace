@@ -19,25 +19,23 @@ const RadioGroup = Radio.Group;
 const FormItem = Form.Item;
 
 class Signup extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: {
-                value: ''
-            },
-            username: {
-                value: ''
-            },
-            email: {
-                value: ''
-            },
-            password: {
-                value: ''
-            },
-            userRole: {
-                value: ROLE_BUYER
-            }
-        }
+    handleSubmit = (event) => {
+        event.preventDefault();
+
+        const signupRequest = {
+            name: this.state.name.value,
+            email: this.state.email.value,
+            username: this.state.username.value,
+            password: this.state.password.value,
+            userRole: this.state.userRole
+        };
+        signup(signupRequest)
+            .then(response => {
+                message.success('Thank you! You\'re successfully registered. Please Login to continue!');
+                this.props.history.push("/login");
+            }).catch(error => {
+            message.error(error.message || 'Sorry! Something went wrong. Please try again!');
+        });
     }
 
     handleInputChange = (event, validate) => {
@@ -52,24 +50,20 @@ class Signup extends Component {
             }
         });
     }
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-
-        const signupRequest = {
-            name: this.state.name.value,
-            email: this.state.email.value,
-            username: this.state.username.value,
-            password: this.state.password.value,
-            userRole: this.state.userRole.value
-        };
-        signup(signupRequest)
-            .then(response => {
-                message.success('Thank you! You\'re successfully registered. Please Login to continue!');
-                this.props.history.push("/login");
-            }).catch(error => {
-            message.error(error.message || 'Sorry! Something went wrong. Please try again!');
-        });
+    handleUserRoleChange = (event) => {
+        const target = event.target;
+        if (target.checked) {
+            if (target.value === 1) {
+                this.setState({
+                    userRole: ROLE_BUYER
+                });
+            }
+            if (target.value === 2) {
+                this.setState({
+                    userRole: ROLE_SELLER
+                });
+            }
+        }
     }
 
     isFormInvalid = () => {
@@ -273,22 +267,25 @@ class Signup extends Component {
         }
     }
 
-    handleUserRoleChange = (event) => {
-        const target = event.target;
-        let userRole;
-        if (target.checked) {
-            if (target.value === 1) {
-                userRole = ROLE_BUYER;
-            }
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: {
+                value: ''
+            },
+            username: {
+                value: ''
+            },
+            email: {
+                value: ''
+            },
+            password: {
+                value: ''
+            },
+            userRole: ROLE_BUYER,
 
-            if (target.value === 2) {
-                userRole = ROLE_SELLER;
-            }
-            this.setState({
-                userRole: {
-                    value: userRole
-                }
-            });
+            input_name_label: "Full Name",
+            input_name_placeholder: "Your full name"
         }
     }
 
