@@ -1,5 +1,7 @@
 package com.org.marketplace.payload;
 
+import com.org.marketplace.entity.RoleType;
+
 /**
  * @author gauravkahadane
  *
@@ -8,7 +10,8 @@ public class UserSummary {
 	private Long id;
 	private String username;
 	private String name;
-
+	private RoleType role;
+	
 	public UserSummary(Long id, String username, String name) {
 		this.id = id;
 		this.username = username;
@@ -38,4 +41,14 @@ public class UserSummary {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public RoleType getRole() {
+		return role;
+	}
+
+	public void setRole(RoleType role) {
+		this.role = role;
+	}
+
+
 }

@@ -1,13 +1,20 @@
 package com.org.marketplace.controller;
 
+import java.util.Optional;
+import java.util.stream.Stream;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.org.marketplace.entity.RoleType;
 import com.org.marketplace.entity.User;
 import com.org.marketplace.exception.ResourceNotFoundException;
 import com.org.marketplace.payload.PagedResponse;
@@ -40,6 +47,9 @@ public class UserController {
 
 	@Autowired
 	private BidService bidService;
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
+
 
 	/**
 	 * Retrieves the current authenticated user details
@@ -52,6 +62,21 @@ public class UserController {
 	public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
 		UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getUsername(),
 				currentUser.getName());
+		
+		if(currentUser.getAuthorities() != null && !currentUser.getAuthorities().isEmpty()) {
+			@SuppressWarnings("unchecked")
+			Stream<GrantedAuthority> authorityStream = (Stream<GrantedAuthority>) currentUser.getAuthorities().stream();
+			Optional<GrantedAuthority> grantedAuthority = authorityStream.findFirst();
+			if(grantedAuthority.isPresent()) {
+				GrantedAuthority authority = grantedAuthority.get();
+				try {
+					userSummary.setRole(RoleType.valueOf(authority.getAuthority()));
+				} catch (Exception e) {
+					LOGGER.error("Failed to set user role: "+ e);
+				}
+			}
+			
+		}
 		return userSummary;
 	}
 
