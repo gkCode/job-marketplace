@@ -37,6 +37,7 @@ class NewProject extends Component {
 
         createProject(projectData)
             .then(response => {
+                message.success('Project created successfully');
                 this.props.history.push("/");
             }).catch(error => {
             if (error.status === 401) {

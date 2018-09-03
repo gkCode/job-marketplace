@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.org.marketplace.entity.Bid;
 import com.org.marketplace.entity.Project;
+import com.org.marketplace.exception.BadRequestException;
 import com.org.marketplace.payload.ApiResponse;
 import com.org.marketplace.payload.BidRequest;
 import com.org.marketplace.payload.PagedResponse;
@@ -116,6 +117,13 @@ public class ProjectController {
 
 		URI location;
 		try {
+			if(bidRequest.getBid() == null || bidRequest.getProjectId() == null) {
+				throw new BadRequestException("Bid cannot be null");
+			}
+			if(bidRequest.getProjectId() == null) {
+				throw new BadRequestException("Project id cannot be null");
+			}
+			
 			Bid project = bidService.placeBid(bidRequest, currentUser);
 
 			location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{bidValue}")

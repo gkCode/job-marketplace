@@ -11,21 +11,21 @@ const FormItem = Form.Item;
 
 class ProjectSearch extends Component {
     handlePlacedBidChange = (value) => {
-        this.setState({
-            placedbid: {
-                value: value,
-            }
-        });
-
         if (!BUDGET_REGEX.test(value)) {
             this.setState({
                 validateStatus: 'error',
-                errorMsg: 'Bid is not valid'
+                placedBid: {
+                    value: '',
+                    errorMsg: 'Bid is not valid'
+                },
             });
         } else {
             this.setState({
+                placedBid: {
+                    value: value,
+                    errorMsg: null
+                },
                 validateStatus: 'success',
-                errorMsg: null
             });
         }
     }
@@ -90,21 +90,6 @@ class ProjectSearch extends Component {
             }
         });
     };
-    isFormInvalid = () => {
-        return this.state.validateStatus !== 'success';
-    }
-    handleInputChange = (event, validate) => {
-        const target = event.target;
-        const inputName = target.name;
-        const inputValue = target.value;
-
-        this.setState({
-            [inputName]: {
-                value: inputValue,
-                ...validate(inputValue)
-            }
-        });
-    }
     handleSubmit = (event) => {
         event.preventDefault();
         const bidInfo = {
@@ -114,6 +99,7 @@ class ProjectSearch extends Component {
 
         placeBid(bidInfo)
             .then(response => {
+                message.success('Bid placed successfully');
                 this.props.history.push("/");
             }).catch(error => {
             if (error.status === 401) {
@@ -124,6 +110,10 @@ class ProjectSearch extends Component {
         });
     }
 
+    isFormInvalid = () => {
+        return this.state.validateStatus !== 'success';
+    }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -132,9 +122,9 @@ class ProjectSearch extends Component {
             isLoading: true,
             currentBid: '',
             placedBid: {
-                value: ''
+                value: '',
+                errorMsg: null
             },
-            errorMsg: '',
             validateStatus: '',
             pageError: ''
         };
@@ -172,11 +162,15 @@ class ProjectSearch extends Component {
                         <div> {this.state.project.budget} </div>
                         <div className="project-prop-name"> Bid Expiration:</div>
                         <div><Moment>{this.state.project.bidExpiry}</Moment></div>
-                        <div className="project-prop-name"> Your Bid:</div>
+                        <div className="project-prop-name"> Lowest Bid:</div>
+                        <div>
+                            {this.state.project.bid}<span className="currency">  USD</span>
+                        </div>
                         <Form onSubmit={this.handleSubmit} className="place-bid-form">
+                            <div className="project-prop-name"> Your Bid:</div>
                             <FormItem
                                 validateStatus={this.state.validateStatus}
-                                help={this.state.errorMsg}>
+                                help={this.state.placedBid.errorMsg}>
                                 <InputNumber
                                     min={1}
                                     step={0.1}
@@ -184,7 +178,7 @@ class ProjectSearch extends Component {
                                     onChange={this.handlePlacedBidChange}
                                 />
                             </FormItem>
-                            <div className="currency">USD</div>
+                            <span className="currency">  USD</span>
                             <FormItem>
                                 <Button type="primary"
                                         htmlType="submit"

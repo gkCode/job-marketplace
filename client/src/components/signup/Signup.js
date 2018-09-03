@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
 import './Signup.css';
-import {ROLE_BUYER, ROLE_SELLER} from "constants/AppConstants";
-import {checkEmailAvailability, checkUsernameAvailability, signup} from 'util/APIUtils';
 import {
     EMAIL_MAX_LENGTH,
     NAME_MAX_LENGTH,
     NAME_MIN_LENGTH,
     PASSWORD_MAX_LENGTH,
     PASSWORD_MIN_LENGTH,
+    ROLE_BUYER,
+    ROLE_SELLER,
     USERNAME_MAX_LENGTH,
     USERNAME_MIN_LENGTH
-} from 'constants/AppConstants';
+} from "constants/AppConstants";
+import {checkEmailAvailability, checkUsernameAvailability, signup} from 'util/APIUtils';
 import {Link} from 'react-router-dom';
 import {Button, Form, Input, message, Radio} from 'antd';
 
@@ -64,7 +65,7 @@ class Signup extends Component {
         };
         signup(signupRequest)
             .then(response => {
-                message.error('Thank you! You\'re successfully registered. Please Login to continue!');
+                message.success('Thank you! You\'re successfully registered. Please Login to continue!');
                 this.props.history.push("/login");
             }).catch(error => {
             message.error(error.message || 'Sorry! Something went wrong. Please try again!');
