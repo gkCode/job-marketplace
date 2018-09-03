@@ -135,7 +135,7 @@ class ProjectSearch extends Component {
             }).catch(error => {
             if (error.status === 401) {
                 this.props.handleLogout('/login', 'error', 'You have been logged out. Please login create project.');
-            }else{
+            } else {
                 notification.error({
                     message: 'Job Marketplace',
                     description: error.message
@@ -170,7 +170,7 @@ class ProjectSearch extends Component {
                         <div className="project-prop-name"> Name:</div>
                         <div> {this.state.project.name} </div>
                         <div className="project-prop-name"> Description:</div>
-                        <textarea style={{border: "dotted 1px"}} rows="4" cols="80"
+                        <textarea style={{border: "dotted 1px"}} rows="5" cols="10"
                                   maxLength="400" readOnly value={this.state.project.description}></textarea>
                         <div className="project-prop-name"> Budget:</div>
                         <div> {this.state.project.budget} <span> USD </span></div>

@@ -41,7 +41,6 @@ class NewProject extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-
         const projectData = {
             name: this.state.name.value,
             description: this.state.description.value,

@@ -9,12 +9,12 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    width: 750px;
+    width: 650px;
     margin-top: 5%;
 }
 
 .project-box > :nth-child(1) {
-    flex: 1 0 115px;
+    flex: 1 0 110px;
     margin: 10px;
     align-items: center;
 }
@@ -27,16 +27,16 @@
 }
 
 .project-box > :nth-child(3) {
-    flex: 1 0 115px;
+    flex: 1 0 110px;
     margin: 10px;
     align-items: center;
     background-color: white;
 }
 
 .project-box > :nth-child(4) {
-    flex: 1 0 115px;
+    flex: 1 0 110px;
     margin: 10px;
-    height: 75px;
+    height: 100px;
     align-items: center;
     background-color: white;
 }
@@ -44,13 +44,13 @@
 .project-box > :nth-child(4) {
     flex: 2 0 75%;
     margin: 10px;
-    height: 90px;
+    height: 110px;
     align-items: center;
     background-color: white;
 }
 
 .project-box > :nth-child(5) {
-    flex: 1 0 115px;
+    flex: 1 0 110px;
     margin: 10px;
     align-items: center;
     background-color: white;
@@ -64,7 +64,7 @@
 }
 
 .project-box > :nth-child(7) {
-    flex: 1 0 115px;
+    flex: 1 0 110px;
     margin: 10px;
     align-items: center;
     background-color: white;
@@ -78,7 +78,7 @@
 }
 
 .project-box > :nth-child(9) {
-    flex: 1 0 115px;
+    flex: 1 0 110px;
     margin: 10px;
     align-items: center;
     background-color: white;
