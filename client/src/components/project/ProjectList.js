@@ -93,7 +93,7 @@ class ProjectList extends Component {
                             key: "id",
                             dataIndex: "id",
                             title: "ID",
-                            width: 100,
+                            width: 140,
                             defaultSortOrder: 'ascend',
                             sorter: (a, b) => a.id - b.id
                         },
@@ -101,14 +101,14 @@ class ProjectList extends Component {
                             key: "name",
                             dataIndex: "name",
                             title: "Project Name",
-                            width: 320,
+                            width: 350,
                             sorter: (a, b) => a.id - b.id
                         },
                         {
                             key: "budget",
                             dataIndex: "budget",
                             title: "Budget (in USD)",
-                            width: 180,
+                            width: 220,
                             defaultSortOrder: 'ascend',
                             sorter: (a, b) => a.budget - b.budget
                         },
@@ -116,7 +116,7 @@ class ProjectList extends Component {
                             key: "bidExpiry",
                             dataIndex: "bidExpiry",
                             title: "Bid Deadline",
-                            width: 180,
+                            width: 240,
                             defaultSortOrder: 'ascend',
                             sorter: (a, b) => a.bidExpiry - b.bidExpiry
                         },

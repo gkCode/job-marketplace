@@ -137,3 +137,10 @@
 .bid-submit-button {
     margin-left: 164px;
 }
+
+.project-box .bid-expired-msg {
+    font-weight: bold;
+    color: red;
+    margin-left: 32%;
+    margin-top: 25px;
+}

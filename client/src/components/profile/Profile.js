@@ -76,60 +76,71 @@ class Profile extends Component {
             textAlign: 'center'
         };
 
-        return (
-            <div className="profile">
-                {
-                    this.state.user && this.state.isSeller ? (
-                        <div className="user-profile">
-                            <div className="user-details">
-                                <div className="user-summary">
-                                    <div className="full-name">{this.state.user.name}</div>
-                                    <div className="username">@{this.state.user.username}</div>
+        if (!this.state.isSeller) {
+            return (
+                <div className="profile">
+                    {
+                        this.state.user ? (
+                            <div className="user-profile">
+                                <div className="user-details">
+                                    <div className="user-summary">
+                                        <div className="full-name">{this.state.user.name}</div>
+                                        <div className="username">@{this.state.user.username}</div>
+                                    </div>
+                                </div>
+                                <div className="user-project-details">
+                                    <Tabs defaultActiveKey="1"
+                                          animated={false}
+                                          tabBarStyle={tabBarStyle}
+                                          size="large"
+                                          className="profile-tabs">
+                                        <TabPane tab={`Bids Won`} key="1">
+                                            <ProjectList username={this.props.match.params.username}
+                                                         type={BIDS_WON_BY_USER}/>
+                                        </TabPane>
+                                        <TabPane tab={`Lowest Placed Bids`} key="2">
+                                            <ProjectList username={this.props.match.params.username}
+                                                         type={BIDS_PLACED_BY_USER}/>
+                                        </TabPane>
+                                    </Tabs>
                                 </div>
                             </div>
-                            <div className="user-project-details">
-                                <Tabs defaultActiveKey="1"
-                                      animated={false}
-                                      tabBarStyle={tabBarStyle}
-                                      size="large"
-                                      className="profile-tabs">
-                                    <TabPane tab={`Projects`} key="1">
-                                        <ProjectList username={this.props.match.params.username}
-                                                     type={USER_CREATED_PROJECTS}/>
-                                    </TabPane>
-                                </Tabs>
-                            </div>
-                        </div>
 
-                    ) : (
-                        <div className="user-profile">
-                            <div className="user-details">
-                                <div className="user-summary">
-                                    <div className="full-name">{this.state.user.name}</div>
-                                    <div className="username">@{this.state.user.username}</div>
+                        ) : null
+                    }
+                </div>
+            );
+        } else {
+            return (
+                <div className="profile">
+                    {
+                        this.state.user ? (
+                            <div className="user-profile">
+                                <div className="user-details">
+                                    <div className="user-summary">
+                                        <div className="full-name">{this.state.user.name}</div>
+                                        <div className="username">@{this.state.user.username}</div>
+                                    </div>
+                                </div>
+                                <div className="user-project-details">
+                                    <Tabs defaultActiveKey="1"
+                                          animated={false}
+                                          tabBarStyle={tabBarStyle}
+                                          size="large"
+                                          className="profile-tabs">
+                                        <TabPane tab={`Posted Projects`} key="1">
+                                            <ProjectList username={this.props.match.params.username}
+                                                         type={USER_CREATED_PROJECTS}/>
+                                        </TabPane>
+                                    </Tabs>
                                 </div>
                             </div>
-                            <div className="user-project-details">
-                                <Tabs defaultActiveKey="1"
-                                      animated={false}
-                                      tabBarStyle={tabBarStyle}
-                                      size="large"
-                                      className="profile-tabs">
-                                    <TabPane tab={`Bids Won`} key="1">
-                                        <ProjectList username={this.props.match.params.username}
-                                                     type={BIDS_WON_BY_USER}/>
-                                    </TabPane>
-                                    <TabPane tab={`Placed Bids`} key="2">
-                                        <ProjectList username={this.props.match.params.username}
-                                                     type={BIDS_PLACED_BY_USER}/>
-                                    </TabPane>
-                                </Tabs>
-                            </div>
-                        </div>
-                    )
-                }
-            </div>
-        );
+
+                        ) : null
+                    }
+                </div>
+            );
+        }
     }
 }
 

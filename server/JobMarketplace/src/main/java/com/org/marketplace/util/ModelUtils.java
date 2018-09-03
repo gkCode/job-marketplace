@@ -1,5 +1,7 @@
 package com.org.marketplace.util;
 
+import java.time.LocalDateTime;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,6 +48,10 @@ public final class ModelUtils {
 				UserSummary creatorSummary = new UserSummary(creator.getId(), creator.getUsername(), creator.getName());
 				projectResponse.setCreatedBy(creatorSummary);
 			}
+			
+			if(project.getBidExpiry().compareTo(LocalDateTime.now()) < 0) {
+				projectResponse.setIsBiddingExpired(true);
+			}
 
 			projectResponse.setBidExpiry(project.getBidExpiry());
 			return projectResponse;
@@ -58,5 +64,5 @@ public final class ModelUtils {
 	public static ProjectResponse mapProjectToProjectResponse(Project project) {
 		return mapProjectToProjectResponse(project, null);
 	}
-
+	
 }

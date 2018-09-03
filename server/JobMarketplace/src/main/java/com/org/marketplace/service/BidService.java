@@ -126,7 +126,7 @@ public class BidService {
 				Optional<Project> project = projectRepository.findById(bid.getProject().getId());
 				if (project.isPresent()) {
 					Project biddedProject = project.get();
-					if (biddedProject.getBidExpiry().compareTo(LocalDateTime.now()) > 0) {
+					if (biddedProject.getBidExpiry().compareTo(LocalDateTime.now()) < 0) {
 						projectsWon.add(ModelUtils.mapProjectToProjectResponse(bid.getProject(), user));
 					}
 				}
@@ -142,4 +142,48 @@ public class BidService {
 		}
 		return response;
 	}
+	
+	/**
+	 * Retrieves the projects/bids placed by a user
+	 * 
+	 * @param username
+	 * @param currentUser authenticated user
+	 * @param page        index of a page
+	 * @param size        size of a page
+	 * @return projects on which user has placed the bid
+	 */
+	public PagedResponse<ProjectResponse> getBidsPlacedBy(String username, UserPrincipal currentUser, int page,
+			int size) {
+		Session session = entityManagerFactory.unwrap(SessionFactory.class).openSession();
+		PagedResponse<ProjectResponse> response = new PagedResponse<ProjectResponse>();
+
+		try {
+			StoredProcedureQuery storedProcQuery = session.createNamedStoredProcedureQuery("getLowestBidsByUser");
+			storedProcQuery.setParameter("userId", currentUser.getId());
+			storedProcQuery.execute();
+			@SuppressWarnings("unchecked")
+			List<Bid> bidList = storedProcQuery.getResultList();
+
+			User user = userRepository.findByUsername(currentUser.getUsername())
+					.orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
+
+			List<ProjectResponse> bidsPlaced = new ArrayList<ProjectResponse>();
+			for (Bid bid : bidList) {
+				Optional<Project> project = projectRepository.findById(bid.getProject().getId());
+				if (project.isPresent()) {
+					bidsPlaced.add(ModelUtils.mapProjectToProjectResponse(bid.getProject(), user));				
+				}
+			}
+
+			response.setContent(bidsPlaced);
+
+		} catch (HibernateException e) {
+			LOGGER.error("Failed to fetch bids won by " + currentUser.getUsername() + ": " + e);
+			throw e;
+		} finally {
+			session.close();
+		}
+		return response;
+	}
+	
 }

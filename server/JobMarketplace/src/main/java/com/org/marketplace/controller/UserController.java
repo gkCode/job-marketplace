@@ -135,7 +135,7 @@ public class UserController {
 			@CurrentUser UserPrincipal currentUser,
 			@RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
 			@RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
-		return projectService.getBidsPlacedBy(username, currentUser, page, size);
+		return bidService.getBidsPlacedBy(username, currentUser, page, size);
 	}
 	
 	/**

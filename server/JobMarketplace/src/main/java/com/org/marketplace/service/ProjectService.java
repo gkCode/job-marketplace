@@ -1,6 +1,5 @@
 package com.org.marketplace.service;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,6 @@ import com.org.marketplace.exception.ResourceNotFoundException;
 import com.org.marketplace.payload.PagedResponse;
 import com.org.marketplace.payload.ProjectRequest;
 import com.org.marketplace.payload.ProjectResponse;
-import com.org.marketplace.repository.BidRepository;
 import com.org.marketplace.repository.ProjectRepository;
 import com.org.marketplace.repository.UserRepository;
 import com.org.marketplace.security.UserPrincipal;
@@ -45,8 +43,6 @@ public class ProjectService {
 	@Autowired
 	private ProjectRepository projectRepository;
 
-	@Autowired
-	private BidRepository bidRepository;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -168,9 +164,6 @@ public class ProjectService {
 
 			List<Project> projects = userCreatedProjects.getContent();
 
-			Sort sort = new Sort(Sort.Direction.DESC, "createdAt");
-//			List<Project> projects = projectRepository.findByIdIn(projectIds, sort);
-
 			Map<Long, User> creatorMap = getProjectCreatorMap(projects);
 
 			List<ProjectResponse> projectResponses = projects.stream().map(project -> {
@@ -189,119 +182,7 @@ public class ProjectService {
 			throw e;
 		}
 	}
-
-	/**
-	 * Retrieves the projects/bids placed by a user
-	 * 
-	 * @param username
-	 * @param currentUser authenticated user
-	 * @param page        index of a page
-	 * @param size        size of a page
-	 * @return projects on which user has placed the bid
-	 */
-	public PagedResponse<ProjectResponse> getBidsPlacedBy(String username, UserPrincipal currentUser, int page,
-			int size) {
-		try {
-			ValidatorUtils.validatePageNumberAndSize(page, size);
-
-			User user = userRepository.findByUsername(username)
-					.orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
-
-			Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
-			Page<Long> userbiddedprojectIds = bidRepository.findBiddedProjectIdsByUserId(user.getId(), pageable);
-
-			if (userbiddedprojectIds.getNumberOfElements() == 0) {
-				return new PagedResponse<>(Collections.emptyList(), userbiddedprojectIds.getNumber(),
-						userbiddedprojectIds.getSize(), userbiddedprojectIds.getTotalElements(),
-						userbiddedprojectIds.getTotalPages(), userbiddedprojectIds.isLast());
-			}
-
-			List<Long> projectIds = userbiddedprojectIds.getContent();
-
-			Sort sort = new Sort(Sort.Direction.DESC, "createdAt");
-			List<Project> projects = projectRepository.findByIdIn(projectIds, sort);
-
-			Map<Long, User> creatorMap = getProjectCreatorMap(projects);
-
-			List<ProjectResponse> projectResponses = projects.stream().map(project -> {
-				return ModelUtils.mapProjectToProjectResponse(project, creatorMap.get(project.getCreatedBy()));
-			}).collect(Collectors.toList());
-
-			return new PagedResponse<>(projectResponses, userbiddedprojectIds.getNumber(),
-					userbiddedprojectIds.getSize(), userbiddedprojectIds.getTotalElements(),
-					userbiddedprojectIds.getTotalPages(), userbiddedprojectIds.isLast());
-
-		} catch (BadRequestException e) {
-			LOGGER.error("Bad Request: " + e);
-			throw e;
-		} catch (ResourceNotFoundException e) {
-			LOGGER.error("Resource Not Found: " + e);
-			throw e;
-		}
-	}
-
-	/**
-	 * Retrieves projects/bids won by a user
-	 * 
-	 * @param username
-	 * @param currentUser authenticated user
-	 * @param page        index of a page
-	 * @param size        size of a page
-	 * @return projects won by a user
-	 */
-	public PagedResponse<ProjectResponse> getBidsWonBy(String username, UserPrincipal currentUser, int page, int size) {
-		try {
-			ValidatorUtils.validatePageNumberAndSize(page, size);
-
-			User user = userRepository.findByUsername(username)
-					.orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
-
-			Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
-			Page<Long> userbiddedprojectIds = bidRepository.findBiddedProjectIdsByUserId(user.getId(), pageable);
-
-			if (userbiddedprojectIds.getNumberOfElements() == 0) {
-				return new PagedResponse<>(Collections.emptyList(), userbiddedprojectIds.getNumber(),
-						userbiddedprojectIds.getSize(), userbiddedprojectIds.getTotalElements(),
-						userbiddedprojectIds.getTotalPages(), userbiddedprojectIds.isLast());
-			}
-
-			List<Long> projectIds = userbiddedprojectIds.getContent();
-
-			LOGGER.info("User bidded projects: " + projectIds.size());
-
-			Sort sort = new Sort(Sort.Direction.DESC, "createdAt");
-			List<Project> projects = projectRepository.findByIdIn(projectIds, sort);
-
-			projects = projects.stream().filter(project -> project.getBidExpiry().isBefore(LocalDateTime.now()))
-					.collect(Collectors.toList());
-
-			LOGGER.info("Filtered sold projects, size:" + projects.size());
-
-			if (projects.size() == 0) {
-				return new PagedResponse<>(Collections.emptyList(), userbiddedprojectIds.getNumber(),
-						userbiddedprojectIds.getSize(), userbiddedprojectIds.getTotalElements(),
-						userbiddedprojectIds.getTotalPages(), userbiddedprojectIds.isLast());
-			}
-
-			Map<Long, User> creatorMap = getProjectCreatorMap(projects);
-
-			List<ProjectResponse> projectResponses = projects.stream().map(project -> {
-				return ModelUtils.mapProjectToProjectResponse(project, creatorMap.get(project.getCreatedBy()));
-			}).collect(Collectors.toList());
-
-			return new PagedResponse<>(projectResponses, userbiddedprojectIds.getNumber(),
-					userbiddedprojectIds.getSize(), userbiddedprojectIds.getTotalElements(),
-					userbiddedprojectIds.getTotalPages(), userbiddedprojectIds.isLast());
-
-		} catch (BadRequestException e) {
-			LOGGER.error("Bad Request: " + e);
-			throw e;
-		} catch (ResourceNotFoundException e) {
-			LOGGER.error("Resource Not Found: " + e);
-			throw e;
-		}
-	}
-
+	
 	/**
 	 * Maps a project to its creator user
 	 * 

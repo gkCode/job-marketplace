@@ -18,6 +18,7 @@ public class ProjectResponse {
 	private Double budget;
 	private LocalDateTime bidExpiry;
 	private Double bid;
+	private Boolean isBiddingExpired;
 
 	public ProjectResponse() {
 		super();
@@ -125,6 +126,14 @@ public class ProjectResponse {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Boolean getIsBiddingExpired() {
+		return isBiddingExpired;
+	}
+
+	public void setIsBiddingExpired(Boolean isBiddingExpired) {
+		this.isBiddingExpired = isBiddingExpired;
 	}
 
 }

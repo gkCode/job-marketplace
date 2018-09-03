@@ -46,7 +46,7 @@ public class ProjectController {
 
 	@Autowired
 	private ProjectService projectService;
-
+	
 	@Autowired
 	private BidService bidService;
 
@@ -117,13 +117,13 @@ public class ProjectController {
 
 		URI location;
 		try {
-			if(bidRequest.getBid() == null || bidRequest.getProjectId() == null) {
+			if (bidRequest.getBid() == null || bidRequest.getProjectId() == null) {
 				throw new BadRequestException("Bid cannot be null");
 			}
-			if(bidRequest.getProjectId() == null) {
+			if (bidRequest.getProjectId() == null) {
 				throw new BadRequestException("Project id cannot be null");
 			}
-			
+
 			Bid project = bidService.placeBid(bidRequest, currentUser);
 
 			location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{bidValue}")
