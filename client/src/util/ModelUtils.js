@@ -1,7 +1,11 @@
+import Moment from "react-moment";
+import React from "react";
+
 export function getProjectsRowModel(projects) {
     let i = 0;
     return projects.content.map((obj) => {
         obj.key = (++i) + "";
+        obj.bidExpiry = <Moment>{obj.bidExpiry}</Moment>;
         return obj;
     })
 }

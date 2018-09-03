@@ -5,6 +5,7 @@ import {BUDGET_REGEX} from 'constants/AppConstants'
 import {getProjectById, placeBid} from "util/APIUtils";
 import LoadingIndicator from "common/LoadingIndicator";
 import {Button, Form, InputNumber, message} from "antd";
+import Moment from "react-moment";
 
 const FormItem = Form.Item;
 
@@ -170,9 +171,9 @@ class ProjectSearch extends Component {
                         <textarea style={{border: "dotted 1px"}} rows="5" cols="10"
                                   maxLength="400" readOnly value={this.state.project.description}></textarea>
                         <div className="project-prop-name"> Budget:</div>
-                        <div> {this.state.project.budget} <span> USD </span></div>
+                        <div>  {this.state.project.budget} <span> USD </span></div>
                         <div className="project-prop-name"> Bid Expiration:</div>
-                        <div> {this.state.project.bidExpiry} </div>
+                        <div><Moment>{this.state.project.bidExpiry}</Moment></div>
                         <div className="project-prop-name"> Your Bid:</div>
                         <Form onSubmit={this.handleSubmit} className="place-bid-form">
                             <FormItem validateStatus={this.state.validateStatus}>
