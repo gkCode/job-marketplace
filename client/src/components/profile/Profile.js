@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-import ProjectList from 'components/project/ProjectList';
-import {getUserProfile} from 'util/APIUtils';
-import {Avatar, Tabs} from 'antd';
-import {getAvatarColor} from 'util/Colors';
-import LoadingIndicator from 'common/LoadingIndicator';
 import './Profile.css';
 import NotFound from 'common/NotFound';
 import ServerError from 'common/ServerError';
+import ProjectList from 'components/project/ProjectList';
+import {getUserProfile} from 'util/APIUtils';
+import LoadingIndicator from 'common/LoadingIndicator';
+import {Tabs} from 'antd'
 
 const TabPane = Tabs.TabPane;
 
@@ -79,12 +78,6 @@ class Profile extends Component {
                     this.state.user ? (
                         <div className="user-profile">
                             <div className="user-details">
-                                <div className="user-avatar">
-                                    <Avatar className="user-avatar-circle"
-                                            style={{backgroundColor: getAvatarColor(this.state.user.name)}}>
-                                        {this.state.user.name[0].toUpperCase()}
-                                    </Avatar>
-                                </div>
                                 <div className="user-summary">
                                     <div className="full-name">{this.state.user.name}</div>
                                     <div className="username">@{this.state.user.username}</div>

@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {createProject} from 'util/APIUtils';
 import './NewProject.css'
+import {BUDGET_REGEX} from 'constants/AppConstants'
+import {createProject} from 'util/APIUtils';
 import {DESCRIPTION_MAX_LENGTH, NAME_MAX_LENGTH, NAME_MIN_LENGTH} from 'constants/AppConstants';
-import {Button, DatePicker, Form, Input, notification} from 'antd';
+import {Button, DatePicker, Form, Input, message} from 'antd';
 
 const FormItem = Form.Item;
 const {TextArea} = Input;
@@ -26,19 +27,6 @@ class NewProject extends Component {
         }
     }
 
-    handleInputChange = (event, validate) => {
-        const target = event.target;
-        const inputName = target.name;
-        const inputValue = target.value;
-
-        this.setState({
-            [inputName]: {
-                value: inputValue,
-                ...validate(inputValue)
-            }
-        });
-    }
-
     handleSubmit = (event) => {
         event.preventDefault();
         const projectData = {
@@ -55,10 +43,7 @@ class NewProject extends Component {
             if (error.status === 401) {
                 this.props.handleLogout('/login', 'error', 'You have been logged out. Please login create project.');
             } else {
-                notification.error({
-                    message: 'Job Marketplace',
-                    description: error.message || 'Sorry! Something went wrong. Please try again!'
-                });
+                message.error(error.message || 'Sorry! Something went wrong. Please try again!');
             }
         });
     }
@@ -69,6 +54,19 @@ class NewProject extends Component {
             this.state.budget.validateStatus === 'success' &&
             this.state.bidExpiry.validateStatus === 'success'
         );
+    }
+
+    handleInputChange = (event, validate) => {
+        const target = event.target;
+        const inputName = target.name;
+        const inputValue = target.value;
+
+        this.setState({
+            [inputName]: {
+                value: inputValue,
+                ...validate(inputValue)
+            }
+        });
     }
 
     validateName = (name) => {
@@ -94,18 +92,15 @@ class NewProject extends Component {
         if (!budget) {
             return {
                 validateStatus: 'error',
-                errorMsg: 'Budget may not be empty'
+                errorMsg: 'Budget cannot not be empty'
             }
         }
-
-        const BUDGET_REGEX = RegExp('^\\d+(\\.\\d{1,3})?$');
         if (!BUDGET_REGEX.test(budget)) {
             return {
                 validateStatus: 'error',
                 errorMsg: 'Budget is not valid'
             }
         }
-
         return {
             validateStatus: 'success',
             errorMsg: null

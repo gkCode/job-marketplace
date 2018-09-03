@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {login} from 'util/APIUtils';
 import './Login.css';
-import {Link} from 'react-router-dom';
+import {login} from 'util/APIUtils';
 import {ACCESS_TOKEN} from 'constants/AppConstants';
+import {Link} from 'react-router-dom';
 
-import {Button, Form, Icon, Input, notification} from 'antd';
+import {Button, Form, Icon, Input, message} from 'antd';
 
 const FormItem = Form.Item;
 
@@ -33,15 +33,9 @@ class LoginForm extends Component {
                         this.props.onLogin();
                     }).catch(error => {
                     if (error.status === 401) {
-                        notification.error({
-                            message: 'Job Marketplace',
-                            description: 'Your Username or Password is incorrect. Please try again!'
-                        });
+                        message.error('Your Username or Password is incorrect. Please try again!');
                     } else {
-                        notification.error({
-                            message: 'Job Marketplace',
-                            description: error.message || 'Sorry! Something went wrong. Please try again!'
-                        });
+                        message.error(error.message || 'Sorry! Something went wrong. Please try again!');
                     }
                 });
             }

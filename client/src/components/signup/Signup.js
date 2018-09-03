@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {checkEmailAvailability, checkUsernameAvailability, signup} from 'util/APIUtils';
 import './Signup.css';
-import {Link} from 'react-router-dom';
+import {ROLE_BUYER, ROLE_SELLER} from "constants/AppConstants";
+import {checkEmailAvailability, checkUsernameAvailability, signup} from 'util/APIUtils';
 import {
     EMAIL_MAX_LENGTH,
     NAME_MAX_LENGTH,
@@ -11,8 +11,8 @@ import {
     USERNAME_MAX_LENGTH,
     USERNAME_MIN_LENGTH
 } from 'constants/AppConstants';
-import {ROLE_BUYER, ROLE_SELLER} from "constants/AppConstants";
-import {Button, Form, Input, notification, Radio} from 'antd';
+import {Link} from 'react-router-dom';
+import {Button, Form, Input, message, Radio} from 'antd';
 
 const RadioGroup = Radio.Group;
 const FormItem = Form.Item;
@@ -64,16 +64,10 @@ class Signup extends Component {
         };
         signup(signupRequest)
             .then(response => {
-                notification.success({
-                    message: 'Job Marketplace',
-                    description: "Thank you! You're successfully registered. Please Login to continue!",
-                });
+                message.error('Thank you! You\'re successfully registered. Please Login to continue!');
                 this.props.history.push("/login");
             }).catch(error => {
-            notification.error({
-                message: 'Job Marketplace',
-                description: error.message || 'Sorry! Something went wrong. Please try again!'
-            });
+            message.error(error.message || 'Sorry! Something went wrong. Please try again!');
         });
     }
 

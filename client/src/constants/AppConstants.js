@@ -19,3 +19,5 @@ export const DESCRIPTION_MAX_LENGTH = 400;
 
 export const ROLE_BUYER = "ROLE_USER";
 export const ROLE_SELLER = "ROLE_ADMIN";
+
+export const BUDGET_REGEX = RegExp('^\\d+(\\.\\d{1,3})?$');

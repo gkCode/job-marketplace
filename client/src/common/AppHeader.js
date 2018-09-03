@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import './AppHeader.css';
 import {Dropdown, Icon, Input, Layout, Menu} from 'antd';
-import {ROLE_SELLER} from "../constants/AppConstants";
+import {ROLE_SELLER} from "constants/AppConstants";
 
 const Header = Layout.Header;
 
@@ -28,7 +28,7 @@ class AppHeader extends Component {
                     <Input.Search
                         placeholder="Enter Project Id"
                         onSearch={value => this.handleSearch(value)}
-                        style={{width: 200}}
+                        style={{width: 160}}
                     />
                 </Menu.Item>,);
             if (this.props.currentUser.role === ROLE_SELLER) {

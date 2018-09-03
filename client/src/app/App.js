@@ -18,8 +18,7 @@ import LoadingIndicator from 'common/LoadingIndicator';
 import PrivateRoute from 'common/PrivateRoute';
 import ProjectList from 'components/project/ProjectList';
 import ProjectSearch from 'components/project/ProjectSearch';
-
-import {Layout, notification} from 'antd';
+import {Layout, message} from 'antd';
 
 const {Content} = Layout;
 
@@ -31,11 +30,6 @@ class App extends Component {
             isAuthenticated: false,
             isLoading: false
         }
-        notification.config({
-            placement: 'topRight',
-            top: 70,
-            duration: 3,
-        });
     }
 
     loadCurrentUser = () => {
@@ -70,17 +64,11 @@ class App extends Component {
 
         this.props.history.push(redirectTo);
 
-        notification[notificationType]({
-            message: 'Job Marketplace',
-            description: description,
-        });
+        message.success(description, 1);
     }
 
     handleLogin = () => {
-        notification.success({
-            message: 'Job Marketplace',
-            description: "You're successfully logged in.",
-        });
+        message.success("You're successfully logged in", 1);
         this.loadCurrentUser();
         this.props.history.push("/");
     }

@@ -1,10 +1,10 @@
 import React, {Component} from "react";
+import "./ProjectList.css";
+import {getProjectsRowModel} from 'util/ModelUtils'
 import {getAllProjects, getBidsWonBy, getUserPlacedBids} from "util/APIUtils";
 import {PROJECT_LIST_SIZE} from "constants/AppConstants";
 import {withRouter} from "react-router-dom";
-import "./ProjectList.css";
 import {Table} from 'antd';
-import {getProjectsRowModel} from 'util/ModelUtils'
 
 class ProjectList extends Component {
     constructor(props) {

@@ -1,13 +1,47 @@
 import React, {Component} from "react";
+import "./ProjectSearch.css";
+import {withRouter} from "react-router-dom";
+import {BUDGET_REGEX} from 'constants/AppConstants'
 import {getProjectById, placeBid} from "util/APIUtils";
 import LoadingIndicator from "common/LoadingIndicator";
-import {Button, Form, InputNumber, notification} from "antd";
-import {withRouter} from "react-router-dom";
-import "./ProjectSearch.css";
+import {Button, Form, InputNumber, message} from "antd";
 
 const FormItem = Form.Item;
 
 class ProjectSearch extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            query: '',
+            project: '',
+            isLoading: true,
+            bid: '',
+            placedBid: '',
+            validateStatus: '',
+            pageError: ''
+        };
+    }
+
+    componentWillMount() {
+        if (this.props.location.query) {
+            this.setState({
+                query: this.props.location.query,
+                isLoading: true
+            }, () => {
+                this.loadProjectInfo(this.state)
+            });
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            query: nextProps.location.query,
+            isLoading: true
+        }, () => {
+            this.loadProjectInfo(this.state)
+        });
+    }
+
     loadProjectInfo = () => {
         let promise = getProjectById(this.state.query);
 
@@ -49,38 +83,13 @@ class ProjectSearch extends Component {
         });
     };
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            query: '',
-            project: '',
-            isLoading: true,
-            bid: '',
-            placedBid: '',
-            validateStatus: '',
-            pageError: ''
-        };
-    }
-
-    componentWillMount() {
-        if (this.props.location.query) {
-            this.setState({
-                query: this.props.location.query,
-                isLoading: true
-            }, () => {
-                this.loadProjectInfo(this.state)
-            });
-        }
-    }
-
     validatePlacedBid = (value) => {
         if (value === null || value === "") {
             return {
                 validateStatus: null,
                 errorMsg: null
             }
-        }
-        else if (value.length === 0) {
+        } else if (!BUDGET_REGEX.test(value)) {
             return {
                 validateStatus: 'error',
                 errorMsg: 'Please enter a valid bid value'
@@ -91,15 +100,6 @@ class ProjectSearch extends Component {
                 errorMsg: null
             }
         }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            query: nextProps.location.query,
-            isLoading: true
-        }, () => {
-            this.loadProjectInfo(this.state)
-        });
     }
 
     handlePlacedBidChange = (value) => {
@@ -136,10 +136,7 @@ class ProjectSearch extends Component {
             if (error.status === 401) {
                 this.props.handleLogout('/login', 'error', 'You have been logged out. Please login create project.');
             } else {
-                notification.error({
-                    message: 'Job Marketplace',
-                    description: error.message
-                });
+                message.error(error.message);
             }
         });
     }
