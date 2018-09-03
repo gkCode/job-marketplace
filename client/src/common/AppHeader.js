@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import './AppHeader.css';
 import {Dropdown, Icon, Input, Layout, Menu} from 'antd';
-import {ROLE_BUYER} from "constants/AppConstants";
 import {ROLE_SELLER} from "../constants/AppConstants";
 
 const Header = Layout.Header;
@@ -60,7 +59,7 @@ class AppHeader extends Component {
             <Header className="app-header">
                 <div className="container">
                     <div className="app-title">
-                        <Link to="/">Job Marketplace</Link>
+                        <Link to="/">Job Marketplace </Link>
                     </div>
                     <Menu
                         className="app-menu"

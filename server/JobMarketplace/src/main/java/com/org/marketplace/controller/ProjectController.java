@@ -4,6 +4,8 @@ import java.net.URI;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,6 +40,8 @@ import com.org.marketplace.util.AppConstants;
 @RestController
 @RequestMapping("/mkt/projects")
 public class ProjectController {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProjectController.class);
 
 	@Autowired
 	private ProjectService projectService;
@@ -84,10 +88,16 @@ public class ProjectController {
 	public ResponseEntity<?> createProject(@Valid @RequestBody ProjectRequest projectRequest,
 			@CurrentUser UserPrincipal currentUser) throws Exception {
 
-		Project project = projectService.createProject(projectRequest, currentUser);
+		URI location;
+		try {
+			Project project = projectService.createProject(projectRequest, currentUser);
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{projectId}")
-				.buildAndExpand(project.getId()).toUri();
+			location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{projectId}")
+					.buildAndExpand(project.getId()).toUri();
+		} catch (Exception e) {
+			LOGGER.error("Failed to create a project: " + e);
+			throw e;
+		}
 
 		return ResponseEntity.created(location).body(new ApiResponse(true, "Project Created Successfully"));
 	}
@@ -104,10 +114,16 @@ public class ProjectController {
 	public ResponseEntity<?> placeBid(@Valid @RequestBody BidRequest bidRequest,
 			@CurrentUser UserPrincipal currentUser) {
 
-		Bid project = bidService.placeBid(bidRequest, currentUser);
+		URI location;
+		try {
+			Bid project = bidService.placeBid(bidRequest, currentUser);
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{bidValue}")
-				.buildAndExpand(project.getId()).toUri();
+			location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{bidValue}")
+					.buildAndExpand(project.getId()).toUri();
+		} catch (Exception e) {
+			LOGGER.error("Failed to place the bid on project: " + e);
+			throw e;
+		}
 
 		return ResponseEntity.created(location).body(new ApiResponse(true, "Bid Placed Successfully"));
 	}

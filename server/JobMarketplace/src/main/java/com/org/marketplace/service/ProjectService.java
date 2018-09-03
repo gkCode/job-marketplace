@@ -39,6 +39,7 @@ import com.org.marketplace.util.ValidatorUtils;
  */
 @Service
 public class ProjectService {
+	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProjectService.class);
 
 	@Autowired

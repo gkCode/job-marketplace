@@ -12,6 +12,7 @@ import com.org.marketplace.exception.BadRequestException;
  *
  */
 public final class ValidatorUtils {
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ValidatorUtils.class);
 
 	/**

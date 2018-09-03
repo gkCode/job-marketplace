@@ -30,6 +30,7 @@ public class AuditingConfig {
 }
 
 class SpringSecurityAuditAwareImpl implements AuditorAware<Long> {
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(SpringSecurityAuditAwareImpl.class);
 
 	@Override

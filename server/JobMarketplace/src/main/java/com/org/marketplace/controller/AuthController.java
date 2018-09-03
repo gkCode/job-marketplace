@@ -43,6 +43,7 @@ import com.org.marketplace.security.JwtTokenProvider;
 @RestController
 @RequestMapping("/mkt/auth")
 public class AuthController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
 
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -58,8 +59,6 @@ public class AuthController {
 
 	@Autowired
 	JwtTokenProvider tokenProvider;
-	
-	private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
 
 	/**
 	 * Signs in the authenticated user
@@ -107,8 +106,8 @@ public class AuthController {
 		try {
 			roleType = RoleType.valueOf(signUpRequest.getUserRole());
 		} catch (Exception e) {
-			LOGGER.error("Invalid user role type: "+e);
-			throw new BadRequestException("Invalid user role type: "+signUpRequest.getUserRole());
+			LOGGER.error("Invalid user role type: " + e);
+			throw new BadRequestException("Invalid user role type: " + signUpRequest.getUserRole());
 		}
 
 		Role userRole = roleRepository.findByName(roleType).orElseThrow(() -> new AppException("User Role not set."));

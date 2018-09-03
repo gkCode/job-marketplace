@@ -38,6 +38,7 @@ import com.org.marketplace.util.AppConstants;
 @RestController
 @RequestMapping("/mkt")
 public class UserController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	private UserRepository userRepository;
@@ -47,9 +48,6 @@ public class UserController {
 
 	@Autowired
 	private BidService bidService;
-	
-	private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
-
 
 	/**
 	 * Retrieves the current authenticated user details
@@ -62,20 +60,20 @@ public class UserController {
 	public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
 		UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getUsername(),
 				currentUser.getName());
-		
-		if(currentUser.getAuthorities() != null && !currentUser.getAuthorities().isEmpty()) {
+
+		if (currentUser.getAuthorities() != null && !currentUser.getAuthorities().isEmpty()) {
 			@SuppressWarnings("unchecked")
 			Stream<GrantedAuthority> authorityStream = (Stream<GrantedAuthority>) currentUser.getAuthorities().stream();
 			Optional<GrantedAuthority> grantedAuthority = authorityStream.findFirst();
-			if(grantedAuthority.isPresent()) {
+			if (grantedAuthority.isPresent()) {
 				GrantedAuthority authority = grantedAuthority.get();
 				try {
 					userSummary.setRole(RoleType.valueOf(authority.getAuthority()));
 				} catch (Exception e) {
-					LOGGER.error("Failed to set user role: "+ e);
+					LOGGER.error("Failed to set user role: " + e);
 				}
 			}
-			
+
 		}
 		return userSummary;
 	}

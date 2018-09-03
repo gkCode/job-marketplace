@@ -64,10 +64,10 @@ public class BidService {
 	public Bid placeBid(BidRequest bidRequest, UserPrincipal userPrincipal) {
 		Bid bid = new Bid();
 		try {
-			if(bidRequest.getBid() == null && bidRequest.getBid() < 0) {
+			if (bidRequest.getBid() == null && bidRequest.getBid() < 0) {
 				throw new BadRequestException("Enter a valid bid value");
 			}
-			
+
 			bid.setBid(bidRequest.getBid());
 
 			Optional<Project> projectToBeBidded = projectRepository.findById(bidRequest.getProjectId());

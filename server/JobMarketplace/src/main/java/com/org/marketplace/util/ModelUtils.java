@@ -15,6 +15,7 @@ import com.org.marketplace.payload.UserSummary;
  *
  */
 public final class ModelUtils {
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ModelUtils.class);
 
 	/**

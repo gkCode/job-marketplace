@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 public final class AppUtils {
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(AppUtils.class);
 
 	/**

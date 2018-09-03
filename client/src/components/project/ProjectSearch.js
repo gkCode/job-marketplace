@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {getProjectById, placeBid} from "util/APIUtils";
 import LoadingIndicator from "common/LoadingIndicator";
-import {Button, Form, InputNumber} from "antd";
+import {Button, Form, InputNumber, notification} from "antd";
 import {withRouter} from "react-router-dom";
 import "./ProjectSearch.css";
 
@@ -135,6 +135,11 @@ class ProjectSearch extends Component {
             }).catch(error => {
             if (error.status === 401) {
                 this.props.handleLogout('/login', 'error', 'You have been logged out. Please login create project.');
+            }else{
+                notification.error({
+                    message: 'Job Marketplace',
+                    description: error.message
+                });
             }
         });
     }
