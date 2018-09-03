@@ -23,8 +23,7 @@ class ProjectList extends Component {
     }
 
     loadProjectList = (page = 0, size = PROJECT_LIST_SIZE) => {
-        let promise = getAllProjects(page, size);
-
+        let promise;
         if (this.props.username) {
             if (this.props.type === BIDS_PLACED_BY_USER) {
                 promise = getUserPlacedBids(this.props.username, page, size);
@@ -117,7 +116,7 @@ class ProjectList extends Component {
                             key: "bidExpiry",
                             dataIndex: "bidExpiry",
                             title: "Bid Deadline",
-                            width: 150,
+                            width: 180,
                             defaultSortOrder: 'ascend',
                             sorter: (a, b) => a.bidExpiry - b.bidExpiry
                         },

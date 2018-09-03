@@ -10,13 +10,13 @@ import Moment from 'react-moment';
 // Sets the moment instance to use.
 Moment.globalMoment = moment;
 // Set the output format for every react-moment instance.
-Moment.globalFormat = 'YYYY-MM-DD HH:mm:ss';
+Moment.globalFormat = 'YYYY-MM-DD [at] hh:mm:ss a';
 // Use a <span> tag for every react-moment instance.
 Moment.globalElement = 'span';
 // Upper case all rendered dates.
-Moment.globalFilter = (d) => {
-    return d.toUpperCase();
-};
+// Moment.globalFilter = (d) => {
+//     return d.toUpperCase();
+// };
 
 ReactDOM.render(
     <Router>
