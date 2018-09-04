@@ -4,7 +4,7 @@ import {withRouter} from "react-router-dom";
 import {BUDGET_REGEX} from 'constants/AppConstants'
 import {getProjectById, placeBid} from "util/APIUtils";
 import LoadingIndicator from "common/LoadingIndicator";
-import {Button, Form, InputNumber, message} from "antd";
+import {Button, Form, InputNumber, message, Tooltip} from "antd";
 import Moment from "react-moment";
 
 const FormItem = Form.Item;
@@ -200,19 +200,19 @@ class ProjectSearch extends Component {
                                 </FormItem>
                                 <span className="currency">  USD</span>
                                 <FormItem>
-                                    <Button type="primary"
-                                            htmlType="submit"
-                                            size="large"
-                                            disabled={this.isFormInvalid()}
-                                            className="bid-submit-button">Place Bid</Button>
+                                    <Tooltip placement="bottomLeft" title="Place Bid on Project">
+                                        <Button type="primary"
+                                                htmlType="submit"
+                                                size="large"
+                                                disabled={this.isFormInvalid()}
+                                                className="bid-submit-button">Place Bid</Button>
+                                    </Tooltip>
                                 </FormItem>
                             </Form>
                         </div>
                     </div>
                 );
             }
-
-
         }
     }
 }
