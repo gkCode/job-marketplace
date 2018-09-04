@@ -2,9 +2,12 @@ package com.org.marketplace.service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.StoredProcedureQuery;
@@ -15,6 +18,10 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.org.marketplace.entity.Bid;
@@ -29,7 +36,9 @@ import com.org.marketplace.repository.BidRepository;
 import com.org.marketplace.repository.ProjectRepository;
 import com.org.marketplace.repository.UserRepository;
 import com.org.marketplace.security.UserPrincipal;
+import com.org.marketplace.util.DBUtils;
 import com.org.marketplace.util.ModelUtils;
+import com.org.marketplace.util.ValidatorUtils;
 
 /**
  * Service for managing bids placed on a project
@@ -142,7 +151,7 @@ public class BidService {
 		}
 		return response;
 	}
-	
+
 	/**
 	 * Retrieves the projects/bids placed by a user
 	 * 
@@ -154,36 +163,40 @@ public class BidService {
 	 */
 	public PagedResponse<ProjectResponse> getBidsPlacedBy(String username, UserPrincipal currentUser, int page,
 			int size) {
-		Session session = entityManagerFactory.unwrap(SessionFactory.class).openSession();
-		PagedResponse<ProjectResponse> response = new PagedResponse<ProjectResponse>();
-
 		try {
-			StoredProcedureQuery storedProcQuery = session.createNamedStoredProcedureQuery("getLowestBidsByUser");
-			storedProcQuery.setParameter("userId", currentUser.getId());
-			storedProcQuery.execute();
-			@SuppressWarnings("unchecked")
-			List<Bid> bidList = storedProcQuery.getResultList();
+			ValidatorUtils.validatePageNumberAndSize(page, size);
 
-			User user = userRepository.findByUsername(currentUser.getUsername())
+			User user = userRepository.findByUsername(username)
 					.orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
 
-			List<ProjectResponse> bidsPlaced = new ArrayList<ProjectResponse>();
-			for (Bid bid : bidList) {
-				Optional<Project> project = projectRepository.findById(bid.getProject().getId());
-				if (project.isPresent()) {
-					bidsPlaced.add(ModelUtils.mapProjectToProjectResponse(bid.getProject(), user));				
-				}
+			Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
+			
+			Page<Project> biddedProjects = bidRepository.findBiddedProjectsByUserId(user.getId(), pageable);
+
+			if (biddedProjects.getNumberOfElements() == 0) {
+				return new PagedResponse<>(Collections.emptyList(), biddedProjects.getNumber(),
+						biddedProjects.getSize(), biddedProjects.getTotalElements(),
+						biddedProjects.getTotalPages(), biddedProjects.isLast());
 			}
 
-			response.setContent(bidsPlaced);
+			List<Project> projects = biddedProjects.getContent();
 
-		} catch (HibernateException e) {
-			LOGGER.error("Failed to fetch bids won by " + currentUser.getUsername() + ": " + e);
+			Map<Long, User> creatorMap = DBUtils.getProjectCreatorMap(projects);
+
+			List<ProjectResponse> projectResponses = projects.stream().map(project -> {
+				return ModelUtils.mapProjectToProjectResponse(project, creatorMap.get(project.getCreatedBy()));
+			}).collect(Collectors.toList());
+
+			return new PagedResponse<>(projectResponses, biddedProjects.getNumber(),
+					biddedProjects.getSize(), biddedProjects.getTotalElements(),
+					biddedProjects.getTotalPages(), biddedProjects.isLast());
+
+		} catch (BadRequestException e) {
+			LOGGER.error("Bad Request: " + e);
 			throw e;
-		} finally {
-			session.close();
+		} catch (ResourceNotFoundException e) {
+			LOGGER.error("Resource Not Found: " + e);
+			throw e;
 		}
-		return response;
 	}
-	
 }

@@ -3,7 +3,6 @@ package com.org.marketplace.service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -26,6 +25,7 @@ import com.org.marketplace.repository.ProjectRepository;
 import com.org.marketplace.repository.UserRepository;
 import com.org.marketplace.security.UserPrincipal;
 import com.org.marketplace.util.AppUtils;
+import com.org.marketplace.util.DBUtils;
 import com.org.marketplace.util.ModelUtils;
 import com.org.marketplace.util.ValidatorUtils;
 
@@ -163,7 +163,7 @@ public class ProjectService {
 
 			List<Project> projects = userCreatedProjects.getContent();
 
-			Map<Long, User> creatorMap = getProjectCreatorMap(projects);
+			Map<Long, User> creatorMap = DBUtils.getProjectCreatorMap(projects);
 
 			List<ProjectResponse> projectResponses = projects.stream().map(project -> {
 				return ModelUtils.mapProjectToProjectResponse(project, creatorMap.get(project.getCreatedBy()));
@@ -180,20 +180,5 @@ public class ProjectService {
 			LOGGER.error("Resource Not Found: " + e);
 			throw e;
 		}
-	}
-	
-	/**
-	 * Maps a project to its creator user
-	 * 
-	 * @param projects list of projects
-	 * @return project to creator user map
-	 */
-	private Map<Long, User> getProjectCreatorMap(List<Project> projects) {
-		List<Long> creatorIds = projects.stream().map(Project::getCreatedBy).distinct().collect(Collectors.toList());
-
-		List<User> creators = userRepository.findByIdIn(creatorIds);
-		Map<Long, User> creatorMap = creators.stream().collect(Collectors.toMap(User::getId, Function.identity()));
-
-		return creatorMap;
 	}
 }

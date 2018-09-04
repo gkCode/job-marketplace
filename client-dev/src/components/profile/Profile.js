@@ -98,7 +98,7 @@ class Profile extends Component {
                                             <ProjectList username={this.props.match.params.username}
                                                          type={BIDS_WON_BY_USER}/>
                                         </TabPane>
-                                        <TabPane tab={`Lowest Placed Bids`} key="2">
+                                        <TabPane tab={`Placed Bids`} key="2">
                                             <ProjectList username={this.props.match.params.username}
                                                          type={BIDS_PLACED_BY_USER}/>
                                         </TabPane>
