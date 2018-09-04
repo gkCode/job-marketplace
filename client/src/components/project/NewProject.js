@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './NewProject.css'
 import {BUDGET_REGEX, DESCRIPTION_MAX_LENGTH, NAME_MAX_LENGTH, NAME_MIN_LENGTH} from 'constants/AppConstants'
 import {createProject} from 'util/APIUtils';
-import {Button, DatePicker, Form, Input, message} from 'antd';
+import {Button, DatePicker, Form, Input, message, Tooltip} from 'antd';
 
 const FormItem = Form.Item;
 const {TextArea} = Input;
@@ -199,11 +199,13 @@ class NewProject extends Component {
                                 onChange={this.handleBidExpiry}/>
                         </FormItem>
                         <FormItem>
-                            <Button type="primary"
-                                    htmlType="submit"
-                                    size="large"
-                                    className="create-project-form-button"
-                                    disabled={this.isFormInvalid()}>Add Project</Button>
+                            <Tooltip placement="rightBottom" title="Create a Project">
+                                <Button type="primary"
+                                        htmlType="submit"
+                                        size="large"
+                                        className="create-project-form-button"
+                                        disabled={this.isFormInvalid()}>Add Project</Button>
+                            </Tooltip>
                         </FormItem>
                     </Form>
                 </div>
