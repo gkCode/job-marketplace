@@ -1,10 +1,10 @@
 import React, {Component} from "react";
 import "./ProjectSearch.css";
 import {withRouter} from "react-router-dom";
-import {BUDGET_REGEX} from 'constants/AppConstants'
+import {BUDGET_REGEX, ROLE_BUYER, ROLE_SELLER} from 'constants/AppConstants'
 import {getProjectById, placeBid} from "util/APIUtils";
 import LoadingIndicator from "common/LoadingIndicator";
-import {Button, Form, InputNumber, message, Tooltip} from "antd";
+import {Button, Card, Form, InputNumber, message, Tooltip} from "antd";
 import Moment from "react-moment";
 
 const FormItem = Form.Item;
@@ -30,11 +30,29 @@ class ProjectSearch extends Component {
         }
     }
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            query: '',
+            project: '',
+            isLoading: true,
+            currentBid: '',
+            placedBid: {
+                value: '',
+                errorMsg: null
+            },
+            validateStatus: '',
+            pageError: '',
+            currentUser: ''
+        };
+    }
+
     componentWillMount() {
         if (this.props.location.query) {
             this.setState({
                 query: this.props.location.query,
-                isLoading: true
+                isLoading: true,
+                currentUser: this.props.currentUser
             }, () => {
                 this.loadProjectInfo(this.state)
             });
@@ -44,7 +62,8 @@ class ProjectSearch extends Component {
     componentWillReceiveProps(nextProps) {
         this.setState({
             query: nextProps.location.query,
-            isLoading: true
+            isLoading: true,
+            currentUser: this.props.currentUser
         }, () => {
             this.loadProjectInfo(this.state)
         });
@@ -115,22 +134,6 @@ class ProjectSearch extends Component {
         return this.state.validateStatus !== 'success';
     }
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            query: '',
-            project: '',
-            isLoading: true,
-            currentBid: '',
-            placedBid: {
-                value: '',
-                errorMsg: null
-            },
-            validateStatus: '',
-            pageError: ''
-        };
-    }
-
     render() {
         if (!this.state.query) {
             return (
@@ -152,64 +155,71 @@ class ProjectSearch extends Component {
             );
         } else {
 
-            if (this.state.project.isBiddingExpired) {
+            if (this.state.project.isBiddingExpired || this.state.currentUser.role === ROLE_SELLER) {
                 return (
                     <div className="project-container">
-                        <div className="project-box">
-                            <div className="project-prop-name"> Name:</div>
-                            <div> {this.state.project.name} </div>
-                            <div className="project-prop-name"> Description:</div>
-                            <textarea style={{border: "dotted 1px"}} rows="5" cols="10"
-                                      maxLength="400" readOnly value={this.state.project.description}></textarea>
-                            <div className="project-prop-name"> Budget:</div>
-                            <div> {this.state.project.budget} </div>
-                            <div className="project-prop-name"> Bid Expiration:</div>
-                            <div><Moment>{this.state.project.bidExpiry}</Moment></div>
-                            <div className="bid-expired-msg"> Bidding is expired for this project!</div>
-                        </div>
+                        <Card title="Project Details">
+                            <div className="project-box">
+                                <div className="project-prop-name"> Name:</div>
+                                <div> {this.state.project.name} </div>
+                                <div className="project-prop-name"> Description:</div>
+                                <textarea style={{border: "dotted 1px"}} rows="5" cols="10"
+                                          maxLength="400" readOnly value={this.state.project.description}></textarea>
+                                <div className="project-prop-name"> Budget:</div>
+                                <div> {this.state.project.budget} </div>
+                                <div className="project-prop-name"> Bid Expiration:</div>
+                                <div><Moment>{this.state.project.bidExpiry}</Moment></div>
+                                {this.state.project.isBiddingExpired ? (
+                                    <div className="bid-expired-msg"> Bidding is expired for this
+                                        project!</div>) : null}
+                            </div>
+                        </Card>
                     </div>
                 );
             } else {
                 return (
                     <div className="project-container">
-                        <div className="project-box">
-                            <div className="project-prop-name"> Name:</div>
-                            <div> {this.state.project.name} </div>
-                            <div className="project-prop-name"> Description:</div>
-                            <textarea style={{border: "dotted 1px"}} rows="5" cols="10"
-                                      maxLength="400" readOnly value={this.state.project.description}></textarea>
-                            <div className="project-prop-name"> Budget:</div>
-                            <div> {this.state.project.budget} </div>
-                            <div className="project-prop-name"> Bid Expiration:</div>
-                            <div><Moment>{this.state.project.bidExpiry}</Moment></div>
-                            <div className="project-prop-name"> Lowest Bid:</div>
-                            <div>
-                                {this.state.project.bid}<span className="currency">  USD</span>
+                        <Card title="Project Details">
+
+                            <div className="project-box">
+                                <div className="project-prop-name"> Name:</div>
+                                <div> {this.state.project.name} </div>
+                                <div className="project-prop-name"> Description:</div>
+                                <textarea style={{border: "dotted 1px"}} rows="5" cols="10"
+                                          maxLength="400" readOnly value={this.state.project.description}></textarea>
+                                <div className="project-prop-name"> Budget:</div>
+                                <div> {this.state.project.budget} </div>
+                                <div className="project-prop-name"> Bid Expiration:</div>
+                                <div><Moment>{this.state.project.bidExpiry}</Moment></div>
+                                <div className="project-prop-name"> Lowest Bid:</div>
+                                <div>
+                                    {this.state.project.bid}<span className="currency">  USD</span>
+                                </div>
+                                <Form onSubmit={this.handleSubmit} className="place-bid-form">
+                                    <div className="project-prop-name"> Your Bid:</div>
+                                    <FormItem
+                                        validateStatus={this.state.validateStatus}
+                                        help={this.state.placedBid.errorMsg}>
+                                        <InputNumber
+                                            min={1}
+                                            step={0.1}
+                                            className="bid-input"
+                                            onChange={this.handlePlacedBidChange}
+                                        />
+                                    </FormItem>
+                                    <span className="currency">  USD</span>
+                                    <FormItem>
+                                        <Tooltip placement="bottomLeft" title="Place Bid on Project">
+                                            <Button type="primary"
+                                                    htmlType="submit"
+                                                    size="large"
+                                                    disabled={this.isFormInvalid()}
+                                                    className="bid-submit-button">Place Bid</Button>
+                                        </Tooltip>
+                                    </FormItem>
+                                </Form>
                             </div>
-                            <Form onSubmit={this.handleSubmit} className="place-bid-form">
-                                <div className="project-prop-name"> Your Bid:</div>
-                                <FormItem
-                                    validateStatus={this.state.validateStatus}
-                                    help={this.state.placedBid.errorMsg}>
-                                    <InputNumber
-                                        min={1}
-                                        step={0.1}
-                                        className="bid-input"
-                                        onChange={this.handlePlacedBidChange}
-                                    />
-                                </FormItem>
-                                <span className="currency">  USD</span>
-                                <FormItem>
-                                    <Tooltip placement="bottomLeft" title="Place Bid on Project">
-                                        <Button type="primary"
-                                                htmlType="submit"
-                                                size="large"
-                                                disabled={this.isFormInvalid()}
-                                                className="bid-submit-button">Place Bid</Button>
-                                    </Tooltip>
-                                </FormItem>
-                            </Form>
-                        </div>
+                        </Card>
                     </div>
                 );
             }

@@ -26,7 +26,6 @@ class AppHeader extends Component {
                         </Link>
                     </Tooltip>
                 </Menu.Item>,);
-            if (this.props.currentUser.role === ROLE_BUYER) {
                 menuItems.push(<Menu.Item key="/project/search">
                     <Tooltip placement="bottom" title="Search by Project Id">
                         <Input.Search
@@ -36,7 +35,7 @@ class AppHeader extends Component {
                         />
                     </Tooltip>
                 </Menu.Item>,);
-            }
+
             if (this.props.currentUser.role === ROLE_SELLER) {
                 menuItems.push(<Menu.Item key="/project/new">
                     <Tooltip placement="bottomRight" title="Create a new project">

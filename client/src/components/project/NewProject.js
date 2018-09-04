@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './NewProject.css'
 import {BUDGET_REGEX, DESCRIPTION_MAX_LENGTH, NAME_MAX_LENGTH, NAME_MIN_LENGTH} from 'constants/AppConstants'
 import {createProject} from 'util/APIUtils';
-import {Button, DatePicker, Form, Input, message, Tooltip} from 'antd';
+import {Button, Card, DatePicker, Form, Input, message, Tooltip} from 'antd';
 
 const FormItem = Form.Item;
 const {TextArea} = Input;
@@ -144,25 +144,26 @@ class NewProject extends Component {
     render() {
         return (
             <div className="new-project-container">
-                <div className="new-project-box">
-                    <Form onSubmit={this.handleSubmit} className="new-project-form">
-                        <h1>Enter Project Details</h1>
-                        <FormItem
-                            label="Name"
-                            validateStatus={this.state.name.validateStatus}
-                            help={this.state.name.errorMsg}>
-                            <Input
-                                size="default"
-                                name="name"
-                                autoComplete="off"
-                                placeholder="Name of the Project"
-                                value={this.state.name.value}
-                                onChange={(event) => this.handleInputChange(event, this.validateName)}/>
-                        </FormItem>
-                        <FormItem label="Description"
-                                  hasFeedback
-                                  validateStatus={this.state.description.validateStatus}
-                                  help={this.state.description.errorMsg}>
+                <Card title="Enter Project Details">
+                    <div className="new-project-box">
+                        <Form onSubmit={this.handleSubmit} className="new-project-form">
+                            {/*<h1></h1>*/}
+                            <FormItem
+                                label="Name"
+                                validateStatus={this.state.name.validateStatus}
+                                help={this.state.name.errorMsg}>
+                                <Input
+                                    size="default"
+                                    name="name"
+                                    autoComplete="off"
+                                    placeholder="Name of the Project"
+                                    value={this.state.name.value}
+                                    onChange={(event) => this.handleInputChange(event, this.validateName)}/>
+                            </FormItem>
+                            <FormItem label="Description"
+                                      hasFeedback
+                                      validateStatus={this.state.description.validateStatus}
+                                      help={this.state.description.errorMsg}>
                             <TextArea
                                 size="default"
                                 name="description"
@@ -171,44 +172,45 @@ class NewProject extends Component {
                                 placeholder="Description of the Project"
                                 value={this.state.description.value}
                                 onChange={(event) => this.handleInputChange(event, this.validateDescription)}/>
-                        </FormItem>
-                        <FormItem
-                            label="Budget"
-                            hasFeedback
-                            validateStatus={this.state.budget.validateStatus}
-                            help={this.state.budget.errorMsg}>
-                            <Input
-                                size="default"
-                                className="new-project-budget"
-                                name="budget"
-                                autoComplete="off"
-                                placeholder="Maximum Budget in USD"
-                                value={this.state.budget.value}
-                                onChange={(event) => this.handleInputChange(event, this.validateBudget)}/>
-                        </FormItem>
-                        <FormItem
-                            label="Bid Expiration"
-                            validateStatus={this.state.bidExpiry.validateStatus}
-                            help={this.state.bidExpiry.errorMsg}>
-                            <DatePicker
-                                showTime
-                                className="new-project-bid"
-                                format="YYYY-MM-DD HH:mm:ss"
-                                placeholder="Expiration Date"
-                                disabledDate={this.getDisabledDates}
-                                onChange={this.handleBidExpiry}/>
-                        </FormItem>
-                        <FormItem>
-                            <Tooltip placement="rightBottom" title="Create a Project">
-                                <Button type="primary"
-                                        htmlType="submit"
-                                        size="large"
-                                        className="create-project-form-button"
-                                        disabled={this.isFormInvalid()}>Add Project</Button>
-                            </Tooltip>
-                        </FormItem>
-                    </Form>
-                </div>
+                            </FormItem>
+                            <FormItem
+                                label="Budget"
+                                hasFeedback
+                                validateStatus={this.state.budget.validateStatus}
+                                help={this.state.budget.errorMsg}>
+                                <Input
+                                    size="default"
+                                    className="new-project-budget"
+                                    name="budget"
+                                    autoComplete="off"
+                                    placeholder="Maximum Budget in USD"
+                                    value={this.state.budget.value}
+                                    onChange={(event) => this.handleInputChange(event, this.validateBudget)}/>
+                            </FormItem>
+                            <FormItem
+                                label="Bid Expiration"
+                                validateStatus={this.state.bidExpiry.validateStatus}
+                                help={this.state.bidExpiry.errorMsg}>
+                                <DatePicker
+                                    showTime
+                                    className="new-project-bid"
+                                    format="YYYY-MM-DD HH:mm:ss"
+                                    placeholder="Expiration Date"
+                                    disabledDate={this.getDisabledDates}
+                                    onChange={this.handleBidExpiry}/>
+                            </FormItem>
+                            <FormItem>
+                                <Tooltip placement="rightBottom" title="Create a Project">
+                                    <Button type="primary"
+                                            htmlType="submit"
+                                            size="large"
+                                            className="create-project-form-button"
+                                            disabled={this.isFormInvalid()}>Add Project</Button>
+                                </Tooltip>
+                            </FormItem>
+                        </Form>
+                    </div>
+                </Card>
             </div>
         );
     }
