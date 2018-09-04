@@ -14,10 +14,7 @@
 }
 
 .create-project-form-button {
-    width: 40%;
-    flex: 0 1 auto;
-    left: 50%;
-    transform: translateX(-50%);
+    margin-left: 35%;
 }
 
 .create-project-form-button[disabled], .create-project-form-button[disabled]:hover, .create-project-form-button[disabled]:focus {

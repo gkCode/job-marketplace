@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import './AppHeader.css';
-import {Dropdown, Icon, Input, Layout, Menu} from 'antd';
+import {Dropdown, Icon, Input, Layout, Menu, Tooltip} from 'antd';
 import {ROLE_BUYER, ROLE_SELLER} from "constants/AppConstants";
 
 const Header = Layout.Header;
@@ -20,24 +20,30 @@ class AppHeader extends Component {
             //avoiding array splice as number of elements is small
             menuItems.push(
                 <Menu.Item key="/">
-                    <Link to="/">
-                        <Icon type="home" className="nav-icon"/>
-                    </Link>
+                    <Tooltip placement="bottomRight" title="Home">
+                        <Link to="/">
+                            <Icon type="home" className="nav-icon"/>
+                        </Link>
+                    </Tooltip>
                 </Menu.Item>,);
             if (this.props.currentUser.role === ROLE_BUYER) {
                 menuItems.push(<Menu.Item key="/project/search">
-                    <Input.Search
-                        placeholder="Enter Project Id"
-                        onSearch={value => this.handleSearch(value)}
-                        style={{width: 160}}
-                    />
+                    <Tooltip placement="bottom" title="Search by Project Id">
+                        <Input.Search
+                            placeholder="Enter Project Id"
+                            onSearch={value => this.handleSearch(value)}
+                            style={{width: 160}}
+                        />
+                    </Tooltip>
                 </Menu.Item>,);
             }
             if (this.props.currentUser.role === ROLE_SELLER) {
                 menuItems.push(<Menu.Item key="/project/new">
-                    <Link to="/project/new">
-                        <Icon type="plus" className="nav-icon"/>
-                    </Link>
+                    <Tooltip placement="bottomRight" title="Create a new project">
+                        <Link to="/project/new">
+                            <Icon type="plus" className="nav-icon"/>
+                        </Link>
+                    </Tooltip>
                 </Menu.Item>,);
             }
             menuItems.push(
@@ -102,14 +108,16 @@ function ProfileDropdownMenu(props) {
     );
 
     return (
-        <Dropdown
-            overlay={dropdownMenu}
-            trigger={['click']}
-            getPopupContainer={() => document.getElementsByClassName('profile-menu')[0]}>
-            <a className="ant-dropdown-link">
-                <Icon type="user" className="nav-icon" style={{marginRight: 0}}/> <Icon type="down"/>
-            </a>
-        </Dropdown>
+        <Tooltip placement="rightBottom" title="User Profile">
+            <Dropdown
+                overlay={dropdownMenu}
+                trigger={['click']}
+                getPopupContainer={() => document.getElementsByClassName('profile-menu')[0]}>
+                <a className="ant-dropdown-link">
+                    <Icon type="user" className="nav-icon" style={{marginRight: 0}}/> <Icon type="down"/>
+                </a>
+            </Dropdown>
+        </Tooltip>
     );
 }
 

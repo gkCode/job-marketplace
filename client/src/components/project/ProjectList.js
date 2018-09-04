@@ -93,7 +93,7 @@ class ProjectList extends Component {
                             key: "id",
                             dataIndex: "id",
                             title: "ID",
-                            width: 140,
+                            width: 85,
                             defaultSortOrder: 'ascend',
                             sorter: (a, b) => a.id - b.id
                         },
@@ -101,23 +101,34 @@ class ProjectList extends Component {
                             key: "name",
                             dataIndex: "name",
                             title: "Project Name",
-                            width: 350,
+                            width: 270,
                             sorter: (a, b) => a.id - b.id
                         },
                         {
                             key: "budget",
                             dataIndex: "budget",
                             title: "Budget (in USD)",
-                            width: 220,
+                            width: 165,
                             defaultSortOrder: 'ascend',
+                            align: 'right',
                             sorter: (a, b) => a.budget - b.budget
+                        },
+                        {
+                            key: "bid",
+                            dataIndex: "bid",
+                            title: "Lowest Bid (in USD)",
+                            width: 180,
+                            defaultSortOrder: 'ascend',
+                            align: 'right',
+                            sorter: (a, b) => a.bid - b.bid
                         },
                         {
                             key: "bidExpiry",
                             dataIndex: "bidExpiry",
                             title: "Bid Deadline",
-                            width: 240,
+                            width: 220,
                             defaultSortOrder: 'ascend',
+                            align: 'center',
                             sorter: (a, b) => a.bidExpiry - b.bidExpiry
                         },
                     ]}/>
