@@ -43,7 +43,7 @@ public class ProjectControllerTest {
 
 		Mockito.when(projectService.getProjectById(1L)).thenReturn(projectResponse);
 
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/mkt/projects/1")
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/projects/1")
 				.accept(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();

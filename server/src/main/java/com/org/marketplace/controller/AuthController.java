@@ -41,7 +41,7 @@ import com.org.marketplace.security.JwtTokenProvider;
  *
  */
 @RestController
-@RequestMapping("/mkt/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
 

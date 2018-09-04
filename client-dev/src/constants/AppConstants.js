@@ -1,5 +1,4 @@
-export const API_BASE_URL = 'http://localhost:11000/mkt';
-//export const API_BASE_URL = '/api';
+export const API_BASE_URL = 'http://localhost:11000/api';
 export const ACCESS_TOKEN = 'accessToken';
 
 export const PROJECT_LIST_SIZE = 30;

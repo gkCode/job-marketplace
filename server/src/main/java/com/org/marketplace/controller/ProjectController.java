@@ -39,7 +39,7 @@ import com.org.marketplace.util.AppConstants;
  *
  */
 @RestController
-@RequestMapping("/mkt/projects")
+@RequestMapping("/api/projects")
 public class ProjectController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProjectController.class);
