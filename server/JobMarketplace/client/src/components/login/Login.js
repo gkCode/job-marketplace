@@ -34,6 +34,8 @@ class LoginForm extends Component {
                     }).catch(error => {
                     if (error.status === 401) {
                         message.error('Your Username or Password is incorrect. Please try again!');
+                    } else if (error.status === 500) {
+                        message.error('Please enter valid user credentials');
                     } else {
                         message.error(error.message || 'Sorry! Something went wrong. Please try again!');
                     }

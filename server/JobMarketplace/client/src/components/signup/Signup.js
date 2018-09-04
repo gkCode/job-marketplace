@@ -31,10 +31,10 @@ class Signup extends Component {
         };
         signup(signupRequest)
             .then(response => {
-                message.success('Thank you! You\'re successfully registered. Please Login to continue!');
+                message.success('You\'re successfully registered. Please Login to continue!');
                 this.props.history.push("/login");
             }).catch(error => {
-            message.error(error.message || 'Sorry! Something went wrong. Please try again!');
+            message.error(error.message || 'Something went wrong. Please try again!');
         });
     }
 
