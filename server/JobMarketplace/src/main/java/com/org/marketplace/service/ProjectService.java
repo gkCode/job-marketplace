@@ -84,7 +84,6 @@ public class ProjectService {
 			throw e;
 		}
 		return new PagedResponse<>(projectResponses, projects.getNumber(), projects.getSize(),
-				// Get All Users and create UserSummary //TODO : may make use of HATEOS
 				projects.getTotalElements(), projects.getTotalPages(), projects.isLast());
 	}
 
