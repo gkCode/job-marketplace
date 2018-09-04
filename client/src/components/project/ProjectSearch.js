@@ -180,7 +180,6 @@ class ProjectSearch extends Component {
                 return (
                     <div className="project-container">
                         <Card title="Project Details">
-
                             <div className="project-box">
                                 <div className="project-prop-name"> Name:</div>
                                 <div> {this.state.project.name} </div>
