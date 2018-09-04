@@ -1,3 +1,5 @@
+CREATE SCHEMA `job_marketplace`;
+
 USE `job_marketplace`;
 
 CREATE TABLE `user` (
