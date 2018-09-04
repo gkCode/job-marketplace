@@ -262,7 +262,7 @@
 				<artifactId>frontend-maven-plugin</artifactId>
 				<version>1.6</version>
 				<configuration>
-					<workingDirectory>client</workingDirectory>
+					<workingDirectory>client-prod</workingDirectory>
 					<installDirectory>target</installDirectory>
 				</configuration>
 				<executions>
