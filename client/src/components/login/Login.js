@@ -4,7 +4,7 @@ import {login} from 'util/APIUtils';
 import {ACCESS_TOKEN} from 'constants/AppConstants';
 import {Link} from 'react-router-dom';
 
-import {Button, Form, Icon, Input, message} from 'antd';
+import {Button, Form, Icon, Input, message, Tooltip} from 'antd';
 
 const FormItem = Form.Item;
 
@@ -72,8 +72,10 @@ class LoginForm extends Component {
                         )}
                     </FormItem>
                     <FormItem>
-                        <Button type="primary" htmlType="submit" size="large"
-                                className="login-form-button">Login</Button>
+                        <Tooltip placement="bottomLeft" title="Log into Job Marketplace">
+                            <Button type="primary" htmlType="submit" size="large"
+                                    className="login-form-button">Login</Button>
+                        </Tooltip>
                     </FormItem>
                     <div>
                         Or <Link to="/signup">Register</Link>
