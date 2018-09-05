@@ -73,7 +73,7 @@ public class ProjectService {
 			pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
 
 			projectResponses = projects.map(project -> {
-				return ModelUtils.mapProjectToProjectResponse(project);
+				return ModelUtils.getProjectResponse(project);
 			}).getContent();
 
 		} catch (BadRequestException e) {
@@ -126,7 +126,7 @@ public class ProjectService {
 				.orElseThrow(() -> new ResourceNotFoundException("Project", "id", projectId));
 
 		try {
-			return ModelUtils.mapProjectToProjectResponse(project);
+			return ModelUtils.getProjectResponse(project);
 		} catch (Exception e) {
 			LOGGER.error("Failed to fetch project: " + e);
 			throw e;
@@ -163,10 +163,8 @@ public class ProjectService {
 
 			List<Project> projects = userCreatedProjects.getContent();
 
-			Map<Long, User> creatorMap = DBUtils.getProjectCreatorMap(projects);
-
 			List<ProjectResponse> projectResponses = projects.stream().map(project -> {
-				return ModelUtils.mapProjectToProjectResponse(project, creatorMap.get(project.getCreatedBy()));
+				return ModelUtils.getProjectResponse(project, user);
 			}).collect(Collectors.toList());
 
 			return new PagedResponse<>(projectResponses, userCreatedProjects.getNumber(),

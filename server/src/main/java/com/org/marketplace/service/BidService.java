@@ -136,7 +136,7 @@ public class BidService {
 				if (project.isPresent()) {
 					Project biddedProject = project.get();
 					if (biddedProject.getBidExpiry().compareTo(LocalDateTime.now()) < 0) {
-						projectsWon.add(ModelUtils.mapProjectToProjectResponse(bid.getProject(), user));
+						projectsWon.add(ModelUtils.getProjectResponse(bid.getProject(), user));
 					}
 				}
 			}
@@ -170,13 +170,13 @@ public class BidService {
 					.orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
 
 			Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
-			
+
 			Page<Project> biddedProjects = bidRepository.findBiddedProjectsByUserId(user.getId(), pageable);
 
 			if (biddedProjects.getNumberOfElements() == 0) {
 				return new PagedResponse<>(Collections.emptyList(), biddedProjects.getNumber(),
-						biddedProjects.getSize(), biddedProjects.getTotalElements(),
-						biddedProjects.getTotalPages(), biddedProjects.isLast());
+						biddedProjects.getSize(), biddedProjects.getTotalElements(), biddedProjects.getTotalPages(),
+						biddedProjects.isLast());
 			}
 
 			List<Project> projects = biddedProjects.getContent();
@@ -184,12 +184,11 @@ public class BidService {
 			Map<Long, User> creatorMap = DBUtils.getProjectCreatorMap(projects);
 
 			List<ProjectResponse> projectResponses = projects.stream().map(project -> {
-				return ModelUtils.mapProjectToProjectResponse(project, creatorMap.get(project.getCreatedBy()));
+				return ModelUtils.getBiddedProjectsByUser(project, user);
 			}).collect(Collectors.toList());
 
-			return new PagedResponse<>(projectResponses, biddedProjects.getNumber(),
-					biddedProjects.getSize(), biddedProjects.getTotalElements(),
-					biddedProjects.getTotalPages(), biddedProjects.isLast());
+			return new PagedResponse<>(projectResponses, biddedProjects.getNumber(), biddedProjects.getSize(),
+					biddedProjects.getTotalElements(), biddedProjects.getTotalPages(), biddedProjects.isLast());
 
 		} catch (BadRequestException e) {
 			LOGGER.error("Bad Request: " + e);
@@ -199,4 +198,48 @@ public class BidService {
 			throw e;
 		}
 	}
+
+//	/**
+//	 * Retrieves the projects/bids placed by a user
+//	 * 
+//	 * @param username
+//	 * @param currentUser authenticated user
+//	 * @param page        index of a page
+//	 * @param size        size of a page
+//	 * @return projects on which user has placed the bid
+//	 */
+//	public PagedResponse<ProjectResponse> getLowestBidsPlacedBy(String username, UserPrincipal currentUser, int page,
+//			int size) {
+//		Session session = entityManagerFactory.unwrap(SessionFactory.class).openSession();
+//		PagedResponse<ProjectResponse> response = new PagedResponse<ProjectResponse>();
+//
+//		try {
+//			StoredProcedureQuery storedProcQuery = session.createNamedStoredProcedureQuery("getLowestBidsByUser");
+//			storedProcQuery.setParameter("userId", currentUser.getId());
+//			storedProcQuery.execute();
+//			@SuppressWarnings("unchecked")
+//			List<Bid> bidList = storedProcQuery.getResultList();
+//
+//			User user = userRepository.findByUsername(currentUser.getUsername())
+//					.orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
+//
+//			List<ProjectResponse> bidsPlaced = new ArrayList<ProjectResponse>();
+//			for (Bid bid : bidList) {
+//				Optional<Project> project = projectRepository.findById(bid.getProject().getId());
+//				if (project.isPresent()) {
+//					bidsPlaced.add(ModelUtils.getProjectResponse(bid.getProject(), user));
+//				}
+//			}
+//
+//			response.setContent(bidsPlaced);
+//
+//		} catch (HibernateException e) {
+//			LOGGER.error("Failed to fetch bids won by " + currentUser.getUsername() + ": " + e);
+//			throw e;
+//		} finally {
+//			session.close();
+//		}
+//		return response;
+//	}
+
 }
