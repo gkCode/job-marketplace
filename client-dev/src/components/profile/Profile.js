@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './Profile.css';
 import NotFound from './../../common/NotFound';
-import NotFound from './../../common/ServerError';
+import ServerError from './../../common/ServerError';
 import ProjectList from './../../components/project/ProjectList';
 import {getUserProfile} from './../../util/APIUtils';
 import LoadingIndicator from './../../common/LoadingIndicator';
