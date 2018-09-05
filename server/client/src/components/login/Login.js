@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './Login.css';
-import {login} from 'util/APIUtils';
+import {login} from './../../util/APIUtils';
 import {ACCESS_TOKEN} from './../../constants/AppConstants';
 import {Link} from 'react-router-dom';
 

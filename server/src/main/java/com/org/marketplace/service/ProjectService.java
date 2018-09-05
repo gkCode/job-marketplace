@@ -2,7 +2,6 @@ package com.org.marketplace.service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -25,7 +24,6 @@ import com.org.marketplace.repository.ProjectRepository;
 import com.org.marketplace.repository.UserRepository;
 import com.org.marketplace.security.UserPrincipal;
 import com.org.marketplace.util.AppUtils;
-import com.org.marketplace.util.DBUtils;
 import com.org.marketplace.util.ModelUtils;
 import com.org.marketplace.util.ValidatorUtils;
 

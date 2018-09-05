@@ -1,10 +1,11 @@
 package com.org.marketplace.entity.audit;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.MappedSuperclass;
+
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 
-import javax.persistence.MappedSuperclass;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * Represents audit information related to user activity 
