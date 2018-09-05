@@ -262,7 +262,7 @@
 				<artifactId>frontend-maven-plugin</artifactId>
 				<version>1.6</version>
 				<configuration>
-					<workingDirectory>client-prod</workingDirectory>
+					<workingDirectory>client</workingDirectory>
 					<installDirectory>target</installDirectory>
 				</configuration>
 				<executions>
@@ -304,7 +304,7 @@
 						<configuration>
 							<target>
 								<copy todir="${project.build.directory}/classes/public">
-									<fileset dir="${project.basedir}/client-prod/build" />
+									<fileset dir="${project.basedir}/client/build" />
 								</copy>
 							</target>
 						</configuration>
