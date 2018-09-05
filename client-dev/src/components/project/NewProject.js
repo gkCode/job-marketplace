@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './NewProject.css'
-import {BUDGET_REGEX, DESCRIPTION_MAX_LENGTH, NAME_MAX_LENGTH, NAME_MIN_LENGTH} from 'constants/AppConstants'
-import {createProject} from 'util/APIUtils';
+import {BUDGET_REGEX, DESCRIPTION_MAX_LENGTH, NAME_MAX_LENGTH, NAME_MIN_LENGTH} from './../../constants/AppConstants'
+import {createProject} from './../../util/APIUtils';
 import {Button, Card, DatePicker, Form, Input, message, Tooltip} from 'antd';
 
 const FormItem = Form.Item;

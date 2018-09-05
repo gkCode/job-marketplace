@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import './AppHeader.css';
 import {Dropdown, Icon, Input, Layout, Menu, Tooltip} from 'antd';
-import {ROLE_BUYER, ROLE_SELLER} from "constants/AppConstants";
+import {ROLE_SELLER} from "./../constants/AppConstants";
 
 const Header = Layout.Header;
 
