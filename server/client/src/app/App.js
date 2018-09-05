@@ -6,18 +6,18 @@ import {
     Switch
 } from 'react-router-dom';
 
-import {getCurrentUser} from 'util/APIUtils';
-import {ACCESS_TOKEN} from 'constants/AppConstants';
-import NewProject from 'components/project/NewProject';
-import Login from 'components/login/Login';
-import Signup from 'components/signup/Signup';
-import Profile from 'components/profile/Profile';
-import AppHeader from 'common/AppHeader';
-import NotFound from 'common/NotFound';
-import LoadingIndicator from 'common/LoadingIndicator';
-import PrivateRoute from 'common/PrivateRoute';
-import ProjectList from 'components/project/ProjectList';
-import ProjectSearch from 'components/project/ProjectSearch';
+import {getCurrentUser} from '../util/APIUtils';
+import {ACCESS_TOKEN} from '../constants/AppConstants';
+import NewProject from '../components/project/NewProject';
+import Login from '../components/login/Login';
+import Signup from '../components/signup/Signup';
+import Profile from '../components/profile/Profile';
+import AppHeader from '../common/AppHeader';
+import NotFound from '../common/NotFound';
+import LoadingIndicator from '../common/LoadingIndicator';
+import PrivateRoute from '../common/PrivateRoute';
+import ProjectList from '../components/project/ProjectList';
+import ProjectSearch from '../components/project/ProjectSearch';
 import {Layout, message} from 'antd';
 
 const {Content} = Layout;

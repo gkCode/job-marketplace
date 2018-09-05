@@ -1,11 +1,10 @@
 import React, {Component} from "react";
 import "./ProjectList.css";
-import {getProjectsRowModel} from 'util/ModelUtils'
-import {getAllProjects, getBidsWonBy, getProjectsCreatedByUser, getUserPlacedBids} from "util/APIUtils";
-import {BIDS_PLACED_BY_USER, BIDS_WON_BY_USER, PROJECT_LIST_SIZE, USER_CREATED_PROJECTS} from "constants/AppConstants";
+import {getProjectsRowModel} from './../../util/ModelUtils'
+import {getAllProjects, getBidsWonBy, getProjectsCreatedByUser, getUserPlacedBids} from "./../../util/APIUtils";
+import {BIDS_PLACED_BY_USER, BIDS_WON_BY_USER, PROJECT_LIST_SIZE, USER_CREATED_PROJECTS} from "./../../constants/AppConstants";
 import {withRouter} from "react-router-dom";
 import {Table} from 'antd';
-import moment from "moment";
 
 class ProjectList extends Component {
     constructor(props) {

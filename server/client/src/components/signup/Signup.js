@@ -10,8 +10,8 @@ import {
     ROLE_SELLER,
     USERNAME_MAX_LENGTH,
     USERNAME_MIN_LENGTH
-} from "constants/AppConstants";
-import {checkEmailAvailability, checkUsernameAvailability, signup} from 'util/APIUtils';
+} from "./../../constants/AppConstants";
+import {checkEmailAvailability, checkUsernameAvailability, signup} from './../../util/APIUtils';
 import {Link} from 'react-router-dom';
 import {Button, Form, Input, message, Radio} from 'antd';
 

@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import './Profile.css';
-import NotFound from 'common/NotFound';
-import ServerError from 'common/ServerError';
-import ProjectList from 'components/project/ProjectList';
-import {getUserProfile} from 'util/APIUtils';
-import LoadingIndicator from 'common/LoadingIndicator';
-import {BIDS_PLACED_BY_USER, BIDS_WON_BY_USER, ROLE_SELLER, USER_CREATED_PROJECTS} from 'constants/AppConstants'
+import NotFound from './../../common/NotFound';
+import ServerError from './../../common/ServerError';
+import ProjectList from './../../components/project/ProjectList';
+import {getUserProfile} from './../../util/APIUtils';
+import LoadingIndicator from './../../common/LoadingIndicator';
+import {BIDS_PLACED_BY_USER, BIDS_WON_BY_USER, ROLE_SELLER, USER_CREATED_PROJECTS} from './../../constants/AppConstants'
 
 import {Tabs} from 'antd'
 

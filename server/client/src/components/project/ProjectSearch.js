@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import "./ProjectSearch.css";
 import {withRouter} from "react-router-dom";
-import {BUDGET_REGEX, ROLE_BUYER, ROLE_SELLER} from 'constants/AppConstants'
-import {getProjectById, placeBid} from "util/APIUtils";
-import LoadingIndicator from "common/LoadingIndicator";
+import {BUDGET_REGEX, ROLE_BUYER, ROLE_SELLER} from './../../constants/AppConstants'
+import {getProjectById, placeBid} from "./../../util/APIUtils";
+import LoadingIndicator from "./../../common/LoadingIndicator";
 import {Button, Card, Form, InputNumber, message, Tooltip} from "antd";
 import Moment from "react-moment";
 
