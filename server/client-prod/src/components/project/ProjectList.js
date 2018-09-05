@@ -127,9 +127,7 @@ class ProjectList extends Component {
                             dataIndex: "bidExpiry",
                             title: "Bid Deadline",
                             width: 220,
-                            defaultSortOrder: 'ascend',
-                            align: 'center',
-                            sorter: (a, b) => a.bidExpiry - b.bidExpiry
+                            align: 'center'
                         },
                     ]}/>
             </div>
