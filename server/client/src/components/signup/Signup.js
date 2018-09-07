@@ -284,7 +284,7 @@ class Signup extends Component {
             },
             userRole: ROLE_BUYER,
 
-            input_name_label: "Full Name",
+            input_name_label: "Name",
             input_name_placeholder: "Your full name"
         }
     }
@@ -306,7 +306,7 @@ class Signup extends Component {
                         </RadioGroup>
 
                         <FormItem
-                            label="Full Name"
+                            label="Name"
                             validateStatus={this.state.name.validateStatus}
                             help={this.state.name.errorMsg}>
                             <Input
