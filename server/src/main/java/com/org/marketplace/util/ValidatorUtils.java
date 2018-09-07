@@ -28,7 +28,7 @@ public final class ValidatorUtils {
 			throw new NullPointerException();
 		}
 
-		final String pattern = "^[a-zA-Z]{3}\\w*[-]*\\w*$";
+		final String pattern = "^[A-Za-z0-9\\s-]+$";
 
 		try {
 			if (name.matches(pattern)) {
